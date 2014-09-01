@@ -12,7 +12,7 @@
 
 All references within this document get sorted.
 
-!REF
+!ref
 
 **Alternative Syntax**
 

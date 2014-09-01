@@ -86,3 +86,11 @@ Test third...
 ### second
 
 ... second ...
+
+## Ignore within GFM fences
+
+```text
+!include(ignore.md)
+
+# heading
+```

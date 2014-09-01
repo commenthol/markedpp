@@ -36,7 +36,7 @@ All commands start using a `!` followed by the command. Options for the specific
 
 ### toc
 
-	!toc
+	!toc [([level=...] [numbered])]
 
 E.g.
 
@@ -86,26 +86,30 @@ Local references which start with a "#" are ignored.
 
 ### include
 
-	!include (filename)
+	!include (filename [lang=...])
 
 This inserts the the file specified with `filename` at the given position in the document being preprocessed.
-The preprocessor inserts any type of files. So if you want to include a source file, either indent correctly or use GFM fences.
+The preprocessor inserts any type of files.
+
+To include a file with specifying the language use the option `lang`.
+
+This then will render using GFM fences.
 
 E.g.
 
-        !include (test.js)
+    !include (test.js lang=javascript)
 
-or
+renders as 
 
     ```javascript
-    !include (test.js)
+    /* contents of test.js */
     ```
 
 Files to insert which cannot be found or recursive inset of the same file leaves the `!include` command as is.
 
 ### numberedheadings
 
-	!numberedheadings
+	!numberedheadings [([level=...])]
 
 All headings up to level 3 will get numbered. If used, this command shall be given at the very top of a document.
 

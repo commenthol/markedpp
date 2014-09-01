@@ -49,7 +49,7 @@ function readStdin(callback) {
  */
 function main(argv, callback) {
 	var files = [],
-		options = {},
+		options = markedpp.defaults,
 		input,
 		output,
 		arg,
@@ -133,6 +133,7 @@ function main(argv, callback) {
 			}
 			input = files.pop();
 		}
+		options.dirname = path.dirname(input);
 		return fs.readFile(input, 'utf8', callback);
 	}
 

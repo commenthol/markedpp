@@ -2,33 +2,39 @@
 
 Include file from same directory
 
-!INCLUDE (include1.md)
+!include (include1.md)
 
 # Include recursively
 
-!INCLUDE (include2.md)
+!include (include2.md)
 
 # Include a source file
 
 Put the file in GFM Fences
 
-```javascript
-!INCLUDE (test.js)
-```
+!include (test\ with\ spaces.js lang=javascript)
 
 ## Include with indent
 
-    !INCLUDE (test.js)
+    !include (test.js)
 
 ### Include with indents on indents
 
 * Level 1 Indent
-  !INCLUDE (indent.md)
+  !include (indent.md)
 
 # Include a not existing file
 
-!INCLUDE (doesnotexist.md)
+!include (doesnotexist.md)
 
 # Include from a differerent folder
 
-!INCLUDE (second/include.md)
+!include (second/include.md)
+
+## Ignore within GFM fences
+
+```text
+!include(ignore.md)
+
+# heading
+```
