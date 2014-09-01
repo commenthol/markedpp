@@ -1,0 +1,5 @@
+.gitignore
+.npmignore
+.jshintrc
+test/
+markedpp-*.tgz
