@@ -85,6 +85,19 @@ describe ('include', function() {
 	});
 });
 
+describe ('all together', function() {
+	it ('read all.md and compare', function(done){
+		var	file = 'all.md',
+			src = u.file(file),
+			exp = u.expected(file);
+
+		markedpp(src, { dirname: u.dir }, function (err, res) {
+			assert.equal(res, exp);
+			done();
+		});
+	});
+});
+
 describe ('markdown-pp syntax', function() {
 	it ('read markdownpp.md and compare to check compatibility', function(done){
 		var	file = 'compatibility.md',
