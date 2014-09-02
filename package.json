@@ -1,8 +1,8 @@
 {
   "name": "markedpp",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "markdown preprocessor",
-  "main": "lib/index.js",
+  "main": "lib/markedpp.js",
   "bin": {
     "markedpp": "./bin/markedpp.js"
   },
@@ -27,11 +27,15 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "async": "^0.9.0"
+  },
   "devDependencies": {
+    "express": "^4.8.7",
     "mocha": "^1.21.4"
   },
   "scripts": {
-    "test": "mocha"
+    "prepublish": "make all",
+    "test": "mocha test/*.mocha.js"
   }
 }

@@ -26,9 +26,9 @@ In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in es
 
 # Include recursively
 
-Try to recursively load "include1.md".
+Try to recursively load "include2.md".
 
-!include (include1.md)
+!include (include2.md)
 
 # Include a source file
 

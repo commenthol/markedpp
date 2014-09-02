@@ -25,6 +25,7 @@ Albeight the markdown syntax of this project here is slightly different, [markdo
 * [Running Tests & Contributing](#running-tests-contributing)
   * [Contribution and License Agreement](#contribution-and-license-agreement)
 * [License](#license)
+* [References](#references)
 
 ## Extended Markdown Syntax
 
@@ -227,6 +228,12 @@ Copyright (c) 2014, Commenthol. (MIT License)
 
 See [LICENSE][license] for more info.
 
+## References
+
+* [license][license]
+* [markdown][markdown]
+* [markdown-pp][markdown-pp]
+* [marked][marked]
 
 [marked]: https://github.com/chjj/marked
 [markdown]: http://daringfireball.net/projects/markdown/syntax

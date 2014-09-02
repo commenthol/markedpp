@@ -1,0 +1,19 @@
+{
+  "name": "markedpp",
+  "version": "0.1.0",
+  "repo": "commenthol/markedpp",
+  "description": "markdown preprocessor",
+  "keywords": [
+    "markdown",
+    "preprocessor",
+    "toc",
+    "table of contents",
+    "include files",
+    "number headings"
+  ],
+  "scripts": [
+    "lib/markedpp.js"
+  ],
+  "main": "lib/markedpp.js",
+  "license": "MIT"
+}
