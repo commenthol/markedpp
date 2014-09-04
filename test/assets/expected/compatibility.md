@@ -7,7 +7,11 @@
 * [Compatibility to [markdown-pp][markdown-pp]](#compatibility-to-markdown-pp-markdown-pp-)
   * [Table of Contents](#table-of-contents)
   * [Include](#include)
-* [References](#references)
+* [Lorem](#lorem)
+  * [Lorem ipsum](#lorem-ipsum)
+    * [Donec a diam](#donec-a-diam)
+    * [Donec et mollis](#donec-et-mollis)
+  * [Gravida lorem](#gravida-lorem)
   * [References](#references)
 
 <!-- toc! -->
@@ -17,61 +21,44 @@
 * [Compatibility to [markdown-pp][markdown-pp]](#compatibility-to-markdown-pp-markdown-pp-)
   * [Table of Contents](#table-of-contents)
   * [Include](#include)
-* [References](#references)
+* [Lorem](#lorem)
+  * [Lorem ipsum](#lorem-ipsum)
+    * [Donec a diam](#donec-a-diam)
+    * [Donec et mollis](#donec-et-mollis)
+  * [Gravida lorem](#gravida-lorem)
   * [References](#references)
 
 <!-- toc! -->
 
 ## Include
 
+# Lorem
 
-[2]: http://two.example.com "Second Example"
+## Lorem ipsum
 
-[reference-one]: http://one.example.com
-[5]: http://five.example.com "Fifth Example"
-[three]: http://three.example.com
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-[relative]: ./include.md
-[local]: #references
+### Donec a diam
 
-# References
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.
 
-All references within this document get sorted.
+### Donec et mollis
 
-<!-- !ref -->
+Aenean ut gravida lorem.
 
-* [Fifth Example][5]
-* [markdown-pp][markdown-pp]
-* [reference-one][reference-one]
-* [relative][relative]
-* [Second Example][2]
-* [three][three]
+## Gravida lorem
 
-<!-- ref! -->
+Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem.
 
-**Alternative Syntax**
+#### Mauris vitae nisi at
 
-<!-- !ref -->
-
-* [Fifth Example][5]
-* [markdown-pp][markdown-pp]
-* [reference-one][reference-one]
-* [relative][relative]
-* [Second Example][2]
-* [three][three]
-
-<!-- ref! -->
+In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.
 
 ## References
 
 <!-- !ref -->
 
-* [Fifth Example][5]
 * [markdown-pp][markdown-pp]
-* [reference-one][reference-one]
-* [relative][relative]
-* [Second Example][2]
-* [three][three]
 
 <!-- ref! -->
 

@@ -1,4 +1,4 @@
-Display all headings in ToC up to depth=3
+Display all headings in ToC up to depth=3 - Alternative Syntax
 
 # Table of Contents
 

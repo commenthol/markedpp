@@ -12,13 +12,6 @@
 
 All references within this document get sorted.
 
-<!-- !ref -->
+**markdown-pp Syntax**
 
-* [Fifth Example][5]
-* [reference-one][reference-one]
-* [relative][relative]
-* [Second Example][2]
-* [three][three]
-
-<!-- ref! -->
-
+!REF

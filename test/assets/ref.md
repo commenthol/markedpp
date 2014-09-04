@@ -14,8 +14,3 @@ All references within this document get sorted.
 
 !ref
 
-**Alternative Syntax**
-
-<!-- !ref -->
-Anything written here will get overwritten
-<!-- ref! -->

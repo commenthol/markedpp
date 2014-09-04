@@ -12,6 +12,8 @@
 
 All references within this document get sorted.
 
+**Alternative Syntax**
+
 <!-- !ref -->
 
 * [Fifth Example][5]
@@ -21,4 +23,3 @@ All references within this document get sorted.
 * [three][three]
 
 <!-- ref! -->
-

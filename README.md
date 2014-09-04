@@ -1,10 +1,10 @@
 # markedpp - Markdown Preprocessor
 
-`markedpp` is a preprocessor for documents written in [markdown][markdown].
+`markedpp` is a preprocessor for documents written in [markdown][markdown]. The output itself is again markdown.
 
 It supports the following extensions:
 
-* Generation of a Table-Of-Contents
+* Generation of a "Table of Contents"
 * Automatic numbering of Headings
 * Include various files into a single output document
 * Sorted collection of References 
@@ -14,11 +14,19 @@ Albeight the markdown syntax of this project here is slightly different, [markdo
 
 ## Table of Contents
 
+<!-- !toc (level=4 minlevel=2 omit="Table of Contents") -->
+
 * [Extended Markdown Syntax](#extended-markdown-syntax)
   * [toc](#toc)
+    * [level](#level)
+    * [minlevel](#minlevel)
+    * [numbered](#numbered)
+    * [omit](#omit)
   * [ref](#ref)
   * [include](#include)
   * [numberedheadings](#numberedheadings)
+    * [level](#level-nh)
+    * [minlevel](#minlevel-nh)
 * [Installation](#installation)
 * [Usage](#usage)
 * [CLI](#cli)
@@ -26,6 +34,9 @@ Albeight the markdown syntax of this project here is slightly different, [markdo
   * [Contribution and License Agreement](#contribution-and-license-agreement)
 * [License](#license)
 * [References](#references)
+
+<!-- toc! -->
+
 
 ## Extended Markdown Syntax
 
@@ -37,7 +48,14 @@ All commands start using a `!` followed by the command. Options for the specific
 
 ### toc
 
-	!toc [([level=...] [numbered])]
+	!toc [([level=...] [minlevel=...] [numbered] [omit="...;..."])]
+
+Inserts a "Table of Contents" section:
+
+* level: \[optional\] level of headings to show (default is 3) 
+* minlevel: \[optional\] min-level of headings to show (default is 1) 
+* numbered: \[optional\] show numbered
+* omit: \[optional\] remove headings from ToC. Headings need to be given in `"` and separated by `;` 
 
 E.g.
 
@@ -47,14 +65,31 @@ E.g.
 * [Two](#two)
   * [Two One](#two-one)
     
-This includes a Table-Of-Contents section. All headings up to level=3 will be linked with their references as a unnumbered bullet list.
-To change the default level of 3 to a different one specify the option `level` in brackets
+This includes a "Table of Contents" section. All headings up to level=3 will be linked with their references as a unnumbered bullet list.
+
+#### level
 
     !toc (level=5)
 
-The option `numbered` displays the toc without a bullet list but in a flat numbered fashion
+To change the default level of 3 to a different one specify the option `level` in brackets.
+
+#### minlevel
+
+    !toc (minlevel=2)
+
+The option `minlevel` only displays the ToC from `minlevel` leaving out all headings with a lower level.
+
+E.g. with the above example:
+
+* [One One](#one-one)
+  * [One One One](#one-one-one)
+* [Two One](#two-one)
+
+#### numbered
 
     !toc (numbered)
+
+The option `numbered` displays the ToC without a bullet list but in a flat numbered fashion
 
 E.g.
 
@@ -75,6 +110,36 @@ E.g.
 
 	<!-- toc! --> 
 
+#### omit
+
+To omit headings in the ToC define those with `omit`.
+
+E.g. to remove "Table of Contents" and the branch of "Heading 1":
+
+	# Table of Contents
+	
+	!toc (omit="Table of Contents;Heading 1")
+
+	# Heading 1
+	## Heading 1.1
+	# Heading 2
+
+will result in:
+
+	# Table of Contents
+
+	<!-- !toc -->
+
+	* [Heading 2](#heading-2)
+
+	<!-- toc! -->
+
+	# Heading 1
+
+	## Heading 1.1
+
+	# Heading 2
+
 ### ref
 
 	!ref
@@ -91,6 +156,9 @@ Local references which start with a "#" are ignored.
 
 This inserts the the file specified with `filename` at the given position in the document being preprocessed.
 The preprocessor inserts any type of files.
+
+* filename: \[mandatory\] Name of file to include
+* lang: \[optional\] language of file - if set, then GFM fences are added around include.
 
 To include a file with specifying the language use the option `lang`.
 
@@ -110,19 +178,27 @@ Files to insert which cannot be found or recursive inset of the same file leaves
 
 ### numberedheadings
 
-	!numberedheadings [([level=...])]
+	!numberedheadings [([level=...] [minlevel=...])]
 
-All headings up to level 3 will get numbered. If used, this command shall be given at the very top of a document.
+Add numbers on headings
 
-With the option `level`, the headings level where the numbering shall be applied, can be specified.
+* level: \[optional\] level of Headings to show (default is 3) 
+* minlevel: \[optional\] min-level of Headings to show (default is 1) 
+
+All Headings up to level 3 will get numbered. If used, this command shall be given at the very top of a document.
+
+<a name="level-nh">
+#### level
+
+With the option `level`, the Headings level where the numbering shall be applied, can be specified.
 
 E.g.
 
 	!numberedheadings (level=2)
 
-will number only headings of level 1 and 2.
+will number all Headings of level 1 and 2.
 
-Used together with `!toc` the numbered headings with show up numberd in the bullet-list style.
+Used together with `!toc` the numbered Headings with show up numberd in the bullet-list style.
 
 E.g.
 
@@ -133,6 +209,12 @@ E.g.
 
 1\. [One](#1-one) <br>
 1.1\. [One One](#1-1-one-one)
+
+<a name="minlevel-nh">
+#### minlevel
+
+The option `minlevel` omits numbering all Headings below `minlevel`.
+
 
 ## Installation
 
@@ -230,10 +312,14 @@ See [LICENSE][license] for more info.
 
 ## References
 
+<!-- !ref -->
+
 * [license][license]
 * [markdown][markdown]
 * [markdown-pp][markdown-pp]
 * [marked][marked]
+
+<!-- ref! -->
 
 [marked]: https://github.com/chjj/marked
 [markdown]: http://daringfireball.net/projects/markdown/syntax

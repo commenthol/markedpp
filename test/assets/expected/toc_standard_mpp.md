@@ -1,4 +1,4 @@
-Display all headings in ToC up to depth=3
+Display all headings in ToC up to depth=3 - markdown-pp syntax
 
 # Table of Contents
 
@@ -17,6 +17,10 @@ Display all headings in ToC up to depth=3
 * [Three](#three)
 
 <!-- toc! -->
+
+or
+
+<!-- !toc -->
 
 ----
 

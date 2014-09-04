@@ -12,13 +12,8 @@
 
 All references within this document get sorted.
 
+**Alternative Syntax**
+
 <!-- !ref -->
-
-* [Fifth Example][5]
-* [reference-one][reference-one]
-* [relative][relative]
-* [Second Example][2]
-* [three][three]
-
+Anything written here will get overwritten
 <!-- ref! -->
-

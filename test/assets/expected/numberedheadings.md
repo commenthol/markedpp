@@ -1,4 +1,4 @@
-<!-- !numberedheadings (level=3) -->
+<!-- !numberedheadings -->
 
 # 1\. Table of Contents
 

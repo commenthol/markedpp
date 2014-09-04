@@ -1,10 +1,9 @@
-Display all headings in ToC up to depth=3
+Display all headings in ToC up to depth=3 but omits to display "Table of Contents"
 
 # Table of Contents
 
-<!-- !toc -->
+<!-- !toc (omit="Table of Contents") -->
 
-* [Table of Contents](#table-of-contents)
 * [One](#one)
   * [One One](#one-one)
     * [One One One](#one-one-one)

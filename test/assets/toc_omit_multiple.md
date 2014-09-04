@@ -1,22 +1,8 @@
-Display all headings in ToC up to depth=3
+Display all headings in ToC up to depth=5 but omits to display "Table of Contents" and the branches "Two One" and "Two Four One" are hidden
 
 # Table of Contents
 
-<!-- !toc -->
-
-* [Table of Contents](#table-of-contents)
-* [One](#one)
-  * [One One](#one-one)
-    * [One One One](#one-one-one)
-* [Two](#two)
-  * [Two One](#two-one)
-  * [Two Two](#two-two)
-  * [Two Three](#two-three)
-  * [Two Four](#two-four)
-    * [Two Four One](#two-four-one)
-* [Three](#three)
-
-<!-- toc! -->
+!toc (level=5 omit="Table of Contents;Two One;Two Four One")
 
 ----
 
@@ -57,4 +43,3 @@ Display all headings in ToC up to depth=3
 #### Two Four One Four
 
 # Three
-
