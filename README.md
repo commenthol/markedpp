@@ -25,8 +25,11 @@ Albeight the markdown syntax of this project here is slightly different, [markdo
   * [ref](#ref)
   * [include](#include)
   * [numberedheadings](#numberedheadings)
-    * [level](#level-nh)
-    * [minlevel](#minlevel-nh)
+    * [level](#numberedheadings-level)
+    * [minlevel](#numberedheadings-minlevel)
+    * [skip](#numberedheadings-skip)
+    * [start](#numberedheadings-start)
+    * [omit](#numberedheadings-omit)
 * [Installation](#installation)
 * [Usage](#usage)
 * [CLI](#cli)
@@ -48,7 +51,7 @@ All commands start using a `!` followed by the command. Options for the specific
 
 ### toc
 
-	!toc [([level=...] [minlevel=...] [numbered] [omit="...;..."])]
+	!toc [([level=1-6] [minlevel=1-6] [numbered] [omit="...;..."])]
 
 Inserts a "Table of Contents" section:
 
@@ -196,16 +199,19 @@ Files to insert which cannot be found or recursive inset of the same file leaves
 
 ### numberedheadings
 
-	!numberedheadings [([level=...] [minlevel=...])]
+	!numberedheadings [([level=1-6] [minlevel=1-6] [skip=1..] [start=1..] [omit="...;..."])]
 
 Add numbers on headings
 
-* level: \[optional\] level of Headings to show (default is 3) 
-* minlevel: \[optional\] min-level of Headings to show (default is 1) 
+* level: {Number} \[optional\] level of Headings to show (default is 3) 
+* minlevel: {Number} \[optional\] min-level of Headings to show (default is 1)
+* skip: {Number} \[optional\] skip number of Headings on min-level
+* start: {Number} \[optional\] start numbering of Headings with given number
+* omit: {String} \[optional\] omit numbering of Headings. Headings need to be given in `"` and separated by `;` 
 
 All Headings up to level 3 will get numbered. If used, this command shall be given at the very top of a document.
 
-<a name="level-nh">
+<a name="numberedheadings-level">
 #### level
 
 With the option `level`, the Headings level where the numbering shall be applied, can be specified.
@@ -228,11 +234,25 @@ E.g.
 1\. [One](#1-one) <br>
 1.1\. [One One](#1-1-one-one)
 
-<a name="minlevel-nh">
+<a name="numberedheadings-minlevel">
 #### minlevel
 
 The option `minlevel` omits numbering all Headings below `minlevel`.
 
+<a name="numberedheadings-skip">
+#### skip
+
+The option `skip` skips numbering for the first Headings on `minlevel`.
+
+<a name="numberedheadings-start">
+#### start
+
+The option `start` starts the numbering with the given number.
+
+<a name="numberedheadings-omit">
+#### omit
+
+The option `omit` omits numbering all Headings matching.
 
 ## Installation
 

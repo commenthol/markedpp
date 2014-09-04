@@ -111,7 +111,7 @@ describe ('references', function() {
 	it ('ref', function(done){
 		u.run('ref.md', done);
 	});
-	
+
 	it ('ref - alternative syntax', function(done){
 		u.run('ref_alt.md', done);
 	});
@@ -129,6 +129,43 @@ describe ('numberedheadings', function() {
 	it ('numberedheadings level=2', function(done){
 		u.run('numberedheadings_level2.md', done);
 	});
+
+	it ('numberedheadings minlevel=2', function(done){
+		u.run('numberedheadings_minlevel2.md', done);
+	});
+
+	it ('numberedheadings minlevel=3 level=4', function(done){
+		u.run('numberedheadings_level4_minlevel3.md', done);
+	});
+
+	it ('numberedheadings omit', function(done){
+		u.run('numberedheadings_omit.md', done);
+	});
+
+	it ('numberedheadings start numbering with 2', function(done){
+		u.run('numberedheadings_start2.md', done);
+	});
+
+	it ('numberedheadings start numbering with 10 omit "Table of Contents', function(done){
+		u.run('numberedheadings_start10_omit.md', done);
+	});
+
+	it ('numberedheadings skip first heading', function(done){
+		u.run('numberedheadings_skip1.md', done);
+	});
+
+	it ('numberedheadings skip first two headings', function(done){
+		u.run('numberedheadings_skip2.md', done);
+	});
+
+	it ('numberedheadings skip first heading and omit "Table of Contents', function(done){
+		u.run('numberedheadings_skip1_omit.md', done);
+	});
+
+	it ('numberedheadings minlevel=2 level=4 start numbering with 5 skip first heading and omit "Table of Contents', function(done){
+		u.run('numberedheadings_minlevel2_level4_start5_skip1_omit.md', done);
+	});
+
 });
 
 describe ('include', function() {
