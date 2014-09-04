@@ -149,6 +149,24 @@ This command includes a references section displaying all references using the a
 
 Local references which start with a "#" are ignored.
 
+E.g.
+
+	!ref
+
+	[markdown]: http://daringfireball.net/projects/markdown/syntax
+	[GFM]: https://help.github.com/articles/github-flavored-markdown "Github-Flavored-Markdown"
+
+renders as:
+
+	<!-- !ref -->
+
+	* [Github-Flavored-Markdown][GFM]
+	* [markdown][markdown]
+
+	<!-- ref! -->
+
+	[markdown]: http://daringfireball.net/projects/markdown/syntax
+	[GFM]: https://help.github.com/articles/github-flavored-markdown "Github-Flavored-Markdown"
 
 ### include
 
@@ -158,11 +176,11 @@ This inserts the the file specified with `filename` at the given position in the
 The preprocessor inserts any type of files.
 
 * filename: \[mandatory\] Name of file to include
-* lang: \[optional\] language of file - if set, then GFM fences are added around include.
+* lang: \[optional\] language of file - if set, then [GFM][GFM] fences are added around include.
 
 To include a file with specifying the language use the option `lang`.
 
-This then will render using GFM fences.
+This then will render using [GFM][GFM] fences.
 
 E.g.
 
@@ -314,6 +332,7 @@ See [LICENSE][license] for more info.
 
 <!-- !ref -->
 
+* [Github-Flavored-Markdown][GFM]
 * [license][license]
 * [markdown][markdown]
 * [markdown-pp][markdown-pp]
@@ -324,4 +343,5 @@ See [LICENSE][license] for more info.
 [marked]: https://github.com/chjj/marked
 [markdown]: http://daringfireball.net/projects/markdown/syntax
 [markdown-pp]: https://github.com/jreese/markdown-pp
+[GFM]: https://help.github.com/articles/github-flavored-markdown "Github-Flavored-Markdown"
 [license]: ./LICENSE

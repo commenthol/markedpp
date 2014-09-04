@@ -38,6 +38,10 @@ describe ('toc', function() {
 		u.run('toc_default.md', done);
 	});
 
+	it ('toc - remove links in headings', function(done){
+		u.run('toc_removelinks.md', done);
+	});
+
 	it ('toc - alternative syntax', function(done){
 		u.run('toc_default_alt.md', done);
 	});
@@ -118,8 +122,12 @@ describe ('references', function() {
 });
 
 describe ('numberedheadings', function() {
-	it ('read numberedheadings.md and compare', function(done){
+	it ('numberedheadings', function(done){
 		u.run('numberedheadings.md', done);
+	});
+
+	it ('numberedheadings level=2', function(done){
+		u.run('numberedheadings_level2.md', done);
 	});
 });
 

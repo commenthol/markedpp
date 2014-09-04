@@ -4,7 +4,7 @@
 
 <!-- !toc -->
 
-* [Compatibility to [markdown-pp][markdown-pp]](#compatibility-to-markdown-pp-markdown-pp-)
+* [Compatibility to markdown-pp](#compatibility-to-markdown-pp-markdown-pp-)
   * [Table of Contents](#table-of-contents)
   * [Include](#include)
 * [Lorem](#lorem)
@@ -18,7 +18,7 @@
 
 <!-- !toc -->
 
-* [Compatibility to [markdown-pp][markdown-pp]](#compatibility-to-markdown-pp-markdown-pp-)
+* [Compatibility to markdown-pp](#compatibility-to-markdown-pp-markdown-pp-)
   * [Table of Contents](#table-of-contents)
   * [Include](#include)
 * [Lorem](#lorem)

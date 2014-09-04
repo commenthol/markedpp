@@ -1,16 +1,16 @@
-!numberedheadings
+Display all headings in ToC up to depth=3 remove links in headings for ToC.
 
 # Table of Contents
 
-!toc (level=4)
+!toc
 
 ----
 
-# 1. One
+# [One][One]
 
-## 1.7. One One
+## [One One](https://example.com)
 
-### 2.2.2. One One One
+### One One One
 
 #### One One One One
 
@@ -25,6 +25,8 @@
 #### Two One One One
 
 #### Two One One Two
+
+## Two Two
 
 ## Two Three
 
@@ -42,4 +44,4 @@
 
 # Three
 
-
+[One]: http://example.com

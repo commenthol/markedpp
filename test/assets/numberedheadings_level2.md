@@ -1,4 +1,4 @@
-!numberedheadings
+!numberedheadings (level=2)
 
 # Table of Contents
 
