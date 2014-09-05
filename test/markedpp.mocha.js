@@ -185,3 +185,9 @@ describe ('markdown-pp syntax', function() {
 		u.run('compatibility.md', done);
 	});
 });
+
+describe ('parser', function() {
+	it ('file needs to be identical', function(done){
+		u.run('parser.md', done);
+	});
+});

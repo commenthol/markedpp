@@ -1,4 +1,4 @@
-# markedpp - Markdown Preprocessor
+# markedpp
 
 `markedpp` is a preprocessor for documents written in [markdown][markdown]. The output itself is again markdown.
 

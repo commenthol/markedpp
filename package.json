@@ -1,7 +1,7 @@
 {
   "name": "markedpp",
-  "version": "0.3.0",
-  "description": "markdown preprocessor",
+  "version": "0.3.1",
+  "description": "Preprocessor for markdown files",
   "main": "lib/markedpp.js",
   "bin": {
     "markedpp": "./bin/markedpp.js"
