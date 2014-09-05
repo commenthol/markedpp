@@ -1,5 +1,9 @@
 # markedpp
 
+> Preprocessor for documents written in markdown
+
+![NPM version](https://badge.fury.io/js/markedpp.png) ![Build Status](https://secure.travis-ci.org/commenthol/markedpp.png?branch=master)
+
 `markedpp` is a preprocessor for documents written in [markdown][markdown]. The output itself is again markdown.
 
 It supports the following extensions:
