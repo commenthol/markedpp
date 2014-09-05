@@ -119,6 +119,11 @@ describe ('references', function() {
 	it ('ref - markdown-pp syntax', function(done){
 		u.run('ref_markdownpp.md', done);
 	});
+
+	it ('uniq doubled references', function(done){
+		u.run('ref_doubled.md', done);
+	});
+
 });
 
 describe ('numberedheadings', function() {
