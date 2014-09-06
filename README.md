@@ -350,7 +350,7 @@ all code is your original work.
 
 Copyright (c) 2014, Commenthol. (MIT License)
 
-See [LICENSE][license] for more info.
+See [LICENSE][] for more info.
 
 ## References
 
@@ -368,4 +368,4 @@ See [LICENSE][license] for more info.
 [markdown]: http://daringfireball.net/projects/markdown/syntax
 [markdown-pp]: https://github.com/jreese/markdown-pp
 [GFM]: https://help.github.com/articles/github-flavored-markdown "Github-Flavored-Markdown"
-[license]: ./LICENSE
+[LICENSE]: ./LICENSE

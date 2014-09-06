@@ -196,3 +196,9 @@ describe ('parser', function() {
 		u.run('parser.md', done);
 	});
 });
+
+describe ('lexer', function() {
+	it ('correctly lex code indents', function(done){
+		u.run('lexer_code.md', done);
+	});
+});
