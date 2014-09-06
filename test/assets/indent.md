@@ -1,2 +1,2 @@
 * Level 2 Indent
-  !INCLUDE (indent1.md)
+  !include (indent1.md)

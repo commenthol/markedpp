@@ -2,4 +2,4 @@
 
 Test third...
 
-!INCLUDE(../second.md)
+!include(../second.md)

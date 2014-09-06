@@ -2,8 +2,8 @@
 
 Located in folder "second"
 
-!INCLUDE(third/third.md)
+!include(third/third.md)
 
 And again
 
-!INCLUDE(third/third.md)
+!include(third/third.md)
