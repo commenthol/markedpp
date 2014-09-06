@@ -56,4 +56,3 @@ Display all headings in ToC up to depth=5 but omits to display "Table of Content
 #### Two Four One Four
 
 # Three
-

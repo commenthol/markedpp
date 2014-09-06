@@ -50,4 +50,3 @@ Display all headings in ToC up to depth=0
 #### Two Four One Four
 
 # Three
-

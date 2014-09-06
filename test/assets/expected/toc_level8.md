@@ -66,4 +66,3 @@ Display all headings in ToC up to depth=8 - should be the same as level=6
 #### Two Four One Four
 
 # Three
-

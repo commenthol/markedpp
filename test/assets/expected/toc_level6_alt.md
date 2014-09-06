@@ -66,4 +66,3 @@ Display all headings in ToC up to depth=6 - alternative syntax
 #### Two Four One Four
 
 # Three
-

@@ -56,4 +56,3 @@ Display all headings in ToC from depth=3 up to depth=5
 #### Two Four One Four
 
 # Three
-

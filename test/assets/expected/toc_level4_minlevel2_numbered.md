@@ -60,4 +60,3 @@ Display all headings in ToC from depth=2 up to depth=4 numbered style
 #### Two Four One Four
 
 # Three
-
