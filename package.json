@@ -1,6 +1,6 @@
 {
   "name": "markedpp",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Preprocessor for markdown files",
   "main": "lib/markedpp.js",
   "bin": {
@@ -22,7 +22,8 @@
     "toc",
     "table of contents",
     "include files",
-    "number headings"
+    "number headings",
+    "autonumber ordered lists"
   ],
   "directories": {
     "test": "test"

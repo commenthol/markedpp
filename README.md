@@ -11,7 +11,8 @@ It supports the following extensions:
 * Generation of a "Table of Contents"
 * Automatic numbering of Headings
 * Include various files into a single output document
-* Sorted collection of References 
+* Sorted collection of References
+* Autonumbering of ordered lists
 
 This project is inspired by [markdown-pp][markdown-pp].
 Albeight the markdown syntax of this project here is slightly different, [markdown-pp][markdown-pp] commands can be used as well.

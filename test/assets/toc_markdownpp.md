@@ -4,9 +4,15 @@ Display all headings in ToC up to depth=3 - markdown-pp syntax
 
 !TOC
 
-or
+Variant 1
 
-<!-- !toc -->
+<!-- toc -->
+will be overwritten...
+<!-- /toc -->
+
+Variant 2
+
+<!-- toc -->
 
 ----
 

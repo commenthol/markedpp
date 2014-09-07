@@ -356,16 +356,26 @@ ___
 ## Images
 
 ```
-![Alt Text](path_to/img.png)
-![Alt Text](path_to/img.png "Optional Title")
-![Alt Text](http://placekitten.com/100)
+![Alt Text Image1](path_to/img.png)
+![Alt Text Image2](path_to/img.png "Optional Title")
+![Alt Text Image3](http://placekitten.com/100)
+![Alt Text Image4]
+![Alt Text Image5][]
 <img src="path_to/img.png" title="Optional Title" alt="Alt Text" style="width: 50px;">
+
+[Alt Text Image4]: path_to/img.png
+[Alt Text Image5]: path_to/img.png "Optional Title Image5"
 ```
 
-![Alt Text](path_to/img.png)
-![Alt Text](path_to/img.png "Optional Title")
-![Alt Text](http://placekitten.com/100)
+![Alt Text Image1](path_to/img.png)
+![Alt Text Image2](path_to/img.png "Optional Title")
+![Alt Text Image3](http://placekitten.com/100)
+![Alt Text Image4]
+![Alt Text Image5][]
 <img src="path_to/img.png" title="Optional Title" alt="Alt Text" style="width: 50px;">
+
+[Alt Text Image4]: path_to/img.png
+[Alt Text Image5]: path_to/img.png "Optional Title Image5"
 
 
 ## Code

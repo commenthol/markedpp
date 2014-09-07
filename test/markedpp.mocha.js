@@ -195,10 +195,22 @@ describe ('parser', function() {
 	it ('file needs to be identical', function(done){
 		u.run('parser.md', done);
 	});
+
+	it ('autonumber lists', function(done){
+		u.run('parser_lists.md', done);
+	});
+
+	it ('no autonumber lists', function(done){
+		u.run('parser_lists_noautonumber.md', done, { autonumber: false });
+	});
+
 });
 
 describe ('lexer', function() {
 	it ('correctly lex code indents', function(done){
 		u.run('lexer_code.md', done);
+	});
+	it ('correctly lex blockquotes', function(done){
+		u.run('lexer_blockquotes.md', done);
 	});
 });

@@ -35,7 +35,7 @@
 ## 1.3\. Chapter 2
 
     Try to recursively load "include2.md".
-    
+
     !include (include2.md)
 
 [amnesty]: http://www.amnesty.org/ "Amnesty International Homepage"

@@ -7,7 +7,7 @@
  *
  * @copyright 2014 commenthol
  * @licence MIT
- * 
+ *
  * @note Code inspired by `marked` project
  * @credits Christopher Jeffrey <https://github.com/chjj/marked>
  */
@@ -150,7 +150,7 @@ function main(argv, callback) {
 			if (tokens) {
 				data = JSON.stringify(data, null, 2);
 			}
-			
+
 			if (!output) {
 				process.stdout.write(data + '\n');
 				return callback();

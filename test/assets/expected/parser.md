@@ -217,18 +217,18 @@ Wi*thin*Words   - but not -   Wi_thin_Words
 2. Green
 3. Blue <span style="color: #f55;">**Note:** Counting continues with just a single line-break</span>
 
-2. Black
-3. Grey
-1. White
+4. Black
+5. Grey
+6. White
 
 
 1. Cyan <span style="color: #f55;">**Note:** Counting is restarted with two line-breaks</span>
    1. RGB (0, 255, 255)
-   1. A color between green and blue
+   2. A color between green and blue
       * Green
       * Blue
 2. Magenta
-10. Yellow
+3. Yellow
 
 
 ## Tables
@@ -320,7 +320,7 @@ You need "text" to break block quotes
 ```
 
 > Block Quoted Text
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
 
 > Or line
 > by line
@@ -354,16 +354,26 @@ ___
 ## Images
 
 ```
-![Alt Text](path_to/img.png)
-![Alt Text](path_to/img.png "Optional Title")
-![Alt Text](http://placekitten.com/100)
+![Alt Text Image1](path_to/img.png)
+![Alt Text Image2](path_to/img.png "Optional Title")
+![Alt Text Image3](http://placekitten.com/100)
+![Alt Text Image4]
+![Alt Text Image5][]
 <img src="path_to/img.png" title="Optional Title" alt="Alt Text" style="width: 50px;">
+
+[Alt Text Image4]: path_to/img.png
+[Alt Text Image5]: path_to/img.png "Optional Title Image5"
 ```
 
-![Alt Text](path_to/img.png)
-![Alt Text](path_to/img.png "Optional Title")
-![Alt Text](http://placekitten.com/100)
+![Alt Text Image1](path_to/img.png)
+![Alt Text Image2](path_to/img.png "Optional Title")
+![Alt Text Image3](http://placekitten.com/100)
+![Alt Text Image4]
+![Alt Text Image5][]
 <img src="path_to/img.png" title="Optional Title" alt="Alt Text" style="width: 50px;">
+
+[Alt Text Image4]: path_to/img.png
+[Alt Text Image5]: path_to/img.png "Optional Title Image5"
 
 
 ## Code
