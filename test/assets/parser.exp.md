@@ -74,6 +74,10 @@ This as not as well..
 
 This is a new paragraph.
 
+To force a new line add two or more spaces    
+after the last    
+char in a line
+
 Forcing a new line with `<br>` <br> causes a new line.
 ```
 
@@ -82,6 +86,10 @@ This is a not a new line.
 This as not as well..
 
 This is a new paragraph.
+
+To force a new line add two or more spaces    
+after the last    
+char in a line
 
 Forcing a new line with `<br>` <br> causes a new line.
 

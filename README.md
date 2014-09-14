@@ -13,6 +13,7 @@ It supports the following extensions:
 * Include various files into a single output document
 * Sorted collection of References
 * Autonumbering of ordered lists
+* Automatic update of heading identifiers
 
 This project is inspired by [markdown-pp][markdown-pp].
 Albeight the markdown syntax of this project here is slightly different, [markdown-pp][markdown-pp] commands can be used as well.

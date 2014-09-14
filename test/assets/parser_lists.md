@@ -1,9 +1,12 @@
 line
+
 * Bullet1
 
-      this is a text
+     this is text
 
   and another text
+
+      this is code
 
 + Bullet2
 - Bullet3

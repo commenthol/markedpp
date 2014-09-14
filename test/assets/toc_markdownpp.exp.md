@@ -36,7 +36,25 @@ Variant 1
 
 <!-- toc! -->
 
-Variant 2
+Variant 2 - (marked-toc)
+
+<!-- !toc -->
+
+* [Table of Contents](#table-of-contents)
+* [One](#one)
+  * [One One](#one-one)
+    * [One One One](#one-one-one)
+* [Two](#two)
+  * [Two One](#two-one)
+  * [Two Two](#two-two)
+  * [Two Three](#two-three)
+  * [Two Four](#two-four)
+    * [Two Four One](#two-four-one)
+* [Three](#three)
+
+<!-- toc! -->
+
+Variant 3 - (markdown-pp)
 
 <!-- !toc -->
 

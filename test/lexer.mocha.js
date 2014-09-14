@@ -80,6 +80,13 @@ describe ('#Lexer.splitOpts', function() {
 		assert.deepEqual(res, exp);
 	});
 
+	it ('single key-value pair length=1', function(){
+		var str = 'key="4 value"',
+			res = splitOpts(str),
+			exp = { "key": "4 value" };
+		assert.deepEqual(res, exp);
+	});
+
 	it ('single array with spaces', function(){
 		var str = 'this="is;an;array with; some spaces "',
 			res = splitOpts(str),

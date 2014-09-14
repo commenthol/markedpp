@@ -1,7 +1,5 @@
-.gitignore
-.npmignore
-.jshintrc
-.travis.yml
+**/.*
 test/
 tmp/
 markedpp-*.tgz
+Makefile

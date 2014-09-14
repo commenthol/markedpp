@@ -7,7 +7,6 @@ var	fs = require('fs'),
 	assert = require('assert'),
 	markedpp = require('../lib/markedpp');
 
-
 /* a utility for loading the test files */
 var	u = {
 	dir: path.resolve(__dirname, './assets'),
@@ -18,7 +17,10 @@ var	u = {
 		return this._load(path.join(this.dir, filename));
 	},
 	expected: function(filename) {
-		return this._load(path.join(this.dir, 'expected', filename));
+		var extname = path.extname(filename);
+		filename = filename.substr(0, filename.indexOf(extname)) +
+			'.exp' + extname;
+		return this._load(path.join(this.dir, filename));
 	},
 	run: function(file, done, options, fileExp) {
 		var src = u.file(file),
@@ -104,6 +106,14 @@ describe ('toc', function() {
 
 	it ('numbered toc omits "Table of Content" and branchs "Two One", "Two Four One"', function(done){
 		u.run('toc_omit_multiple_numbered.md', done);
+	});
+
+	it ('update autoid on references', function(done){
+		u.run('toc_autoid.md', done);
+	});
+
+	it ('update autoid on references using numberedheadings', function(done){
+		u.run('toc_autoid.md', done);
 	});
 });
 
@@ -194,6 +204,14 @@ describe ('markdown-pp syntax', function() {
 describe ('parser', function() {
 	it ('file needs to be identical', function(done){
 		u.run('parser.md', done);
+	});
+
+	it ('parse inline text', function(done){
+		u.run('parser_inlinetext.md', done);
+	});
+
+	it ('parse paragraphs', function(done){
+		u.run('parser_paragraph.md', done);
 	});
 
 	it ('autonumber lists', function(done){

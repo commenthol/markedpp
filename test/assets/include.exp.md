@@ -46,12 +46,12 @@ Put the file in GFM Fences
 ## Include with indent
 
     "use strict";
-
+    
     (function(){
       var str = "this is a string";
       console.log(str);
     })();
-
+    
 ### Include with indents on indents
 
 * Level 1 Indent

@@ -10,7 +10,14 @@ Variant 1
 will be overwritten...
 <!-- /toc -->
 
-Variant 2
+Variant 2 - (marked-toc)
+
+<!-- toc -->
+will be overwritten...
+<!-- toc stop -->
+
+
+Variant 3 - (markdown-pp)
 
 <!-- toc -->
 

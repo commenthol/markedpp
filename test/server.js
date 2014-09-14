@@ -1,5 +1,9 @@
 'use strict';
 
+if (typeof describe === 'function') {
+	return;
+}
+
 var	express = require('express'),
 	app = express();
 
