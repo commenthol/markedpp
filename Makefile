@@ -1,18 +1,30 @@
-all: jshint runtest minify gitadd
+all: readme jshint 0.8 0.12 markedpp.min.js
 
-minify:
-	@uglifyjs -m --comments '/\*[^\0]+?\@copyright[^\0]+?\*/' -o markedpp.min.js lib/markedpp.js
+markedpp.min.js: lib/markedpp.js
+	@uglifyjs -m --comments '/\*[^\0]+?\@copyright[^\0]+?\*/' -o $@ $<
 
 jshint:
-	@jshint lib/*.js test/*.js
+	@npm run lint
 
-gitadd:
-	@git ls -m | xargs git add
-
-runtest:
+test:
 	@npm test
+
+cover:
+	@npm run cover
 
 clean:
 	@rm markedpp.min.js
+	@rm -rf doc coverage
 
-.PHONY: clean all
+readme: README.md
+	./bin/markedpp.js --githubid $< > tmp.md
+	mv tmp.md $<
+
+browser:
+	x-www-browser "http://localhost:3000" ;\
+	node test/server.js
+
+%:
+	n $@ && npm test
+
+.PHONY: readme jshint test clean browser all

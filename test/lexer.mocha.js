@@ -5,17 +5,19 @@
 var assert = require('assert'),
 	Lexer = require('../lib/markedpp').Lexer;
 
+//~ console.log(Lexer); return;
+
 describe ('#Lexer.splitOpts', function() {
 
 	var splitOpts = Lexer.splitOpts;
-	
-	it ('empty', function(){		
+
+	it ('empty', function(){
 		var str = '',
 			res = splitOpts(str),
 			exp = {};
 		assert.deepEqual(res, exp);
 	});
-	
+
 	it ('single key', function(){
 		var str = 'key',
 			res = splitOpts(str),

@@ -29,6 +29,7 @@ var	u = {
 
 		opt.dirname = u.dir;
 		markedpp(src, opt, function (err, res) {
+			//~ console.log(res);
 			assert.equal(res, exp);
 			done();
 		});
@@ -115,6 +116,11 @@ describe ('toc', function() {
 	it ('update autoid on references using numberedheadings', function(done){
 		u.run('toc_autoid.md', done);
 	});
+
+	it ('toc change id', function(done){
+		u.run('toc_id.md', done);
+	});
+
 });
 
 describe ('references', function() {
@@ -220,6 +226,38 @@ describe ('parser', function() {
 
 	it ('no autonumber lists', function(done){
 		u.run('parser_lists_noautonumber.md', done, { autonumber: false });
+	});
+});
+
+describe('headingAutoId', function(){
+	it('marked', function(){
+		var token = {
+			text: 'mergeExt(opts, opts.ignoreNull, opts.ignoreCircular, target, source)'
+		};
+		var parser = new markedpp.Parser();
+		var exp = '#mergeext-opts-opts-ignorenull-opts-ignorecircular-target-source-';
+		var res = parser.headingAutoId(token);
+		assert.equal(res, exp);
+	});
+
+	it('github', function(){
+		var token = {
+			text: 'mergeExt(opts, opts.ignoreNull, opts.ignoreCircular, target, source)'
+		};
+		var parser = new markedpp.Parser({ githubid: true });
+		var exp = '#mergeextopts-optsignorenull-optsignorecircular-target-source';
+		var res = parser.headingAutoId(token);
+		assert.equal(res, exp);
+	});
+
+	it('github &ampersand', function(){
+		var token = {
+			text: 'Running Tests & Contributing'
+		};
+		var parser = new markedpp.Parser({ githubid: true });
+		var exp = '#running-tests--contributing';
+		var res = parser.headingAutoId(token);
+		assert.equal(res, exp);
 	});
 
 });

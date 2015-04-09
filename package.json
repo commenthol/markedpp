@@ -1,30 +1,11 @@
 {
   "name": "markedpp",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Preprocessor for markdown files",
   "main": "lib/markedpp.js",
   "bin": {
     "markedpp": "./bin/markedpp.js"
   },
-  "author": "commenthol",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/commenthol/markedpp.git"
-  },
-  "homepage": "https://github.com/commenthol/markedpp",
-  "bugs": {
-    "url": "http://github.com/commenthol/markedpp/issues"
-  },
-  "keywords": [
-    "markdown",
-    "preprocessor",
-    "toc",
-    "table of contents",
-    "include files",
-    "number headings",
-    "autonumber ordered lists"
-  ],
   "directories": {
     "test": "test"
   },
@@ -36,6 +17,30 @@
     "mocha": "^1.21.4"
   },
   "scripts": {
-    "test": "mocha test/*.mocha.js"
-  }
+    "test": "mocha test/*.mocha.js",
+    "cover": "istanbul cover _mocha --report lcov --report text -- -R dot --check-leaks test/*.mocha.js",
+    "lint": "jshint --show-non-errors lib/*.js",
+    "doc": "mkdir -p doc && jsdox -o doc lib/*.js",
+    "clean": "rm -rf doc coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commenthol/markedpp.git"
+  },
+  "keywords": [
+    "markdown",
+    "preprocessor",
+    "toc",
+    "table of contents",
+    "include files",
+    "number headings",
+    "autonumber ordered lists"
+  ],
+  "author": "commenthol <commenthol@gmail.com>",
+  "maintainers": "commenthol <commenthol@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/commenthol/markedpp/issues"
+  },
+  "homepage": "https://github.com/commenthol/markedpp"
 }

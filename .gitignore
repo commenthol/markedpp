@@ -1,2 +1,6 @@
-node_modules/
-tmp/
+/node_modules
+/coverage
+/doc
+/tmp
+*.log
+*.tgz

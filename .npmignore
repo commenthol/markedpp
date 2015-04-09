@@ -1,5 +1,12 @@
-**/.*
-test/
-tmp/
-markedpp-*.tgz
+/node_modules
+/coverage
+/doc
+/test
+/tmp
+.*
+*.log
+*.tgz
 Makefile
+bower.json
+component.json
+markedpp.min.js

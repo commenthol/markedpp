@@ -1,3 +1,4 @@
 {
-	"node": true
+  "node": true,
+  "-W030": true
 }
