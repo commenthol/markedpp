@@ -17,8 +17,7 @@ clean:
 	@rm -rf doc coverage
 
 readme: README.md
-	./bin/markedpp.js --githubid $< > tmp.md
-	mv tmp.md $<
+	./bin/markedpp.js --githubid -i $< -o $<
 
 browser:
 	x-www-browser "http://localhost:3000" ;\

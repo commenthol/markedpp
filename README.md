@@ -286,7 +286,7 @@ On the CLI
 markedpp --githubid file.md
 ```
 
-Or use in your options 
+Or use in your options
 
 ```javascript
 var markedpp = require('markedpp'),
@@ -303,7 +303,7 @@ markedpp(md, options, function(err, result){
 For use from commandline consider global install
 
     npm install -g markedpp
-    
+
 For your project
 
     npm install markedpp
@@ -420,8 +420,4 @@ See [LICENSE][] for more info.
 [markdown-pp]: https://github.com/jreese/markdown-pp
 [GFM]: https://help.github.com/articles/github-flavored-markdown "Github-Flavored-Markdown"
 [LICENSE]: ./LICENSE
-
-
-
-
 

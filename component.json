@@ -1,6 +1,6 @@
 {
   "name": "markedpp",
-  "version": "0.3.7",
+  "version": "0.3.8-0",
   "repo": "commenthol/markedpp",
   "description": "Preprocessor for markdown files",
   "keywords": [
