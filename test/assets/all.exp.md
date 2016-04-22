@@ -21,6 +21,7 @@
 
 ## 1.2\. Chapter 1
 
+<!-- include (test\ with\ spaces.js lang=javascript) -->
 ```javascript
 "use strict";
 
@@ -29,17 +30,21 @@
   console.log(str);
 })();
 ```
+<!-- /include -->
 
 [markedpp]: https://github.com/commenthol/markedpp
 
 ## 1.3\. Chapter 2
 
+<!-- include (include2.md indent=4) -->
     Try to recursively load "include2.md".
     
     !include (include2.md)
-    
+<!-- /include -->
+
 [amnesty]: http://www.amnesty.org/ "Amnesty International Homepage"
 
+<!-- include (second/include.md) -->
 ## 1.4\. Include in folder second
 
 Located in folder "second"
@@ -61,6 +66,7 @@ Test third...
 ### 1.6.1\. second
 
 ... second ...
+<!-- /include -->
 
 # 2\. References
 
