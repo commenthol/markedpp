@@ -32,6 +32,7 @@
 
 ## Include
 
+<!-- include (include1.md) -->
 # Lorem
 
 ## Lorem ipsum
@@ -53,6 +54,7 @@ Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero s
 #### Mauris vitae nisi at
 
 In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.
+<!-- /include -->
 
 ## References
 

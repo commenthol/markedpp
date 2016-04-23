@@ -31,7 +31,14 @@ var	u = {
 		markedpp(src, opt, function (err, res) {
 			//~ console.log(res);
 			assert.equal(res, exp);
-			done();
+            if (opt.tags === false) {
+                return done();
+            }
+			
+            markedpp(exp, opt, function (err, res) {
+                assert.equal(res, exp);
+                done();
+            });
 		});
 	}
 };

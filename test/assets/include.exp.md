@@ -2,6 +2,7 @@
 
 Include file from same directory
 
+<!-- include (include1.md) -->
 # Lorem
 
 ## Lorem ipsum
@@ -23,17 +24,21 @@ Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero s
 #### Mauris vitae nisi at
 
 In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.
+<!-- /include -->
 
 # Include recursively
 
+<!-- include (include2.md) -->
 Try to recursively load "include2.md".
 
 !include (include2.md)
+<!-- /include -->
 
 # Include a source file
 
 Put the file in GFM Fences
 
+<!-- include (test\ with\ spaces.js lang=javascript) -->
 ```javascript
 "use strict";
 
@@ -42,22 +47,27 @@ Put the file in GFM Fences
   console.log(str);
 })();
 ```
+<!-- /include -->
 
 ## Include with indent
 
+<!-- include (test.js indent=4) -->
     "use strict";
     
     (function(){
       var str = "this is a string";
       console.log(str);
     })();
-    
+<!-- /include -->
+
 ### Include with indents on indents
 
 * Level 1 Indent
+  <!-- include (indent.md) -->
   * Level 2 Indent
     * Level 3 Indent
       * Level 4 Indent
+  <!-- /include -->
 
 # Include a not existing file
 
@@ -65,6 +75,7 @@ Put the file in GFM Fences
 
 # Include from a differerent folder
 
+<!-- include (second/include.md) -->
 ## Include in folder second
 
 Located in folder "second"
@@ -86,6 +97,7 @@ Test third...
 ### second
 
 ... second ...
+<!-- /include -->
 
 ## Ignore within GFM fences
 
