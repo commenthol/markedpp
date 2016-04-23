@@ -10,18 +10,18 @@
     "test": "test"
   },
   "dependencies": {
-    "async": "^0.9.0"
+    "async": "^1.5.2"
   },
   "devDependencies": {
     "express": "^4.8.7",
-    "mocha": "^1.21.4"
+    "mocha": "^2.4.5"
   },
   "scripts": {
     "test": "mocha test/*.mocha.js",
     "cover": "istanbul cover _mocha --report lcov --report text -- -R dot --check-leaks test/*.mocha.js",
     "lint": "jshint --show-non-errors lib/*.js",
     "doc": "mkdir -p doc && jsdox -o doc lib/*.js",
-    "clean": "rm -rf doc coverage"
+    "clean": "rimraf doc coverage"
   },
   "repository": {
     "type": "git",

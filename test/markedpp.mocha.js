@@ -13,8 +13,11 @@ var	u = {
 	_load: function(filename) {
 		return fs.readFileSync(filename, 'utf8');
 	},
+	_write: function (file, data, ext) {
+		fs.writeFileSync(path.resolve(this.dir, file + '.' + ext), data, 'utf8');
+	},
 	file: function(filename) {
-		return this._load(path.join(this.dir, filename));
+		return this._load(path.resolve(this.dir, filename));
 	},
 	expected: function(filename) {
 		var extname = path.extname(filename);
@@ -29,16 +32,15 @@ var	u = {
 
 		opt.dirname = u.dir;
 		markedpp(src, opt, function (err, res) {
-			//~ console.log(res);
-			assert.equal(res, exp);
-            if (opt.tags === false) {
-                return done();
-            }
-			
-            markedpp(exp, opt, function (err, res) {
-                assert.equal(res, exp);
-                done();
-            });
+			// if (res !== exp) u._write(file, res, 0)
+			assert.equal(res, exp, 'initial process fails');
+
+			// reprocess the output - the result needs to be the same
+			markedpp(exp, opt, function (err, res) {
+				// if (res !== exp) u._write(file, res, 1)
+				assert.equal(res, exp, 'reprocess fails');
+				done();
+			});
 		});
 	}
 };
@@ -205,6 +207,10 @@ describe ('include', function() {
 describe ('all together', function() {
 	it ('read all.md and compare', function(done){
 		u.run('all.md', done);
+	});
+
+	it ('read all.md not outputting tags using github ids', function(done){
+		u.run('all_notags.md', done, {tags: false, githubid: true});
 	});
 });
 
