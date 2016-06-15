@@ -219,7 +219,7 @@ Add numbers on headings
 
 All Headings up to level 3 will get numbered. If used, this command shall be given at the very top of a document.
 
-<a name="numberedheadings-level"/>
+<a name="numberedheadings-level"></a>
 #### level
 
 With the option `level`, the Headings level where the numbering shall be applied, can be specified.
@@ -242,22 +242,22 @@ E.g.
 1\. [One](#1-one) <br>
 1.1\. [One One](#1-1-one-one)
 
-<a name="numberedheadings-minlevel"/>
+<a name="numberedheadings-minlevel"></a>
 #### minlevel
 
 The option `minlevel` omits numbering all Headings below `minlevel`.
 
-<a name="numberedheadings-skip"/>
+<a name="numberedheadings-skip"></a>
 #### skip
 
 The option `skip` skips numbering for the first Headings on `minlevel`.
 
-<a name="numberedheadings-start"/>
+<a name="numberedheadings-start"></a>
 #### start
 
 The option `start` starts the numbering with the given number.
 
-<a name="numberedheadings-omit"/>
+<a name="numberedheadings-omit"></a>
 #### omit
 
 The option `omit` omits numbering all Headings matching.
@@ -266,10 +266,10 @@ The option `omit` omits numbering all Headings matching.
 
 ### Using custom anchors
 
-Custom anchors can be added to headings by putting a `<a name="..."/>` in a separate line right in front of the heading.
+Custom anchors can be added to headings by putting a `<a name="..."></a>` in a separate line right in front of the heading.
 
 ```html
-<a name="custom-heading"/>
+<a name="custom-heading"></a>
 # Heading with custom id
 ```
 
