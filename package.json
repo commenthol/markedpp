@@ -10,11 +10,11 @@
     "test": "test"
   },
   "dependencies": {
-    "async": "^1.5.2"
+    "async": "^2.1.4"
   },
   "devDependencies": {
-    "express": "^4.8.7",
-    "mocha": "^2.4.5"
+    "express": "^4.14.0",
+    "mocha": "^3.2.0"
   },
   "scripts": {
     "test": "mocha test/*.mocha.js",
