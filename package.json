@@ -21,7 +21,8 @@
   },
   "license": "MIT",
   "author": "commenthol <commenthol@gmail.com>",
-  "main": "lib/markedpp.js",
+  "main": "src/index.js",
+  "browser": "src/browser.js",
   "bin": {
     "markedpp": "./bin/markedpp.js"
   },

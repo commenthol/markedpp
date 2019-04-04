@@ -1,15 +1,10 @@
 'use strict'
 
-/* global describe, it */
-
-var assert = require('assert')
-// var Lexer = require('../lib/markedpp').Lexer
-var Lexer = require('../src/markedpp').Lexer
-
-// ~ console.log(Lexer); return;
+const assert = require('assert')
+const Lexer = require('../src/markedpp').Lexer
 
 describe('#Lexer.splitOpts', function () {
-  var splitOpts = Lexer.splitOpts
+  const splitOpts = Lexer.splitOpts
 
   it('empty', function () {
     var str = ''

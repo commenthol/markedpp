@@ -8,7 +8,6 @@ const {
   repeat
 } = require('./utils')
 const defaults = require('./defaults')
-const ppInclude = require('./ppInclude') // TODO - howto use browser version
 
 /**
  * Lexer
@@ -369,7 +368,7 @@ Lexer.rules = block
  * @param {Object} options - options to overwrite
  * @param {Function} callback - `function(err, tokens)`
  */
-Lexer.lex = function (src, options, callback) {
+Lexer.lex = function (src, ppInclude, options, callback) {
   var lexer = new Lexer(options)
   var tokens = lexer.lex(src) // returns the lexed tokens
   ppInclude(tokens, Lexer, options, function (err, tokens) {

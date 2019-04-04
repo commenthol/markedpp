@@ -5,7 +5,7 @@
 var fs = require('fs')
 var path = require('path')
 var assert = require('assert')
-var markedpp = require('../src/markedpp')
+var markedpp = require('../src')
 
 /* a utility for loading the test files */
 var u = {

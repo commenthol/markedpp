@@ -1,3 +1,6 @@
 extends: standard
+env:
+  es6: true
+  mocha: true
 rules:
   'no-console': warn
