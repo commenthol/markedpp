@@ -1,7 +1,26 @@
 {
   "name": "markedpp",
-  "version": "0.3.10",
+  "version": "1.0.0-0",
   "description": "Preprocessor for markdown files",
+  "keywords": [
+    "autonumber ordered lists",
+    "include files",
+    "markdown",
+    "number headings",
+    "preprocessor",
+    "table of contents",
+    "toc"
+  ],
+  "homepage": "https://github.com/commenthol/markedpp",
+  "bugs": {
+    "url": "https://github.com/commenthol/markedpp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commenthol/markedpp.git"
+  },
+  "license": "MIT",
+  "author": "commenthol <commenthol@gmail.com>",
   "main": "lib/markedpp.js",
   "bin": {
     "markedpp": "./bin/markedpp.js"
@@ -9,38 +28,31 @@
   "directories": {
     "test": "test"
   },
+  "scripts": {
+    "all": "npm run lint && npm run test",
+    "clean": "rimraf doc coverage",
+    "coverage": "nyc -r text -r html npm test",
+    "doc": "mkdir -p doc && jsdox -o doc lib/*.js",
+    "lint": "eslint '**/*.js'",
+    "test": "mocha"
+  },
   "dependencies": {
-    "async": "^2.1.4"
+    "asyncc": "^2.0.3"
   },
   "devDependencies": {
-    "express": "^4.14.0",
-    "mocha": "^3.2.0"
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "express": "^4.16.4",
+    "mocha": "^6.0.2"
   },
-  "scripts": {
-    "test": "mocha test/*.mocha.js",
-    "cover": "istanbul cover _mocha --report lcov --report text -- -R dot --check-leaks test/*.mocha.js",
-    "lint": "jshint --show-non-errors lib/*.js",
-    "doc": "mkdir -p doc && jsdox -o doc lib/*.js",
-    "clean": "rimraf doc coverage"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/commenthol/markedpp.git"
-  },
-  "keywords": [
-    "markdown",
-    "preprocessor",
-    "toc",
-    "table of contents",
-    "include files",
-    "number headings",
-    "autonumber ordered lists"
+  "maintainers": [
+    "commenthol <commenthol@gmail.com>"
   ],
-  "author": "commenthol <commenthol@gmail.com>",
-  "maintainers": "commenthol <commenthol@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/commenthol/markedpp/issues"
-  },
-  "homepage": "https://github.com/commenthol/markedpp"
+  "engines": {
+    "node": ">=6.0"
+  }
 }

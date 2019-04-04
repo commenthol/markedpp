@@ -1,4 +1,4 @@
-all: readme jshint v0.10 v0.12 v4.4 v5.11 markedpp.min.js
+all: readme jshint v6. v8. v10. v11. markedpp.min.js
 
 markedpp.min.js: lib/markedpp.js
 	@uglifyjs -m --comments '/\*[^\0]+?\@copyright[^\0]+?\*/' -o $@ $<
