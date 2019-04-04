@@ -1,7 +1,13 @@
-all: readme jshint v6. v8. v10. v11. markedpp.min.js
+all: npmall readme v6. v8. v11. v10.
 
-markedpp.min.js: lib/markedpp.js
-	@uglifyjs -m --comments '/\*[^\0]+?\@copyright[^\0]+?\*/' -o $@ $<
+node_modules:
+	@npm i
+
+npmall: node_modules
+	@npm run all
+
+dist: dist/markedpp.min.js
+	@npm run webpack
 
 lint:
 	@npm run lint
@@ -10,15 +16,17 @@ test:
 	@npm test
 
 cover:
-	@npm run cover
+	@npm run coverage
 
 clean:
-	@rm test/assets/*.md.*
-	@rm markedpp.min.js
-	@rm -rf doc coverage
+	@npm run clean
+
+man:
+	@ronn -r ./man/markedpp.md
+	@man ./man/markedpp.1 > ./man/markedpp.txt
 
 readme: README.md
-	./bin/markedpp.js --github -i $< -o $<
+	@./bin/markedpp.js --github -i $< -o $<
 
 browser:
 	firefox "http://localhost:3000" ;\
@@ -26,8 +34,6 @@ browser:
 
 v%:
 	n $@
-	#rm -rf node_modules
-	#npm i
 	npm test
 
-.PHONY: readme lint test clean browser all
+.PHONY: man readme npmall lint test clean browser all

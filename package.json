@@ -26,6 +26,7 @@
   "bin": {
     "markedpp": "./bin/markedpp.js"
   },
+  "man": "./man/markedpp.1",
   "scripts": {
     "all": "npm-run-all clean lint test build webpack",
     "build": "babel -d lib src",
@@ -33,6 +34,7 @@
     "coverage": "nyc -r text -r html npm test",
     "doc": "mkdir -p doc && jsdox -o doc lib/*.js",
     "lint": "eslint '**/*.js'",
+    "man": "make man",
     "readme": "make readme",
     "test": "mocha",
     "test:browser": "make browser",

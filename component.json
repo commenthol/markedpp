@@ -1,6 +1,6 @@
 {
   "name": "markedpp",
-  "version": "0.3.8-0",
+  "version": "1.0.0",
   "repo": "commenthol/markedpp",
   "description": "Preprocessor for markdown files",
   "keywords": [
@@ -13,8 +13,8 @@
     "autonumber ordered lists"
   ],
   "scripts": [
-    "lib/markedpp.js"
+    "lib/index.js"
   ],
-  "main": "lib/markedpp.js",
+  "main": "lib/index.js",
   "license": "MIT"
 }

@@ -1,0 +1,141 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "MARKEDPP" "1" "April 2019" "" ""
+.
+.SH "NAME"
+\fBmarkedpp\fR \- a markdown pre\-processor
+.
+.SH "SYNOPSIS"
+.
+.nf
+
+markedpp [options] <file\.md>
+.
+.fi
+.
+.SH "OPTIONS"
+.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Display this help and exit\.
+.
+.TP
+\fB\-\-version\fR
+Output version information and exit\.
+.
+.TP
+\fB\-o\fR, \fB\-\-output\fR <outfile\.md>
+Specify the filename for the processed output\. Defaults to stdout\.
+.
+.TP
+\fB\-i\fR, \fB\-\-input\fR <file\.md>
+Specify the filename for markdown input\.
+.
+.TP
+\fB\-t\fR, \fB\-\-tokens\fR
+Output lexed tokens as JSON array\.
+.
+.TP
+\fB\-\-no\-gfm\fR
+Disable GFM fences\.
+.
+.TP
+\fB\-\-no\-include\fR
+Disables \fB!includes\fR\. No files will be included\.
+.
+.TP
+\fB\-\-no\-toc\fR
+Disables \fB!toc\fR\. No generation of Table\-of\-Contents\.
+.
+.TP
+\fB\-\-no\-numberedheadings\fR
+Disables \fB!numberedheadings\fR\.
+.
+.TP
+\fB\-\-no\-ref\fR
+Disables \fB!ref\fR\.
+.
+.TP
+\fB\-\-no\-breaks\fR
+Do not render \fB<br>\fR tags for Table of Contents with numbered style\.
+.
+.TP
+\fB\-\-no\-tags\fR
+Do not render pre\-proc tags \fB<!\-\- !command \-\->\fR\.
+.
+.TP
+\fB\-\-level\fR \fInumber=3\fR
+Change default level [1\.\.6] for \fB!toc\fR and \fB!numberheadings\fR\. Default is 3\.
+.
+.TP
+\fB\-\-minlevel\fR \fInumber=1\fR
+Change default minlevel [1\.\.6] for \fB!toc\fR and \fB!numberheadings\fR\. Default is 1\.
+.
+.TP
+\fB\-\-smartlists:\fR Adds a newline on joined bullet lists using different bullet chars\.
+
+.
+.TP
+\fB\-\-no\-autonumber\fR
+Disable renumbering of ordered lists\.
+.
+.TP
+\fB\-\-autoid\fR
+Add named anchors on headings anchors)\. \fI\fR
+.
+.TP
+\fB\-\-github\fR
+Uses "github\.com" compatible anchors\. Default uses marked compatible anchors\.
+.
+.TP
+\fB\-\-gitlab\fR
+Uses "gitlab\.com" compatible anchors\.
+.
+.TP
+\fB\-\-bitbucket\fR
+Uses "bitbucket\.org" compatible anchors\.
+.
+.TP
+\fB\-\-ghost\fR
+Uses "ghost\.org" compatible anchors\.
+.
+.SH "EXAMPLE"
+Process a README\.md file using gitlab anchors:
+.
+.IP "" 4
+.
+.nf
+
+markedpp \-\-gitlab \-o README\.md README\.md
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Pipe from stdin:
+.
+.IP "" 4
+.
+.nf
+
+cat file\.md | markedpp
+.
+.fi
+.
+.IP "" 0
+.
+.SH "INSTALLATION"
+.
+.nf
+
+npm i \-g markedpp
+.
+.fi
+.
+.SH "COPYRIGHT"
+Copyright (c) 2014\- commenthol \- MIT License
+.
+.SH "REPORTING BUGS"
+markedpp repository \fIhttps://github\.com/commenthol/markedpp/issues\fR

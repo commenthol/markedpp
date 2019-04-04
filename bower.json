@@ -1,8 +1,8 @@
 {
   "name": "markedpp",
-  "version": "0.3.8-0",
+  "version": "1.0.0",
   "description": "Preprocessor for markdown files",
-  "main": "lib/markedpp.js",
+  "main": "lib/index.js",
   "authors": [
     "commenthol"
   ],
