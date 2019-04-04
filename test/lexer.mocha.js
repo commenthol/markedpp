@@ -3,7 +3,8 @@
 /* global describe, it */
 
 var assert = require('assert')
-var Lexer = require('../lib/markedpp').Lexer
+// var Lexer = require('../lib/markedpp').Lexer
+var Lexer = require('../src/markedpp').Lexer
 
 // ~ console.log(Lexer); return;
 
