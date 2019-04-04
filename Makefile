@@ -21,7 +21,7 @@ readme: README.md
 	./bin/markedpp.js --github -i $< -o $<
 
 browser:
-	x-www-browser "http://localhost:3000" ;\
+	firefox "http://localhost:3000" ;\
 	node test/server.js
 
 v%:

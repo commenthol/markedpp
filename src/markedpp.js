@@ -56,9 +56,4 @@ markedpp.Renderer = Renderer
 markedpp.Parser = Parser
 markedpp.merge = merge
 
-markedpp.setOptions = function (opt) {
-  merge(defaults, opt)
-  return markedpp
-}
-
 module.exports = markedpp

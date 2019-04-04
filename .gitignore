@@ -6,3 +6,4 @@
 /lib
 *.log
 *.tgz
+.nyc_output/

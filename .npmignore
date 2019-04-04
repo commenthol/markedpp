@@ -9,4 +9,4 @@
 Makefile
 bower.json
 component.json
-markedpp.min.js
+webpack.config.js

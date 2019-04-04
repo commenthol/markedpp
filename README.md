@@ -20,24 +20,24 @@ Albeight the markdown syntax of this project here is slightly different, [markdo
 
 ## Table of Contents
 
-<!-- !numberedheadings (minlevel=2 skip=1) -->
+<!-- !numberedheadings (level=4 minlevel=2 skip=1) -->
 
 <!-- !toc (level=4 minlevel=2 omit="Table of Contents") -->
 
 * [1\. Extended Markdown Syntax](#1-extended-markdown-syntax)
   * [1.1\. toc](#11-toc)
-    * [level](#level)
-    * [minlevel](#minlevel)
-    * [numbered](#numbered)
-    * [omit](#omit)
+    * [1.1.1\. level](#111-level)
+    * [1.1.2\. minlevel](#112-minlevel)
+    * [1.1.3\. numbered](#113-numbered)
+    * [1.1.4\. omit](#114-omit)
   * [1.2\. ref](#12-ref)
   * [1.3\. include](#13-include)
   * [1.4\. numberedheadings](#14-numberedheadings)
-    * [level](#numberedheadings-level)
-    * [minlevel](#numberedheadings-minlevel)
-    * [skip](#numberedheadings-skip)
-    * [start](#numberedheadings-start)
-    * [omit](#numberedheadings-omit)
+    * [1.4.1\. level](#numberedheadings-level)
+    * [1.4.2\. minlevel](#142-minlevel)
+    * [1.4.3\. skip](#143-skip)
+    * [1.4.4\. start](#144-start)
+    * [1.4.5\. omit](#145-omit)
 * [2\. Specials](#2-specials)
   * [2.1\. Using custom anchors](#21-using-custom-anchors)
   * [2.2\. Changing type of autoId generation](#22-changing-type-of-autoid-generation)
@@ -80,13 +80,13 @@ E.g.
 
     This includes a "Table of Contents" section. All headings up to level=3 will be linked with their references as a unnumbered bullet list.
 
-#### level
+#### 1.1.1\. level
 
     !toc (level=5)
 
 To change the default level of 3 to a different one specify the option `level` in brackets.
 
-#### minlevel
+#### 1.1.2\. minlevel
 
     !toc (minlevel=2)
 
@@ -98,7 +98,7 @@ E.g. with the above example:
   * [One One One](#one-one-one)
 * [Two One](#two-one)
 
-#### numbered
+#### 1.1.3\. numbered
 
     !toc (numbered)
 
@@ -123,7 +123,7 @@ E.g.
 
     <!-- toc! -->
 
-#### omit
+#### 1.1.4\. omit
 
 To omit headings in the ToC define those with `omit`.
 
@@ -222,7 +222,7 @@ Add numbers on headings
 All Headings up to level 3 will get numbered. If used, this command shall be given at the very top of a document.
 
 <a name="numberedheadings-level"></a>
-#### level
+#### 1.4.1\. level
 
 With the option `level`, the Headings level where the numbering shall be applied, can be specified.
 
@@ -244,23 +244,19 @@ E.g.
 1\. [One](#1-one) <br>
 1.1\. [One One](#1-1-one-one)
 
-<a name="numberedheadings-minlevel"></a>
-#### minlevel
+#### 1.4.2\. minlevel
 
 The option `minlevel` omits numbering all Headings below `minlevel`.
 
-<a name="numberedheadings-skip"></a>
-#### skip
+#### 1.4.3\. skip
 
 The option `skip` skips numbering for the first Headings on `minlevel`.
 
-<a name="numberedheadings-start"></a>
-#### start
+#### 1.4.4\. start
 
 The option `start` starts the numbering with the given number.
 
-<a name="numberedheadings-omit"></a>
-#### omit
+#### 1.4.5\. omit
 
 The option `omit` omits numbering all Headings matching.
 
@@ -281,6 +277,15 @@ Instead of using the auto generated id `#heading-with-custom-id`, `#custom-headi
 
 Unfortunately there is no unique format which defines the composition of an auto identifier in markdown.
 [marked][] uses a different format then github.
+
+Available options:
+
+```
+--github      for github.com
+--gitlab      for gitlab.com
+--bitbucket   for bitbucket.org
+--ghost       for ghost.org
+```
 
 On the CLI
 
@@ -401,14 +406,17 @@ all code is your original work.
 
 ## 7\. License
 
-Copyright (c) 2014, Commenthol. (MIT License)
+Copyright (c) 2014-, Commenthol. (MIT License)
 
 See [LICENSE][] for more info.
+
+Contains modified MIT-licensed code from [anchor-markdown-header][].
 
 ## 8\. References
 
 <!-- !ref -->
 
+* [anchor-markdown-header][anchor-markdown-header]
 * [Github-Flavored-Markdown][GFM]
 * [LICENSE][LICENSE]
 * [markdown][markdown]
@@ -417,8 +425,9 @@ See [LICENSE][] for more info.
 
 <!-- ref! -->
 
-[marked]: https://github.com/chjj/marked
+[marked]: https://github.com/markedjs/marked
 [markdown]: http://daringfireball.net/projects/markdown/syntax
 [markdown-pp]: https://github.com/jreese/markdown-pp
 [GFM]: https://help.github.com/articles/github-flavored-markdown "Github-Flavored-Markdown"
 [LICENSE]: ./LICENSE
+[anchor-markdown-header]: https://github.com/thlorenz/anchor-markdown-header

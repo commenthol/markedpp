@@ -21,8 +21,8 @@
   },
   "license": "MIT",
   "author": "commenthol <commenthol@gmail.com>",
-  "main": "src/index.js",
-  "browser": "src/browser.js",
+  "main": "lib/index.js",
+  "browser": "lib/browser.js",
   "bin": {
     "markedpp": "./bin/markedpp.js"
   },
@@ -30,14 +30,15 @@
     "test": "test"
   },
   "scripts": {
-    "all": "npm-run-all lint test build webpack",
+    "all": "npm-run-all clean lint test build webpack",
     "build": "babel -d lib src",
-    "clean": "rimraf doc coverage",
+    "clean": "rimraf doc coverage .nyc_output dist lib",
     "coverage": "nyc -r text -r html npm test",
     "doc": "mkdir -p doc && jsdox -o doc lib/*.js",
     "lint": "eslint '**/*.js'",
-    "readme": "bin/markedpp.js --github -i README.md -o README.md",
+    "readme": "make readme",
     "test": "mocha",
+    "test:browser": "make browser",
     "webpack": "webpack"
   },
   "babel": {
@@ -74,6 +75,7 @@
     "express": "^4.16.4",
     "mocha": "^6.0.2",
     "npm-run-all": "^4.1.5",
+    "nyc": "^13.3.0",
     "parallel-webpack": "^2.3.0",
     "rimraf": "^2.6.3",
     "uglifyjs-webpack-plugin": "^2.1.2",

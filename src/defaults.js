@@ -12,6 +12,7 @@ const defaults = {
   tags: true, // render pre-proc tags <!-- !command -->
   level: 3, // default level for !toc and !numberheadings
   minlevel: 1, // default minlevel for !toc and !numberheadings
+  smartLists: false, // TODO
 
   autonumber: true, // renumber lists
   autoid: false, // update identifiers on headings automatically (adds <a name=> anchors)

@@ -285,3 +285,13 @@ describe('lexer', function () {
     u.run('lexer_blockquotes.md', done)
   })
 })
+
+describe('markedpp', function () {
+  it('shall run without options', function () {
+    const data = '# h1\n'
+    markedpp(data, (err, res) => {
+      assert.ok(!err, err && err.message)
+      assert.strictEqual(res, data)
+    })
+  })
+})
