@@ -19,9 +19,9 @@ function Parser (options) {
   this.renderer = this.options.renderer
   this.renderer.options = this.options
 
-  if (this.options.githubid) {
-    this.options.anchor = 'github'
-  }
+  this.options.anchor = this.options.anchor ||
+    ['ghost', 'bitbucket', 'gitlab', 'github']
+      .map(k => this.options[k] && k).filter(k => k)[0]
 }
 
 /**
@@ -128,11 +128,15 @@ Parser.prototype.headingAutoId = function (token, opts) {
   }
 
   if (token.anchor) {
-    return '#' + token.anchor
+    return token.anchor
   }
 
   const _id = (!opts.raw ? token.text : token.raw || '').replace(/^#/, '')
   const id = anchor(_id, this.options.anchor)
+
+  if (this.options.autoid) {
+    token.anchor = id
+  }
   return id
 }
 

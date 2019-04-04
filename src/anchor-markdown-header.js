@@ -156,5 +156,5 @@ module.exports = function anchorMarkdownHeader (header, mode, repetition, module
 
   var href = replace(asciiOnlyToLowerCase(header.trim()), repetition)
 
-  return '#' + encodeURI(href)
+  return encodeURI(href)
 }

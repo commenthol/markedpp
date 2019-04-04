@@ -14,8 +14,12 @@ const defaults = {
   minlevel: 1, // default minlevel for !toc and !numberheadings
 
   autonumber: true, // renumber lists
-  autoid: true, // update identifiers on headings automatically
-  anchor: '' // use github convention for heading auto identifiers
+  autoid: false, // update identifiers on headings automatically (adds <a name=> anchors)
+  anchor: '', // anchor mode for heading auto identifiers
+  github: false,
+  gitlab: false,
+  bitbucket: false,
+  ghost: false
 }
 
 module.exports = defaults

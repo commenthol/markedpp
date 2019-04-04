@@ -283,7 +283,7 @@ Unfortunately there is no unique format which defines the composition of an auto
 On the CLI
 
 ```bash
-markedpp --githubid file.md
+markedpp --github file.md
 ```
 
 Or use in your options
@@ -291,8 +291,8 @@ Or use in your options
 ```javascript
 var markedpp = require('markedpp'),
     md = '!toc\n# hello\n## hello & again',
-    options = { githubid: true };
-    
+    options = { github: true };
+
 markedpp(md, options, function(err, result){
     console.log(result);
 });
@@ -313,7 +313,7 @@ For your project
 ```javascript
 var markedpp = require('markedpp'),
     md = '!numberedheadings\n!toc(level=1)\n# hello\n## hello again';
-    
+
 markedpp(md, function(err, result){
     console.log(result);
     /* Outputs
@@ -338,7 +338,7 @@ To include files the dirname need to be defined via `options`, otherwise it is a
 var markedpp = require('markedpp'),
     md = '!include(hello.md)',
     options = { dirname: __dirname };
-    
+
 markedpp(md, options, function(err, result){
     console.log(result);
 });
@@ -420,4 +420,3 @@ See [LICENSE][] for more info.
 [markdown-pp]: https://github.com/jreese/markdown-pp
 [GFM]: https://help.github.com/articles/github-flavored-markdown "Github-Flavored-Markdown"
 [LICENSE]: ./LICENSE
-

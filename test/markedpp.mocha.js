@@ -209,7 +209,7 @@ describe('all together', function () {
   })
 
   it('read all.md not outputting tags using github ids', function (done) {
-    u.run('all_notags.md', done, { tags: false, githubid: true })
+    u.run('all_notags.md', done, { tags: false, anchor: 'github' })
   })
 })
 
@@ -256,7 +256,7 @@ describe('headingAutoId', function () {
     var token = {
       text: 'mergeExt(opts, opts.ignoreNull, opts.ignoreCircular, target, source)'
     }
-    var parser = new markedpp.Parser({ githubid: true })
+    var parser = new markedpp.Parser({ github: true })
     var exp = '#mergeextopts-optsignorenull-optsignorecircular-target-source'
     var res = parser.headingAutoId(token)
     assert.strictEqual(res, exp)
@@ -266,7 +266,7 @@ describe('headingAutoId', function () {
     var token = {
       text: 'Running Tests & Contributing'
     }
-    var parser = new markedpp.Parser({ githubid: true })
+    var parser = new markedpp.Parser({ anchor: 'github' })
     var exp = '#running-tests--contributing'
     var res = parser.headingAutoId(token)
     assert.strictEqual(res, exp)

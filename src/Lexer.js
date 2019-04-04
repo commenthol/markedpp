@@ -1,6 +1,12 @@
 const InlineLexer = require('./InlineLexer')
-const { block } = require('./rules')
-const { int, merge, repeat } = require('./utils')
+const {
+  block
+} = require('./rules')
+const {
+  int,
+  merge,
+  repeat
+} = require('./utils')
 const defaults = require('./defaults')
 const ppInclude = require('./ppInclude') // TODO - howto use browser version
 
@@ -31,10 +37,10 @@ function Lexer (options) {
 }
 
 /**
-* Preprocessing
-* @param {String} src - markdown source
-* @return {Object} token
-*/
+ * Preprocessing
+ * @param {String} src - markdown source
+ * @return {Object} token
+ */
 Lexer.prototype.lex = function (src) {
   src = src
     .replace(/\r\n|\r/g, '\n')
@@ -47,11 +53,11 @@ Lexer.prototype.lex = function (src) {
 }
 
 /**
-* Lexing
-* @param {String} src - markdown source
-* @param {Boolean} top -
-* @return {Array} - array of tokens
-*/
+ * Lexing
+ * @param {String} src - markdown source
+ * @param {Boolean} top -
+ * @return {Array} - array of tokens
+ */
 Lexer.prototype.token = function (src, top) {
   let cap,
     bull,
@@ -111,11 +117,11 @@ Lexer.prototype.token = function (src, top) {
       continue
     }
     /*
-   * heading
-   * cap[1] - headingid from <a name="">
-   * cap[2] - heading char
-   * cap[3] - heading text
-   */
+     * heading
+     * cap[1] - headingid from <a name="">
+     * cap[2] - heading char
+     * cap[3] - heading text
+     */
     if ((cap = this.rules.heading.exec(src))) {
       src = src.substring(cap[0].length)
       tmp = new InlineLexer(this.options)
@@ -131,11 +137,11 @@ Lexer.prototype.token = function (src, top) {
       continue
     }
     /*
-   * lheading
-   * cap[1] - headingid from <a name="">
-   * cap[2] - heading char
-   * cap[3] - heading text
-   */
+     * lheading
+     * cap[1] - headingid from <a name="">
+     * cap[2] - heading char
+     * cap[3] - heading text
+     */
     if ((cap = this.rules.lheading.exec(src))) {
       src = src.substring(cap[0].length)
       tmp = new InlineLexer(this.options)
@@ -261,7 +267,7 @@ Lexer.prototype.token = function (src, top) {
       src = src.substring(cap[0].length)
       opts = Lexer.splitOpts(cap[1] || cap[2])
       if (typeof opts.omit === 'string') {
-        opts.omit = [ opts.omit ]
+        opts.omit = [opts.omit]
       }
       this.options.numberedHeadings = true
       this.tokens.push({
@@ -279,7 +285,7 @@ Lexer.prototype.token = function (src, top) {
       src = src.substring(cap[0].length)
       opts = Lexer.splitOpts(cap[1] || cap[2])
       if (typeof opts.omit === 'string') {
-        opts.omit = [ opts.omit ]
+        opts.omit = [opts.omit]
       }
       this.tokens.push({
         type: 'pptoc',
@@ -353,16 +359,16 @@ Lexer.prototype.token = function (src, top) {
 }
 
 /**
-* Expose Block Rules
-*/
+ * Expose Block Rules
+ */
 Lexer.rules = block
 
 /**
-* Static Lex Method
-* @param {String} src - markdown source
-* @param {Object} options - options to overwrite
-* @param {Function} callback - `function(err, tokens)`
-*/
+ * Static Lex Method
+ * @param {String} src - markdown source
+ * @param {Object} options - options to overwrite
+ * @param {Function} callback - `function(err, tokens)`
+ */
 Lexer.lex = function (src, options, callback) {
   var lexer = new Lexer(options)
   var tokens = lexer.lex(src) // returns the lexed tokens
@@ -372,9 +378,9 @@ Lexer.lex = function (src, options, callback) {
 }
 
 /**
-* Split preproc command options
-* @param {String} str - string to split into key-value pairs
-*/
+ * Split preproc command options
+ * @param {String} str - string to split into key-value pairs
+ */
 Lexer.splitOpts = function (str) {
   var opts = {}
   var sep
@@ -438,13 +444,13 @@ Lexer.splitOpts = function (str) {
 }
 
 /**
-* Limit the range of input value `val`
-* @param {Number} val - value to check
-* @param {Number} min - min allowed value
-* @param {Number} max - max allowed value
-* @param {Number|undefined} def - default value - if val === def then `undefined` is returned
-* @return {Number} ranged val
-*/
+ * Limit the range of input value `val`
+ * @param {Number} val - value to check
+ * @param {Number} min - min allowed value
+ * @param {Number} max - max allowed value
+ * @param {Number|undefined} def - default value - if val === def then `undefined` is returned
+ * @return {Number} ranged val
+ */
 Lexer.range = function (val, min, max, def) {
   if (val < min) {
     return min

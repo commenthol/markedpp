@@ -14,7 +14,7 @@
 
 var fs = require('fs')
 var path = require('path')
-var markedpp = require('../lib/markedpp')
+var markedpp = require('../src/markedpp')
 
 /**
  * Helpers

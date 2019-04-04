@@ -3,7 +3,7 @@ all: readme jshint v6. v8. v10. v11. markedpp.min.js
 markedpp.min.js: lib/markedpp.js
 	@uglifyjs -m --comments '/\*[^\0]+?\@copyright[^\0]+?\*/' -o $@ $<
 
-jshint:
+lint:
 	@npm run lint
 
 test:
@@ -18,7 +18,7 @@ clean:
 	@rm -rf doc coverage
 
 readme: README.md
-	./bin/markedpp.js --githubid -i $< -o $<
+	./bin/markedpp.js --github -i $< -o $<
 
 browser:
 	x-www-browser "http://localhost:3000" ;\
@@ -30,4 +30,4 @@ v%:
 	#npm i
 	npm test
 
-.PHONY: readme jshint test clean browser all
+.PHONY: readme lint test clean browser all

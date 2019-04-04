@@ -299,10 +299,10 @@ Renderer.prototype.tableOfContents = function (toc, options) {
       // render numbered list
       if (self.options.numberedHeadings) {
         return (t.number ? t.number + ' ' : '') +
-          '[' + self.sanitizeHeadings(t.raw) + '](' + t.autoid + ')' + br
+          '[' + self.sanitizeHeadings(t.raw) + '](#' + t.autoid + ')' + br
       } else {
         return t.number +
-          ' [' + self.sanitizeHeadings(t.text) + '](' + t.autoid + ')' + br
+          ' [' + self.sanitizeHeadings(t.text) + '](#' + t.autoid + ')' + br
       }
     } else {
       // render bullet list
@@ -311,7 +311,7 @@ Renderer.prototype.tableOfContents = function (toc, options) {
         space += '  '
       }
       return space + '* [' +
-        self.sanitizeHeadings(t.text) + '](' + t.autoid + ')'
+        self.sanitizeHeadings(t.text) + '](#' + t.autoid + ')'
     }
   })
 
