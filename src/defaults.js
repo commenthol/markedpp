@@ -15,7 +15,7 @@ const defaults = {
 
   autonumber: true, // renumber lists
   autoid: true, // update identifiers on headings automatically
-  githubid: false // use github convention for heading auto identifiers
+  anchor: '' // use github convention for heading auto identifiers
 }
 
 module.exports = defaults

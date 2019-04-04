@@ -1,6 +1,7 @@
 const Renderer = require('./Renderer')
 const Numbering = require('./Numbering')
 const defaults = require('./defaults')
+const anchor = require('./anchor')
 
 /**
  * Parser
@@ -17,6 +18,10 @@ function Parser (options) {
   this.options.renderer = this.options.renderer || new Renderer() // jshint ignore:line
   this.renderer = this.options.renderer
   this.renderer.options = this.options
+
+  if (this.options.githubid) {
+    this.options.anchor = 'github'
+  }
 }
 
 /**
@@ -121,25 +126,14 @@ Parser.prototype.headingAutoId = function (token, opts) {
   opts = opts || {
     raw: false
   }
-  var id = (!opts.raw ? token.text : token.raw || '').replace(/^#/, '')
 
   if (token.anchor) {
     return '#' + token.anchor
   }
 
-  if (this.options.githubid) {
-    // from https://github.com/thlorenz/anchor-markdown-header
-    id = id.replace(/ /g, '-')
-      .replace(/%([abcdef]|\d){2,2}/ig, '') // escape codes
-      .replace(/[/?:[\]`.,()*"';{}+<>&]/g, '') // single chars that are removed
-      .toLowerCase()
-  } else {
-    // marked
-    id = id
-      .replace(/[^\w]+/g, '-')
-      .toLowerCase()
-  }
-  return '#' + id
+  const _id = (!opts.raw ? token.text : token.raw || '').replace(/^#/, '')
+  const id = anchor(_id, this.options.anchor)
+  return id
 }
 
 /**
