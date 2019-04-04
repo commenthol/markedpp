@@ -178,6 +178,7 @@ function xhr (url, options, callback) {
   try {
     req.send(params)
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log('Error: Resolving URL ' + url)
     callback(e)
   }
@@ -212,6 +213,7 @@ function ppInclude (tokens, Lexer, options, callback) {
         _options.ppInclude[token.text] = 1
         _options.dirname = path.dirname(path_)
         if (err) {
+          // eslint-disable-next-line no-console
           console.log('Error: ' + err.message)
           return done()
         }

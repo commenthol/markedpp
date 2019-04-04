@@ -20,36 +20,38 @@ Albeight the markdown syntax of this project here is slightly different, [markdo
 
 ## Table of Contents
 
+<!-- !numberedheadings (minlevel=2 skip=1) -->
+
 <!-- !toc (level=4 minlevel=2 omit="Table of Contents") -->
 
-* [Extended Markdown Syntax](#extended-markdown-syntax)
-  * [toc](#toc)
+* [1\. Extended Markdown Syntax](#1-extended-markdown-syntax)
+  * [1.1\. toc](#11-toc)
     * [level](#level)
     * [minlevel](#minlevel)
     * [numbered](#numbered)
     * [omit](#omit)
-  * [ref](#ref)
-  * [include](#include)
-  * [numberedheadings](#numberedheadings)
+  * [1.2\. ref](#12-ref)
+  * [1.3\. include](#13-include)
+  * [1.4\. numberedheadings](#14-numberedheadings)
     * [level](#numberedheadings-level)
     * [minlevel](#numberedheadings-minlevel)
     * [skip](#numberedheadings-skip)
     * [start](#numberedheadings-start)
     * [omit](#numberedheadings-omit)
-* [Specials](#specials)
-  * [Using custom anchors](#using-custom-anchors)
-  * [Changing type of autoId generation](#changing-type-of-autoid-generation)
-* [Installation](#installation)
-* [Usage](#usage)
-* [CLI](#cli)
-* [Running Tests & Contributing](#running-tests--contributing)
-  * [Contribution and License Agreement](#contribution-and-license-agreement)
-* [License](#license)
-* [References](#references)
+* [2\. Specials](#2-specials)
+  * [2.1\. Using custom anchors](#21-using-custom-anchors)
+  * [2.2\. Changing type of autoId generation](#22-changing-type-of-autoid-generation)
+* [3\. Installation](#3-installation)
+* [4\. Usage](#4-usage)
+* [5\. CLI](#5-cli)
+* [6\. Running Tests & Contributing](#6-running-tests--contributing)
+  * [6.1\. Contribution and License Agreement](#61-contribution-and-license-agreement)
+* [7\. License](#7-license)
+* [8\. References](#8-references)
 
 <!-- toc! -->
 
-## Extended Markdown Syntax
+## 1\. Extended Markdown Syntax
 
 The extended markdown syntax for the preprocessor borrows from the already existing image tag.
 All commands start using a `!` followed by the command. Options for the specific command are specified in normal brackets.
@@ -57,7 +59,7 @@ All commands start using a `!` followed by the command. Options for the specific
     !<command> (<options>)
 
 
-### toc
+### 1.1\. toc
 
     !toc [([level=1-6] [minlevel=1-6] [numbered] [omit="...;..."])]
 
@@ -151,7 +153,7 @@ will result in:
 
     # Heading 2
 
-### ref
+### 1.2\. ref
 
     !ref
 
@@ -179,7 +181,7 @@ renders as:
     [markdown]: http://daringfireball.net/projects/markdown/syntax
     [GFM]: https://help.github.com/articles/github-flavored-markdown "Github-Flavored-Markdown"
 
-### include
+### 1.3\. include
 
     !include (filename [lang=...])
 
@@ -205,7 +207,7 @@ renders as
 
 Files to insert which cannot be found or recursive inset of the same file leaves the `!include` command as is.
 
-### numberedheadings
+### 1.4\. numberedheadings
 
     !numberedheadings [([level=1-6] [minlevel=1-6] [skip=1..] [start=1..] [omit="...;..."])]
 
@@ -262,9 +264,9 @@ The option `start` starts the numbering with the given number.
 
 The option `omit` omits numbering all Headings matching.
 
-## Specials
+## 2\. Specials
 
-### Using custom anchors
+### 2.1\. Using custom anchors
 
 Custom anchors can be added to headings by putting a `<a name="..."></a>` in a separate line right in front of the heading.
 
@@ -275,7 +277,7 @@ Custom anchors can be added to headings by putting a `<a name="..."></a>` in a s
 
 Instead of using the auto generated id `#heading-with-custom-id`, `#custom-heading` will be used as anchor in the ToC.
 
-### Changing type of autoId generation
+### 2.2\. Changing type of autoId generation
 
 Unfortunately there is no unique format which defines the composition of an auto identifier in markdown.
 [marked][] uses a different format then github.
@@ -298,7 +300,7 @@ markedpp(md, options, function(err, result){
 });
 ```
 
-## Installation
+## 3\. Installation
 
 For use from commandline consider global install
 
@@ -308,7 +310,7 @@ For your project
 
     npm install markedpp
 
-## Usage
+## 4\. Usage
 
 ```javascript
 var markedpp = require('markedpp'),
@@ -344,7 +346,7 @@ markedpp(md, options, function(err, result){
 });
 ```
 
-## CLI
+## 5\. CLI
 
 Standalone
 
@@ -381,7 +383,7 @@ $ markedpp --no-tags hello.md | marked
 <h2 id="1-1-hello-again">1.1. hello again</h2>
 ```
 
-## Running Tests & Contributing
+## 6\. Running Tests & Contributing
 
 If you want to submit a pull request, make sure your changes pass the tests. If you're adding a new feature, be sure to add your own test.
 
@@ -391,19 +393,19 @@ To run the tests:
 npm test
 ```
 
-### Contribution and License Agreement
+### 6.1\. Contribution and License Agreement
 
 If you contribute code to this project, you are implicitly allowing your code
 to be distributed under the MIT license. You are also implicitly verifying that
 all code is your original work.
 
-## License
+## 7\. License
 
 Copyright (c) 2014, Commenthol. (MIT License)
 
 See [LICENSE][] for more info.
 
-## References
+## 8\. References
 
 <!-- !ref -->
 

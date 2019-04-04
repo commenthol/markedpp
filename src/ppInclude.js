@@ -47,6 +47,7 @@ function ppInclude (tokens, Lexer, options, callback) {
         _options.ppInclude[token.text] = 1
         _options.dirname = path.dirname(file)
         if (err) {
+          // eslint-disable-next-line no-console
           console.error('Error: ' + err.message)
           return done()
         }
@@ -58,6 +59,7 @@ function ppInclude (tokens, Lexer, options, callback) {
         }
         ppInclude(lexer.lex(src), Lexer, _options, function (err, ntokens) {
           if (err) {
+            // eslint-disable-next-line no-console
             console.error('Error: ' + err.message)
           }
           lexed[token.text] = ntokens

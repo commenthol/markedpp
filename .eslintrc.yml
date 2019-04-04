@@ -3,4 +3,4 @@ env:
   es6: true
   mocha: true
 rules:
-  'no-console': warn
+  'no-console': error

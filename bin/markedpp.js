@@ -148,6 +148,7 @@ function main (argv, callback) {
 
     fn(data, options, function (err, data) {
       if (err) {
+        // eslint-disable-next-line no-console
         console.error('Error: ' + err.message)
       }
 

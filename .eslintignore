@@ -1,4 +1,5 @@
-coverage
-tmp
-markedpp.min.js
+coverage/
+tmp/
 test/assets
+dist/
+lib/
