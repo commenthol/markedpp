@@ -3,6 +3,8 @@ const Numbering = require('./Numbering')
 const defaults = require('./defaults')
 const anchor = require('./anchor')
 
+const REMOVENUMBER = /^([0-9]+\\?\.)+ +/
+
 /**
  * Parser
  * @constructor
@@ -39,7 +41,7 @@ Parser.prototype.parse = function (tokens) {
 
   this.updateAutoIdentifier()
 
-  var out = ''
+  let out = ''
   while (this.next()) {
     out += this.tok()
   }
@@ -66,9 +68,8 @@ Parser.prototype.peek = function () {
  * Parse references
  */
 Parser.prototype.references = function () {
-  var i
-  var refs = []
-  var uniq = {
+  const refs = []
+  const uniq = {
     title: {},
     ref: {}
   }
@@ -83,13 +84,13 @@ Parser.prototype.references = function () {
     }
   })
 
-  for (i in uniq.title) {
+  for (let i in uniq.title) {
     refs.push({
       ref: i,
       title: uniq.title[i]
     })
   }
-  for (i in uniq.ref) {
+  for (let i in uniq.ref) {
     if (!uniq.title[i]) {
       refs.push({
         ref: i,
@@ -140,8 +141,8 @@ Parser.prototype.headingAutoId = function (token, opts) {
  * Update Auto Identifiers
  */
 Parser.prototype.updateAutoIdentifier = function () {
-  var self = this
-  var headings = {}
+  const self = this
+  const headings = {}
 
   // sanitize the id before lookup
   function prep (id) {
@@ -154,14 +155,9 @@ Parser.prototype.updateAutoIdentifier = function () {
 
   // obtain headings ids
   this.tokens = this.tokens.map(function (token) {
-    var id,
-      raw
-
     if (token.type === 'heading') {
-      id = self.headingAutoId(token)
-      raw = self.headingAutoId(token, {
-        raw: true
-      })
+      const id = self.headingAutoId(token)
+      const raw = self.headingAutoId(token, { raw: true })
       headings[raw] = '#' + id
       headings[id] = '#' + id
       token.autoid = id
@@ -170,9 +166,9 @@ Parser.prototype.updateAutoIdentifier = function () {
   })
 
   this.tokens = this.tokens.map(function (token) {
-    var id
+    let id
     if (token.inline) {
-      token.inline = token.inline.map(function (token) {
+      token.inline = token.inline.map(token => {
         switch (token.type) {
           case 'link':
           case 'image':
@@ -211,14 +207,13 @@ Parser.prototype.updateAutoIdentifier = function () {
  * @param {Number} minLevel
  */
 Parser.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, omit) {
-  var REMOVENUMBER = /^([0-9]+\\?\.)+ +/
-  var omitMatch = {}
-  var skipFlag = false
-  var numbering = new Numbering(start)
+  const omitMatch = {}
+  let skipFlag = false
+  const numbering = new Numbering(start)
 
-  skip = skip || 0;
+  skip = skip || 0
 
-  (omit || []).forEach(function (key) {
+  ;(omit || []).forEach(function (key) {
     omitMatch[key] = true
   })
 
@@ -252,12 +247,6 @@ Parser.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, o
  * Parse Current Token
  */
 Parser.prototype.tok = function (options) {
-  var obj
-  var body
-  var bullet
-  var start
-  var ordered
-  var self = this
   options = options || {}
 
   switch (this.token.type) {
@@ -279,17 +268,17 @@ Parser.prototype.tok = function (options) {
     }
     case 'paragraph':
     {
-      body = '';
-      (this.token.inline || []).forEach(function (token) {
-        body += self.inlinetok(token)
+      let body = ''
+      ;(this.token.inline || []).forEach(token => {
+        body += this.inlinetok(token)
       })
       return this.renderer.paragraph(body)
     }
     case 'text':
     {
-      body = '';
-      (this.token.inline || []).forEach(function (token) {
-        body += self.inlinetok(token)
+      let body = ''
+      ;(this.token.inline || []).forEach(token => {
+        body += this.inlinetok(token)
       })
       return this.renderer.text(body)
     }
@@ -319,7 +308,7 @@ Parser.prototype.tok = function (options) {
     }
     case 'blockquote_start':
     {
-      body = ''
+      let body = ''
 
       while (this.next().type !== 'blockquote_end') {
         body += this.tok()
@@ -329,9 +318,10 @@ Parser.prototype.tok = function (options) {
     }
     case 'list_start':
     {
-      body = ''
-      ordered = this.token.ordered
-      start = this.token.start
+      let obj
+      let body = ''
+      const ordered = this.token.ordered
+      let start = this.token.start
 
       while (this.next().type !== 'list_end') {
         if (this.options.autonumber && ordered) {
@@ -346,8 +336,8 @@ Parser.prototype.tok = function (options) {
     }
     case 'list_item_start':
     {
-      body = ''
-      bullet = this.token.text
+      let body = ''
+      let bullet = this.token.text
       if (options.start) {
         bullet = options.start + '.'
       }
@@ -359,8 +349,8 @@ Parser.prototype.tok = function (options) {
     }
     case 'loose_item_start':
     {
-      body = ''
-      bullet = this.token.text
+      let body = ''
+      let bullet = this.token.text
       if (options.start) {
         bullet = options.start + '.'
       }
@@ -396,9 +386,9 @@ Parser.prototype.tok = function (options) {
     }
     case 'ppinclude_start':
     {
-      body = ''
+      let body = ''
       if (this.token.tags) {
-        var indent = this.token.indent.replace('\t', '    ').length
+        const indent = this.token.indent.replace('\t', '    ').length
         body += '<!-- include (' + this.token.text.replace(/ /g, '\\ ') +
             (this.token.lang ? ' lang=' + this.token.lang : '') +
             (indent ? ' indent=' + indent.toString() : '') +
@@ -411,7 +401,7 @@ Parser.prototype.tok = function (options) {
     }
     case 'ppinclude_end':
     {
-      body = ''
+      let body = ''
       if (typeof this.token.lang === 'string') {
         body += this.renderer.fence()
       }
@@ -522,7 +512,7 @@ Parser.prototype.inlinetok = function (token) {
  * @return {String} preprocessed markdown
  */
 Parser.parse = function (tokens, options) {
-  var parser = new Parser(options)
+  const parser = new Parser(options)
   return parser.parse(tokens)
 }
 

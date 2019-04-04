@@ -1,9 +1,5 @@
 /* globals XMLHttpRequest,location */
 
-const {
-  merge
-} = require('./utils')
-
 /*
  * code from <https://github.com/joyent/node/blob/master/lib/path.js>
  * @credits Joyent
@@ -11,9 +7,9 @@ const {
 const path = {
   normalizeArray: function (parts, allowAboveRoot) {
     // if the path tries to go above the root, `up` ends up > 0
-    var up = 0
-    for (var i = parts.length - 1; i >= 0; i--) {
-      var last = parts[i]
+    let up = 0
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const last = parts[i]
       if (last === '.') {
         parts.splice(i, 1)
       } else if (last === '..') {
@@ -35,11 +31,11 @@ const path = {
     return parts
   },
   resolve: function () {
-    var resolvedPath = ''
-    var resolvedAbsolute = false
+    let resolvedPath = ''
+    let resolvedAbsolute = false
 
-    for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-      var path = (i >= 0) ? arguments[i] : '/'
+    for (let i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+      const path = (i >= 0) ? arguments[i] : '/'
 
       // Skip empty and invalid entries
       if (!path) {
@@ -65,9 +61,9 @@ const path = {
     return this.splitPathRe.exec(filename).slice(1)
   },
   dirname: function (path) {
-    var result = this.splitPath(path)
-    var root = result[0]
-    var dir = result[1]
+    const result = this.splitPath(path)
+    const root = result[0]
+    let dir = result[1]
 
     if (!root && !dir) {
       // No dirname whatsoever
@@ -97,9 +93,9 @@ const async = {
       if (!arr.length || limit <= 0) {
         return callback()
       }
-      var completed = 0
-      var started = 0
-      var running = 0;
+      let completed = 0
+      let started = 0
+      let running = 0;
 
       (function replenish () {
         if (completed >= arr.length) {
@@ -128,7 +124,7 @@ const async = {
     }
   },
   eachLimit: function (arr, limit, iterator, callback) {
-    var fn = this._eachLimit(limit)
+    const fn = this._eachLimit(limit)
     fn(arr, iterator, callback)
   }
 }
@@ -143,11 +139,10 @@ function xhr (url, options, callback) {
     callback = options
     options = null
   }
-  var o = options || {}
-  var req = new XMLHttpRequest()
-  var method = o.method || 'get'
-  var params = o.data || null
-  var key
+  const o = options || {}
+  const req = new XMLHttpRequest()
+  const method = o.method || 'get'
+  const params = o.data || null
 
   req.queryString = params
   req.open(method, url, true)
@@ -157,7 +152,7 @@ function xhr (url, options, callback) {
     req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
   }
 
-  for (key in o.headers) {
+  for (let key in o.headers) {
     if (o.headers.hasOwnProperty(key)) {
       req.setRequestHeader(key, o.headers[key])
     }
@@ -192,9 +187,9 @@ function xhr (url, options, callback) {
  * @param {Function} callback - `function(err, tokens)`
  */
 function ppInclude (tokens, Lexer, options, callback) {
-  var dirname = options.dirname || path.dirname(location.pathname)
-  var lexed = {}
-  var _options = merge({}, options)
+  const dirname = options.dirname || path.dirname(location.pathname)
+  const lexed = {}
+  const _options = Object.assign({}, options)
   _options.tags = false
 
   // ppInclude is used to detect recursions
@@ -206,8 +201,8 @@ function ppInclude (tokens, Lexer, options, callback) {
     if (token.type === 'ppinclude' &&
         typeof token.text === 'string' &&
         !_options.ppInclude[token.text]) {
-      var path_ = path.resolve(path.join(dirname, token.text))
-      var url = location.protocol + '//' + location.host + path_
+      const path_ = path.resolve(path.join(dirname, token.text))
+      const url = location.protocol + '//' + location.host + path_
 
       xhr(url, function (err, src) {
         _options.ppInclude[token.text] = 1
@@ -217,8 +212,8 @@ function ppInclude (tokens, Lexer, options, callback) {
           console.log('Error: ' + err.message)
           return done()
         }
-        var lexer = new Lexer(_options)
-        var sep = '\n' + token.indent
+        const lexer = new Lexer(_options)
+        const sep = '\n' + token.indent
         src = token.indent + src.split('\n').join(sep)
         if (src.substr(0 - sep.length) === sep) {
           src = src.substr(0, src.length - sep.length + 1)
@@ -236,7 +231,7 @@ function ppInclude (tokens, Lexer, options, callback) {
     }
   },
   function () {
-    var _tokens = []
+    const _tokens = []
 
     // compose the new tokens array
     tokens.forEach(function (token) {
@@ -251,7 +246,7 @@ function ppInclude (tokens, Lexer, options, callback) {
           tags: options.tags
         })
         lexed[token.text].forEach(function (token) {
-          _tokens.push(merge({}, token)) // clone tokens!
+          _tokens.push(Object.assign({}, token)) // clone tokens!
         })
         _tokens.push({
           type: 'ppinclude_end',

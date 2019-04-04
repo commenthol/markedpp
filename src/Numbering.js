@@ -14,7 +14,7 @@ function Numbering (init) {
  * @param {Number} level
  */
 Numbering.prototype.reset = function (level) {
-  for (var i = level + 1; i < this._.length; i++) {
+  for (let i = level + 1; i < this._.length; i++) {
     this._[i] = 0
   }
 }
@@ -25,10 +25,9 @@ Numbering.prototype.reset = function (level) {
  * @return {String} number
  */
 Numbering.prototype.val = function (level) {
-  var i
-  var out = this._[1]
+  let out = this._[1]
 
-  for (i = 2; i <= level; i++) {
+  for (let i = 2; i <= level; i++) {
     out += '.' + this._[i]
   }
   return out + '\\.'

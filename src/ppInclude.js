@@ -15,9 +15,6 @@
 const fs = require('fs')
 const path = require('path')
 const async = require('asyncc')
-const {
-  merge
-} = require('./utils')
 
 /**
  * Include and Lex files
@@ -27,9 +24,9 @@ const {
  * @param {Function} callback - `function(err, tokens)`
  */
 function ppInclude (tokens, Lexer, options, callback) {
-  var dirname = options.dirname || process.cwd()
-  var lexed = {}
-  var _options = merge({}, options)
+  const dirname = options.dirname || process.cwd()
+  const lexed = {}
+  const _options = Object.assign({}, options)
   _options.tags = false
 
   // ppInclude is used to detect recursions
@@ -42,7 +39,7 @@ function ppInclude (tokens, Lexer, options, callback) {
       typeof token.text === 'string' &&
       !_options.ppInclude[token.text]
     ) {
-      var file = path.resolve(path.join(dirname, token.text))
+      const file = path.resolve(path.join(dirname, token.text))
       fs.readFile(file, 'utf8', function (err, src) {
         _options.ppInclude[token.text] = 1
         _options.dirname = path.dirname(file)
@@ -51,8 +48,8 @@ function ppInclude (tokens, Lexer, options, callback) {
           console.error('Error: ' + err.message)
           return done()
         }
-        var lexer = new Lexer(_options)
-        var sep = '\n' + token.indent
+        const lexer = new Lexer(_options)
+        const sep = '\n' + token.indent
         src = token.indent + src.split('\n').join(sep)
         if (src.substr(0 - sep.length) === sep) {
           src = src.substr(0, src.length - sep.length + 1)
@@ -71,7 +68,7 @@ function ppInclude (tokens, Lexer, options, callback) {
     }
   },
   function (/* err */) {
-    var _tokens = []
+    const _tokens = []
 
     // compose the new tokens array
     tokens.forEach(function (token) {
@@ -86,7 +83,7 @@ function ppInclude (tokens, Lexer, options, callback) {
           tags: options.tags
         })
         lexed[token.text].forEach(function (token) {
-          _tokens.push(merge({}, token)) // clone tokens!
+          _tokens.push(Object.assign({}, token)) // clone tokens!
         })
         _tokens.push({
           type: 'ppinclude_end',

@@ -6,7 +6,7 @@
 
 'use strict'
 
-var emojiRegex = require('emoji-regex')
+const emojiRegex = require('emoji-regex')
 
 // https://github.com/joyent/node/blob/192192a09e2d2e0d6bdd0934f602d2dbbf10ed06/tools/doc/html.js#L172-L183
 function getNodejsId (text, repetition) {
@@ -81,6 +81,18 @@ function getGhostId (text) {
   return text
 }
 
+function asciiOnlyToLowerCase (input) {
+  let result = ''
+  for (let i = 0; i < input.length; ++i) {
+    if (input[i] >= 'A' && input[i] <= 'Z') {
+      result += input[i].toLowerCase()
+    } else {
+      result += input[i]
+    }
+  }
+  return result
+}
+
 // see: https://github.com/gitlabhq/gitlabhq/blob/master/doc/user/markdown.md#header-ids-and-links
 function getGitlabId (text, repetition) {
   text = text
@@ -113,7 +125,7 @@ function getGitlabId (text, repetition) {
  */
 module.exports = function anchorMarkdownHeader (header, mode, repetition, moduleName) {
   mode = mode || 'github.com'
-  var replace
+  let replace
 
   switch (mode) {
     case 'github':
@@ -143,19 +155,7 @@ module.exports = function anchorMarkdownHeader (header, mode, repetition, module
       throw new Error('Unknown mode: ' + mode)
   }
 
-  function asciiOnlyToLowerCase (input) {
-    var result = ''
-    for (var i = 0; i < input.length; ++i) {
-      if (input[i] >= 'A' && input[i] <= 'Z') {
-        result += input[i].toLowerCase()
-      } else {
-        result += input[i]
-      }
-    }
-    return result
-  }
-
-  var href = replace(asciiOnlyToLowerCase(header.trim()), repetition)
+  const href = replace(asciiOnlyToLowerCase(header.trim()), repetition)
 
   return encodeURI(href)
 }

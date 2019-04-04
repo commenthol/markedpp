@@ -18,7 +18,7 @@ function replace (regex, opt) {
 /*
  * block lexer rules
  */
-var block = {
+const block = {
   newline: /^\n+/,
   code: /^( {4}[^\n]+\n*)+/,
   fences: noop,
@@ -100,7 +100,7 @@ block.opts.gfm = {
 /*
  * preprocessor rules
  */
-var preproc = {
+const preproc = {
   _ppopts_: / ?(?:\(([^)]+)\))?/,
 
   ppinclude: /^( *)(?:!(?:include)_ppopts_|_ppinclude_|_ppincludeCompat_) *(?:\n|$)/,
@@ -163,7 +163,7 @@ block.opts.ref = {
 /*
  * inline lexer rules
  */
-var inline = {
+const inline = {
   escape: /^\\([\\`*{}[\]()#+\-.!_>])/,
   autolink: /^<([^ >]+(@|:\/)[^ >]+)>/,
   url: noop,

@@ -4,10 +4,13 @@ const {
 } = require('./rules')
 const {
   int,
-  merge,
   repeat
 } = require('./utils')
 const defaults = require('./defaults')
+
+const KEY = /^(.+)$/
+const KEYVALUE = /^([a-z0-9]+)=(.*)$/
+const KEYVALUES = /^([a-z0-9]+)=(["'])(.*?)\2$/
 
 /**
  * Lexer
@@ -19,19 +22,19 @@ function Lexer (options) {
   this.options = options || defaults
   this.rules = block
   if (this.options.gfm) {
-    merge(this.rules, block.opts.gfm)
+    Object.assign(this.rules, block.opts.gfm)
   }
   if (this.options.include) {
-    merge(this.rules, block.opts.include)
+    Object.assign(this.rules, block.opts.include)
   }
   if (this.options.numberedheadings) {
-    merge(this.rules, block.opts.numberedheadings)
+    Object.assign(this.rules, block.opts.numberedheadings)
   }
   if (this.options.toc) {
-    merge(this.rules, block.opts.toc)
+    Object.assign(this.rules, block.opts.toc)
   }
   if (this.options.ref) {
-    merge(this.rules, block.opts.ref)
+    Object.assign(this.rules, block.opts.ref)
   }
 }
 
@@ -369,8 +372,8 @@ Lexer.rules = block
  * @param {Function} callback - `function(err, tokens)`
  */
 Lexer.lex = function (ppInclude, src, options, callback) {
-  var lexer = new Lexer(options)
-  var tokens = lexer.lex(src) // returns the lexed tokens
+  const lexer = new Lexer(options)
+  const tokens = lexer.lex(src) // returns the lexed tokens
   ppInclude(tokens, Lexer, options, function (err, tokens) {
     callback(err, tokens, options)
   })
@@ -381,14 +384,11 @@ Lexer.lex = function (ppInclude, src, options, callback) {
  * @param {String} str - string to split into key-value pairs
  */
 Lexer.splitOpts = function (str) {
-  var opts = {}
-  var sep
-  var tmp = ''
-  var KEY = /^(.+)$/
-  var KEYVALUE = /^([a-z0-9]+)=(.*)$/
-  var KEYVALUES = /^([a-z0-9]+)=(["'])(.*?)\2$/;
+  const opts = {}
+  let sep
+  let tmp = ''
 
-  (str || '').split(' ').forEach(function (s) {
+  ;(str || '').split(' ').forEach(function (s) {
     if (/\\$|^["'].*[^"']$/.test(s) || (sep && !sep.test(s))) {
       tmp += s + ' '
       return
@@ -409,7 +409,7 @@ Lexer.splitOpts = function (str) {
         opts[key] = value.split(';')
         opts[key] = opts[key].map(function (value) {
           if (/^\d+$/.test(value)) {
-            var tmp = parseInt(value, 10)
+            const tmp = parseInt(value, 10)
             if (!isNaN(tmp)) {
               value = tmp
             }
@@ -422,7 +422,7 @@ Lexer.splitOpts = function (str) {
       })
     } else if (KEYVALUE.test(s)) {
       s.replace(KEYVALUE, function (m, key, value) {
-        var tmp = parseInt(value, 10)
+        const tmp = parseInt(value, 10)
         if (!isNaN(tmp)) {
           value = tmp
         }

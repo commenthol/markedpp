@@ -14,7 +14,6 @@ const Lexer = require('./Lexer')
 const InlineLexer = require('./InlineLexer')
 const Parser = require('./Parser')
 const Renderer = require('./Renderer')
-const { merge } = require('./utils')
 const defaults = require('./defaults')
 
 /**
@@ -35,14 +34,14 @@ function markedpp (src, options, callback) {
     options = null
   }
 
-  options = merge({}, defaults, options || {})
+  options = Object.assign({}, defaults, options || {})
 
   Lexer.lex(markedpp.ppInclude, src, options, function (err, tokens) {
-    if (err) {
-      // TODO
+    let out = tokens
+    if (!err && tokens) {
+      out = Parser.parse(tokens, options)
     }
-    var out = Parser.parse(tokens, options)
-    callback(null, out)
+    callback(err, out)
   })
 }
 
@@ -54,6 +53,5 @@ markedpp.Lexer = Lexer
 markedpp.InlineLexer = InlineLexer
 markedpp.Renderer = Renderer
 markedpp.Parser = Parser
-markedpp.merge = merge
 
 module.exports = markedpp

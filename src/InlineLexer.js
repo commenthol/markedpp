@@ -1,5 +1,4 @@
 const { inline } = require('./rules')
-const { merge } = require('./utils')
 const defaults = require('./defaults')
 
 /**
@@ -11,10 +10,10 @@ function InlineLexer (options) {
   this.options = options || defaults
   this.rules = inline
   if (this.options.gfm) {
-    merge(this.rules, inline.opts.gfm)
+    Object.assign(this.rules, inline.opts.gfm)
   }
   if (this.options.breaks) {
-    merge(this.rules, inline.opts.gfm, inline.opts.breaks)
+    Object.assign(this.rules, inline.opts.gfm, inline.opts.breaks)
   }
 }
 
@@ -27,7 +26,7 @@ InlineLexer.rules = inline
 * Static Lexing
 */
 InlineLexer.lex = function (src, options) {
-  var inline = new InlineLexer(options)
+  const inline = new InlineLexer(options)
   return inline.lex(src)
 }
 
@@ -35,7 +34,7 @@ InlineLexer.lex = function (src, options) {
 * Lexing
 */
 InlineLexer.prototype.lex = function (src) {
-  var cap
+  let cap
 
   while (src) {
     // escape
