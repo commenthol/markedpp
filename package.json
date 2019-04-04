@@ -37,7 +37,8 @@
     "test": "mocha"
   },
   "dependencies": {
-    "asyncc": "^2.0.3"
+    "asyncc": "^2.0.3",
+    "emoji-regex": "^8.0.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",

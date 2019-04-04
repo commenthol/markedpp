@@ -209,7 +209,11 @@ describe('all together', function () {
   })
 
   it('read all.md not outputting tags using github ids', function (done) {
-    u.run('all_notags.md', done, { tags: false, anchor: 'github' })
+    u.run('all.md', done, { tags: false, anchor: 'github' }, 'all_notags.md')
+  })
+
+  it('read all.md not adding autoid', function (done) {
+    u.run('all.md', done, { autoid: true }, 'all_autoid.md')
   })
 })
 
@@ -247,7 +251,7 @@ describe('headingAutoId', function () {
       text: 'mergeExt(opts, opts.ignoreNull, opts.ignoreCircular, target, source)'
     }
     var parser = new markedpp.Parser()
-    var exp = '#mergeext-opts-opts-ignorenull-opts-ignorecircular-target-source-'
+    var exp = 'mergeext-opts-opts-ignorenull-opts-ignorecircular-target-source-'
     var res = parser.headingAutoId(token)
     assert.strictEqual(res, exp)
   })
@@ -257,7 +261,7 @@ describe('headingAutoId', function () {
       text: 'mergeExt(opts, opts.ignoreNull, opts.ignoreCircular, target, source)'
     }
     var parser = new markedpp.Parser({ github: true })
-    var exp = '#mergeextopts-optsignorenull-optsignorecircular-target-source'
+    var exp = 'mergeextopts-optsignorenull-optsignorecircular-target-source'
     var res = parser.headingAutoId(token)
     assert.strictEqual(res, exp)
   })
@@ -267,7 +271,7 @@ describe('headingAutoId', function () {
       text: 'Running Tests & Contributing'
     }
     var parser = new markedpp.Parser({ anchor: 'github' })
-    var exp = '#running-tests--contributing'
+    var exp = 'running-tests--contributing'
     var res = parser.headingAutoId(token)
     assert.strictEqual(res, exp)
   })

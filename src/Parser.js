@@ -166,8 +166,8 @@ Parser.prototype.updateAutoIdentifier = function () {
       raw = self.headingAutoId(token, {
         raw: true
       })
-      headings[raw] = id
-      headings[id] = id
+      headings[raw] = '#' + id
+      headings[id] = '#' + id
       token.autoid = id
     }
     return token

@@ -266,6 +266,8 @@ Renderer.prototype.tableOfContents = function (toc, options) {
   var level = options.level || defaults.level // standard depth of TOC
   var minlevel = options.minlevel || defaults.minlevel //
 
+  const renderLink = (text, autoid) => '[' + self.sanitizeHeadings(text) + '](#' + autoid + ')'
+
   out = toc.filter(function (t) {
     if (t.depth <= level && t.depth >= minlevel) {
       return true
@@ -298,11 +300,9 @@ Renderer.prototype.tableOfContents = function (toc, options) {
     if (options.numbered) {
       // render numbered list
       if (self.options.numberedHeadings) {
-        return (t.number ? t.number + ' ' : '') +
-          '[' + self.sanitizeHeadings(t.raw) + '](#' + t.autoid + ')' + br
+        return (t.number ? t.number + ' ' : '') + renderLink(t.raw, t.autoid) + br
       } else {
-        return t.number +
-          ' [' + self.sanitizeHeadings(t.text) + '](#' + t.autoid + ')' + br
+        return t.number + ' ' + renderLink(t.text, t.autoid) + br
       }
     } else {
       // render bullet list
@@ -310,8 +310,7 @@ Renderer.prototype.tableOfContents = function (toc, options) {
       for (var i = 1; i < (t.depth - minlevel + 1 || 1); i++) {
         space += '  '
       }
-      return space + '* [' +
-        self.sanitizeHeadings(t.text) + '](#' + t.autoid + ')'
+      return space + '* ' + renderLink(t.text, t.autoid)
     }
   })
 

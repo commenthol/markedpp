@@ -39,8 +39,9 @@ function ppInclude (tokens, Lexer, options, callback) {
 
   async.eachLimit(5, tokens, function (token, done) {
     if (token.type === 'ppinclude' &&
-        typeof token.text === 'string' &&
-        !_options.ppInclude[token.text]) {
+      typeof token.text === 'string' &&
+      !_options.ppInclude[token.text]
+    ) {
       var file = path.resolve(path.join(dirname, token.text))
       fs.readFile(file, 'utf8', function (err, src) {
         _options.ppInclude[token.text] = 1

@@ -1,14 +1,16 @@
 const anchor = require('./anchor-markdown-header')
 
 function getAnchor (id, mode) {
+  let _id
   if (!mode) {
     // marked mode
-    return id
+    _id = id
       .replace(/[^\w]+/g, '-')
       .toLowerCase()
   } else {
-    return anchor(id, mode)
+    _id = anchor(id, mode)
   }
+  return _id
 }
 
 module.exports = getAnchor
