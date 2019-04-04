@@ -212,7 +212,7 @@ describe('all together', function () {
     u.run('all.md', done, { tags: false, anchor: 'github' }, 'all_notags.md')
   })
 
-  it('read all.md not adding autoid', function (done) {
+  it('read all.md adding autoid', function (done) {
     u.run('all.md', done, { autoid: true }, 'all_autoid.md')
   })
 })

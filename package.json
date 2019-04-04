@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/commenthol/markedpp.git"
+    "url": "git+https://github.com/commenthol/markedpp.git"
   },
   "license": "MIT",
   "author": "commenthol <commenthol@gmail.com>",
@@ -25,9 +25,6 @@
   "browser": "lib/browser.js",
   "bin": {
     "markedpp": "./bin/markedpp.js"
-  },
-  "directories": {
-    "test": "test"
   },
   "scripts": {
     "all": "npm-run-all clean lint test build webpack",
@@ -57,6 +54,7 @@
   ],
   "dependencies": {
     "asyncc": "^2.0.3",
+    "chalk": "^2.4.2",
     "emoji-regex": "^8.0.0"
   },
   "devDependencies": {

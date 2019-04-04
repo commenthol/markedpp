@@ -5,23 +5,24 @@
 /**
  * Markdown Preprocessor CLI
  *
- * @copyright 2014 commenthol
+ * @copyright 2014- commenthol
  * @licence MIT
  *
  * @note Code inspired by `marked` project
  * @credits Christopher Jeffrey <https://github.com/chjj/marked>
  */
 
-var fs = require('fs')
-var path = require('path')
-var markedpp = require('..')
+const fs = require('fs')
+const path = require('path')
+const chalk = require('chalk')
+const markedpp = require('../src')
 
 /**
  * Helpers
  */
 function readStdin (callback) {
-  var stdin = process.stdin
-  var buff = ''
+  const stdin = process.stdin
+  let buff = ''
 
   stdin.setEncoding('utf8')
 
@@ -48,13 +49,13 @@ function readStdin (callback) {
  * Main
  */
 function main (argv, callback) {
-  var files = []
-  var options = markedpp.defaults
-  var input
-  var output
-  var arg
-  var tokens
-  var opt
+  const files = []
+  const options = markedpp.defaults
+  let input
+  let output
+  let arg
+  let tokens
+  let opt
 
   function getarg () {
     var arg = argv.shift()
@@ -87,8 +88,6 @@ function main (argv, callback) {
   while (argv.length) {
     arg = getarg()
     switch (arg) {
-      case '--test':
-        return require('../test').main(process.argv.slice())
       case '-o':
       case '--output':
         output = argv.shift()
@@ -103,7 +102,7 @@ function main (argv, callback) {
         break
       case '-h':
       case '--help':
-        return /* help(); */ // TODO
+        return help()
       default:
         if (arg.indexOf('--') === 0) {
           opt = arg.replace(/^--(no-)?/, '')
@@ -138,12 +137,12 @@ function main (argv, callback) {
   }
 
   return readData(function (err, data) {
-    var fn
+    let fn
 
     if (err) return callback(err)
 
     fn = tokens
-      ? markedpp.Lexer.lex
+      ? markedpp.Lexer.lex.bind(null, markedpp.ppInclude)
       : markedpp
 
     fn(data, options, function (err, data) {
@@ -177,4 +176,77 @@ if (!module.parent) {
   })
 } else {
   module.exports = main
+}
+
+function help () {
+  // eslint-disable-next-line no-console
+  console.log(chalk`
+{bold NAME}
+      markedpp - a markdown pre-processor
+
+{bold SYNOPSIS}
+      markedpp [options] <file.md>
+
+{bold OPTIONS}
+      -o, --output <outfile.md>
+          Specify the filename for the processed output.
+          Defaults to stdout.
+
+      -i, --input <file.md>
+          Specify the filename for markdown input.
+
+      -t, --tokens
+          Output lexed tokens as JSON array.
+
+      --no-gfm
+          Disable GFM fences.
+
+      --no-include
+          Disables \`!includes\`. No files will be included.
+
+      --no-toc
+          Disables \`!toc\`. No generation of Table-of-Contents.
+
+      --no-numberedheadings
+          Disables \`!numberedheadings\`.
+
+      --no-ref
+          Disables \`!ref\`.
+
+      --no-breaks
+          Do not render <br> tags for Table of Contents with numbered style.
+
+      --no-tags
+          Do not render pre-proc tags <!-- !command -->.
+
+      --level <number=3>
+          Change default level [1..6] for \`!toc\` and \`!numberheadings\`.
+          Default is 3.
+
+      --minlevel <number=1>
+          Change default minlevel [1..6] for \`!toc\` and \`!numberheadings\`.
+          Default is 1.
+
+      --smartlists
+          Adds a newline on joined bullet lists using different bullet chars.
+
+      --no-autonumber
+          Disable renumbering of ordered lists.
+
+      --autoid
+          Add named anchors on headings <a name="..."> anchors).
+
+      --github
+          Uses "github.com" compatible anchors.
+          Default uses marked compatible anchors.
+
+      --gitlab
+          Uses "gitlab.com" compatible anchors.
+
+      --bitbucket
+          Uses "bitbucket.org" compatible anchors.
+
+      --ghost
+          Uses "ghost.org" compatible anchors.
+  `)
 }

@@ -23,6 +23,8 @@ Renderer.prototype.heading = function (text, level, raw, number, autoid, anchor)
   var atx = ''
   if (anchor) {
     atx += '<a name="' + anchor + '"></a>\n'
+  } else if (this.options.autoid && autoid) {
+    atx += '<a name="' + autoid + '"></a>\n'
   }
   atx += '########'.substring(0, level)
   return atx + ' ' + text + '\n'

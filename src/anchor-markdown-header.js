@@ -43,6 +43,7 @@ function getGithubId (text, repetition) {
 
   // Strip emojis
   text = text.replace(emojiRegex(), '')
+
   return text
 }
 
@@ -87,7 +88,7 @@ function getGitlabId (text, repetition) {
     .replace(/!\[.*\]\(.*\)/g, '') // image tags
     .replace(/\[(.*)\]\(.*\)/, '$1') // url
     .replace(/\s+/g, '-') // All spaces are converted to hyphens
-    .replace(/[/?!:[\]`.,()*"';{}+=<>~$|#@]/g, '') // All non-word text (e.g., punctuation, HTML) is removed
+    .replace(/[/?!:[\]`.,()*"';{}+=<>~\\$|#@]/g, '') // All non-word text (e.g., punctuation, HTML) is removed
     .replace(/[。？！，、；：“”【】（）〔〕［］﹃﹄“ ”‘’﹁﹂—…－～《》〈〉「」]/g, '') // remove CJK punctuations
     .replace(/[-]+/g, '-') // duplicated hyphen
     .replace(/^-/, '') // ltrim hyphen

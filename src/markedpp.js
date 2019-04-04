@@ -37,7 +37,7 @@ function markedpp (src, options, callback) {
 
   options = merge({}, defaults, options || {})
 
-  Lexer.lex(src, markedpp.ppInclude, options, function (err, tokens) {
+  Lexer.lex(markedpp.ppInclude, src, options, function (err, tokens) {
     if (err) {
       // TODO
     }

@@ -223,7 +223,7 @@ Lexer.prototype.token = function (src, top) {
 
         // Determine whether the next list item belongs here.
         // Backpedal if it does not belong in this list.
-        if (this.options.smartLists && i !== l - 1) {
+        if (this.options.smartlists && i !== l - 1) {
           b = this.rules.bullet.exec(cap[i + 1])[0]
           if (bull !== b && !(bull.length > 1 && b.length > 1)) {
             src = cap.slice(i + 1).join('\n') + src
@@ -368,7 +368,7 @@ Lexer.rules = block
  * @param {Object} options - options to overwrite
  * @param {Function} callback - `function(err, tokens)`
  */
-Lexer.lex = function (src, ppInclude, options, callback) {
+Lexer.lex = function (ppInclude, src, options, callback) {
   var lexer = new Lexer(options)
   var tokens = lexer.lex(src) // returns the lexed tokens
   ppInclude(tokens, Lexer, options, function (err, tokens) {

@@ -133,10 +133,6 @@ Parser.prototype.headingAutoId = function (token, opts) {
 
   const _id = (!opts.raw ? token.text : token.raw || '').replace(/^#/, '')
   const id = anchor(_id, this.options.anchor)
-
-  if (this.options.autoid) {
-    token.anchor = id
-  }
   return id
 }
 
