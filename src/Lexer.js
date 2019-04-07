@@ -374,9 +374,13 @@ Lexer.rules = block
 Lexer.lex = function (ppInclude, src, options, callback) {
   const lexer = new Lexer(options)
   const tokens = lexer.lex(src) // returns the lexed tokens
-  ppInclude(tokens, Lexer, options, function (err, tokens) {
-    callback(err, tokens, options)
-  })
+  if (options.include) {
+    ppInclude(tokens, Lexer, options, function (err, tokens) {
+      callback(err, tokens, options)
+    })
+  } else {
+    callback(null, tokens, options)
+  }
 }
 
 /**

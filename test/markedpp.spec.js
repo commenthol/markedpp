@@ -23,23 +23,24 @@ var u = {
     var extname = path.extname(filename)
     filename = filename.substr(0, filename.indexOf(extname)) +
       '.exp' + extname
-    return this._load(path.join(this.dir, filename))
+    return path.join(this.dir, filename)
   },
   run: function (file, done, options, fileExp) {
     var src = u.file(file)
-    var exp = u.expected(fileExp || file)
-    var opt = options || {}
+    var expName = u.expected(fileExp || file)
+    var exp = u._load(expName)
+    var opt = options || { include: false }
 
     opt.dirname = u.dir
     markedpp(src, opt, function (err, res) {
       assert.ok(!err, err && err.message)
-      // if (res !== exp) u._write(file, res, 0)
+      // if (res !== exp) u._write(expName, res, 0)
       assert.strictEqual(res, exp, 'initial process fails')
 
       // reprocess the output - the result needs to be the same
       markedpp(exp, opt, function (err, res) {
         assert.ok(!err, err && err.message)
-        // if (res !== exp) u._write(file, res, 1)
+        // if (res !== exp) u._write(expName, res, 1)
         assert.strictEqual(res, exp, 'reprocess fails')
         done()
       })
@@ -120,10 +121,6 @@ describe('toc', function () {
     u.run('toc_omit_multiple_numbered.md', done)
   })
 
-  it('update autoid on references', function (done) {
-    u.run('toc_autoid.md', done)
-  })
-
   it('update autoid on references using numberedheadings', function (done) {
     u.run('toc_autoid.md', done)
   })
@@ -199,17 +196,17 @@ describe('numberedheadings', function () {
 
 describe('include', function () {
   it('read include.md and compare', function (done) {
-    u.run('include.md', done)
+    u.run('include.md', {}, done)
   })
 })
 
 describe('all together', function () {
   it('read all.md and compare', function (done) {
-    u.run('all.md', done)
+    u.run('all.md', {}, done)
   })
 
   it('read all.md not outputting tags using github ids', function (done) {
-    u.run('all.md', done, { tags: false, anchor: 'github' }, 'all_notags.md')
+    u.run('all.md', done, { tags: false, github: true }, 'all_notags.md')
   })
 
   it('read all.md adding autoid', function (done) {
@@ -219,7 +216,7 @@ describe('all together', function () {
 
 describe('markdown-pp syntax', function () {
   it('read markdownpp.md and compare to check compatibility', function (done) {
-    u.run('compatibility.md', done)
+    u.run('compatibility.md', { include: true }, done)
   })
 })
 
@@ -251,7 +248,7 @@ describe('headingAutoId', function () {
       text: 'mergeExt(opts, opts.ignoreNull, opts.ignoreCircular, target, source)'
     }
     var parser = new markedpp.Parser()
-    var exp = 'mergeext-opts-opts-ignorenull-opts-ignorecircular-target-source-'
+    var exp = 'mergeextopts-optsignorenull-optsignorecircular-target-source'
     var res = parser.headingAutoId(token)
     assert.strictEqual(res, exp)
   })
@@ -270,7 +267,7 @@ describe('headingAutoId', function () {
     var token = {
       text: 'Running Tests & Contributing'
     }
-    var parser = new markedpp.Parser({ anchor: 'github' })
+    var parser = new markedpp.Parser({ github: true })
     var exp = 'running-tests--contributing'
     var res = parser.headingAutoId(token)
     assert.strictEqual(res, exp)

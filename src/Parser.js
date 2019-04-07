@@ -1,7 +1,10 @@
+const InlineLexer = require('./InlineLexer')
 const Renderer = require('./Renderer')
 const Numbering = require('./Numbering')
 const defaults = require('./defaults')
-const anchor = require('./anchor')
+const Anchor = require('./Anchor')
+const { MODE } = require('./anchorSlugger')
+MODE.UNIFIED = 'unified'
 
 const REMOVENUMBER = /^([0-9]+\\?\.)+ +/
 
@@ -21,9 +24,19 @@ function Parser (options) {
   this.renderer = this.options.renderer
   this.renderer.options = this.options
 
-  this.options.anchor = this.options.anchor ||
-    ['ghost', 'bitbucket', 'gitlab', 'github']
-      .map(k => this.options[k] && k).filter(k => k)[0]
+  this.anchorMode = [
+    MODE.GHOST,
+    MODE.BITBUCKET,
+    MODE.GITLAB,
+    MODE.GITHUB,
+    MODE.PANDOC,
+    MODE.UNIFIED,
+    MODE.MARKDOWNIT,
+    MODE.MARKED
+  ].map(k => this.options[k] && k).filter(k => k)[0]
+  if (this.anchorMode === MODE.UNIFIED) {
+    this.anchorMode = MODE.GITHUB
+  } this._anchors = new Anchor(this.anchorMode)
 }
 
 /**
@@ -106,7 +119,7 @@ Parser.prototype.references = function () {
  * Parse Table of Contents
  */
 Parser.prototype.tableOfContents = function () {
-  return this.tokens.filter(function (token) {
+  return this.tokens.filter(token => {
     if (token.type === 'heading') {
       return true
     }
@@ -132,8 +145,13 @@ Parser.prototype.headingAutoId = function (token, opts) {
     return token.anchor
   }
 
-  const _id = (!opts.raw ? token.text : token.raw || '').replace(/^#/, '')
-  const id = anchor(_id, this.options.anchor)
+  const inlineText = getInlineAnchorText(token, this.anchorMode)
+  const header = (
+    opts.raw
+      ? token.raw
+      : inlineText || token.text
+  ).replace(/^#/, '')
+  const id = this._anchors.get(header, opts.inc)
   return id
 }
 
@@ -143,21 +161,20 @@ Parser.prototype.headingAutoId = function (token, opts) {
 Parser.prototype.updateAutoIdentifier = function () {
   const self = this
   const headings = {}
+  this._anchors = new Anchor(this.anchorMode)
 
   // sanitize the id before lookup
   function prep (id) {
     id = id.replace(/(?:%20|\+)/g, ' ')
-    id = self.headingAutoId({
-      text: id
-    })
+    id = self.headingAutoId({ text: id })
     return id
   }
 
   // obtain headings ids
-  this.tokens = this.tokens.map(function (token) {
+  this.tokens = this.tokens.map(token => {
     if (token.type === 'heading') {
-      const id = self.headingAutoId(token)
-      const raw = self.headingAutoId(token, { raw: true })
+      const raw = this.headingAutoId(token, { raw: true }) // needs to come first because of counter increment
+      let id = this.headingAutoId(token, { inc: true })
       headings[raw] = '#' + id
       headings[id] = '#' + id
       token.autoid = id
@@ -220,10 +237,15 @@ Parser.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, o
   maxLevel = maxLevel || defaults.level
   minLevel = minLevel || defaults.minlevel
 
-  this.tokens = this.tokens.map(function (token) {
+  this.tokens = this.tokens.map(token => {
     if (token.type === 'heading') {
       token.text = token.text.replace(REMOVENUMBER, '')
-      token.raw = token.raw.replace(REMOVENUMBER, '')
+      let tmp = token.raw.replace(REMOVENUMBER, '')
+      if (tmp !== token.raw && token.inline) {
+        // need to re-lex the inline tokens
+        token.inline = new InlineLexer(this.options).lex(tmp)
+      }
+      token.raw = tmp
 
       if (token.depth === minLevel) {
         if (skip > 0) {
@@ -236,7 +258,11 @@ Parser.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, o
 
       if (!skipFlag && !omitMatch[token.raw] && token.depth <= maxLevel && token.depth >= minLevel) {
         token.number = numbering.count(token.depth - minLevel + 1)
-        token.text = token.number + ' ' + token.text
+        const text = token.number + ' '
+        token.text = text + token.text
+        if (token.inline) {
+          token.inline.unshift({ type: 'text', text: text })
+        }
       }
     }
     return token
@@ -514,6 +540,33 @@ Parser.prototype.inlinetok = function (token) {
 Parser.parse = function (tokens, options) {
   const parser = new Parser(options)
   return parser.parse(tokens)
+}
+
+/**
+ * @api private
+ */
+function getInlineAnchorText (token, mode) {
+  if (token.inline) {
+    let text = token.inline.map(token => {
+      let text = token.text
+
+      // sanitation for different anchor modes
+      if (mode === MODE.MARKDOWNIT && token.type === 'code') {
+        text = text.replace(/`/g, '')
+      } else if ([MODE.GITHUB, MODE.GITLAB, MODE.PANDOC].includes(mode) && token.type === 'tag') {
+        text = ''
+      } else if (mode === MODE.BITBUCKET && token.type === 'escape') {
+        text = '\\' + text
+      }
+
+      return text
+    }).join('')
+
+    if (mode === MODE.PANDOC) { // no numbering!
+      text = text.replace(REMOVENUMBER, '')
+    }
+    return text
+  }
 }
 
 module.exports = Parser

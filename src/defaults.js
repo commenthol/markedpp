@@ -16,7 +16,11 @@ const defaults = {
 
   autonumber: true, // renumber lists
   autoid: false, // update identifiers on headings automatically (adds <a name=> anchors)
-  anchor: '', // anchor mode for heading auto identifiers
+  // anchor mode for heading auto identifiers
+  marked: true,
+  markdownit: false,
+  unified: false, // same as github
+  pandoc: false,
   github: false,
   gitlab: false,
   bitbucket: false,

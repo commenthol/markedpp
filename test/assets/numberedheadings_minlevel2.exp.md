@@ -7,12 +7,12 @@
 * [Table of Contents](#table-of-contents)
 * [One](#one)
   * [1\. One One](#1-one-one)
-    * [1.1\. One One One](#1-1-one-one-one)
+    * [1.1\. One One One](#11-one-one-one)
 * [Two](#two)
   * [2\. Two One](#2-two-one)
   * [3\. Two Three](#3-two-three)
   * [4\. Two Four](#4-two-four)
-    * [4.1\. Two Four One](#4-1-two-four-one)
+    * [4.1\. Two Four One](#41-two-four-one)
 * [Three](#three)
 
 <!-- toc! -->

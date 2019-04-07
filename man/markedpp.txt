@@ -55,7 +55,21 @@ OPTIONS
               Disable renumbering of ordered lists.
 
        --autoid
-              Add named anchors on headings anchors).
+              Add named anchors on headings using <a name="..."></a>.
+
+       --marked
+              Uses "marked https://npmjs.com/package/marked" markdown processor compatible anchors. This is the default.
+
+       --markdownit
+              For  markdown-it  https://npmjs.com/package/markdown-it processor using markdown-it-anchor https://npmjs.com/package/mark‐
+              down-it-anchor plugin.
+
+       --unified
+              For unified https://npmjs.com/package/unified processor using remark-slug https://npmjs.com/package/remark-slug plugin. Is
+              currently the same as --github.
+
+       --pandoc
+              For pandoc https://pandoc.org.
 
        --github
               Uses "github.com" compatible anchors. Default uses marked compatible anchors.
@@ -74,9 +88,9 @@ EXAMPLE
 
            markedpp --gitlab -o README.md README.md
 
-       Pipe from stdin:
+       Pipe from stdin to pandoc https://pandoc.org:
 
-           cat file.md | markedpp
+           cat file.md | markedpp --pandoc | pandoc
 
 INSTALLATION
        npm i -g markedpp

@@ -5,8 +5,8 @@ Display all headings in ToC up to depth=3 remove links in headings for ToC.
 <!-- !toc -->
 
 * [Table of Contents](#table-of-contents)
-* [One](#-one-one-)
-  * [One One](#-one-one-https-example-com-)
+* [One](#one)
+  * [One One](#one-one)
     * [One One One](#one-one-one)
 * [Two](#two)
   * [Two One](#two-one)

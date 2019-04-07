@@ -82,7 +82,23 @@ Disable renumbering of ordered lists\.
 .
 .TP
 \fB\-\-autoid\fR
-Add named anchors on headings anchors)\. \fI\fR
+Add named anchors on headings using \fB<a name="\.\.\."></a>\fR\.
+.
+.TP
+\fB\-\-marked\fR
+Uses "marked \fIhttps://npmjs\.com/package/marked\fR" markdown processor compatible anchors\. This is the default\.
+.
+.TP
+\fB\-\-markdownit\fR
+For markdown\-it \fIhttps://npmjs\.com/package/markdown\-it\fR processor using markdown\-it\-anchor \fIhttps://npmjs\.com/package/markdown\-it\-anchor\fR plugin\.
+.
+.TP
+\fB\-\-unified\fR
+For unified \fIhttps://npmjs\.com/package/unified\fR processor using remark\-slug \fIhttps://npmjs\.com/package/remark\-slug\fR plugin\. Is currently the same as \fB\-\-github\fR\.
+.
+.TP
+\fB\-\-pandoc\fR
+For pandoc \fIhttps://pandoc\.org\fR\.
 .
 .TP
 \fB\-\-github\fR
@@ -114,13 +130,13 @@ markedpp \-\-gitlab \-o README\.md README\.md
 .IP "" 0
 .
 .P
-Pipe from stdin:
+Pipe from stdin to pandoc \fIhttps://pandoc\.org\fR:
 .
 .IP "" 4
 .
 .nf
 
-cat file\.md | markedpp
+cat file\.md | markedpp \-\-pandoc | pandoc
 .
 .fi
 .

@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-    markedpp [options] <file.md> 
+    markedpp [options] <file.md>
 
 ## OPTIONS
 
@@ -57,7 +57,20 @@
   Disable renumbering of ordered lists.
 
 * `--autoid`:
-  Add named anchors on headings <a name="..."> anchors).
+  Add named anchors on headings using `<a name="..."></a>`.
+
+* `--marked`:
+  Uses "[marked][]" markdown processor compatible anchors. This is the default.
+
+* `--markdownit`:
+  For [markdown-it][] processor using [markdown-it-anchor][] plugin.
+
+* `--unified`:
+  For [unified][] processor using [remark-slug][] plugin.
+  Is currently the same as `--github`.
+
+* `--pandoc`:
+  For [pandoc][].
 
 * `--github`:
   Uses "github.com" compatible anchors.
@@ -78,9 +91,9 @@ Process a README.md file using gitlab anchors:
 
     markedpp --gitlab -o README.md README.md
 
-Pipe from stdin:
+Pipe from stdin to [pandoc][]:
 
-    cat file.md | markedpp
+    cat file.md | markedpp --pandoc | pandoc
 
 ## INSTALLATION
 
@@ -93,3 +106,10 @@ Copyright (c) 2014- commenthol - MIT License
 ## REPORTING BUGS
 
 markedpp repository <https://github.com/commenthol/markedpp/issues>
+
+[marked]: https://npmjs.com/package/marked
+[markdown-it]: https://npmjs.com/package/markdown-it
+[markdown-it-anchor]: https://npmjs.com/package/markdown-it-anchor
+[pandoc]: https://pandoc.org
+[unified]: https://npmjs.com/package/unified
+[remark-slug]: https://npmjs.com/package/remark-slug

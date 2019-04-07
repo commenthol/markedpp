@@ -7,3 +7,4 @@
 *.log
 *.tgz
 .nyc_output/
+test/tmp/

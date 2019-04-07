@@ -15,6 +15,8 @@ It supports the following extensions:
 * Sorted collection of References
 * Autonumbering of ordered lists
 * Automatic update of heading identifiers
+* Support for autoid for [marked][], [markdown-it][], [unified][], [pandoc][],
+  [github.com][], [gitlab.com][], [bitbucket.org][], [ghost.org][].
 
 This project is inspired by [markdown-pp][markdown-pp].
 Albeight the markdown syntax of this project here is slightly different, [markdown-pp][markdown-pp] commands can be used as well.
@@ -54,7 +56,7 @@ Albeight the markdown syntax of this project here is slightly different, [markdo
 
 ## 1\. Extended Markdown Syntax
 
-The extended markdown syntax for the preprocessor borrows from the already existing image tag.
+The extended markdown syntax for the pre-processor borrows from the already existing image tag.
 All commands start using a `!` followed by the command. Options for the specific command are specified in normal brackets.
 
     !<command> (<options>)
@@ -223,6 +225,7 @@ Add numbers on headings
 All Headings up to level 3 will get numbered. If used, this command shall be given at the very top of a document.
 
 <a name="numberedheadings-level"></a>
+
 #### 1.4.1\. level
 
 With the option `level`, the Headings level where the numbering shall be applied, can be specified.
@@ -281,12 +284,27 @@ Unfortunately there is no unique format which defines the composition of an auto
 
 Available options:
 
-```
---github      for github.com
---gitlab      for gitlab.com
---bitbucket   for bitbucket.org
---ghost       for ghost.org
-```
+* `--marked`
+  for [marked][] - is default
+* `--markdownit`
+  for [markdown-it][] parser using [markdown-it-anchor][] plugin
+* `--unified`
+  for [unified][] parser using [remark-slug][] plugin
+* `--pandoc`
+  for [pandoc][]
+* `--github`
+  for https://github.com
+* `--gitlab`
+  for https://gitlab.com
+* `--bitbucket`
+  for https://bitbucket.org
+* `--ghost`
+  for https://ghost.org
+
+For other markdown processors:
+
+* `--autoid`:
+  adds named anchors on headings using `<a name="..."></a>`.
 
 On the CLI
 
@@ -411,24 +429,38 @@ Copyright (c) 2014-, Commenthol. (MIT License)
 
 See [LICENSE][] for more info.
 
-Contains modified MIT-licensed code from [anchor-markdown-header][].
-
 ## 8\. References
 
 <!-- !ref -->
 
-* [anchor-markdown-header][anchor-markdown-header]
+* [bitbucket.org][bitbucket.org]
+* [ghost.org][ghost.org]
 * [Github-Flavored-Markdown][GFM]
+* [github.com][github.com]
+* [gitlab.com][gitlab.com]
 * [LICENSE][LICENSE]
 * [markdown][markdown]
+* [markdown-it][markdown-it]
+* [markdown-it-anchor][markdown-it-anchor]
 * [markdown-pp][markdown-pp]
 * [marked][marked]
+* [pandoc][pandoc]
+* [remark-slug][remark-slug]
+* [unified][unified]
 
 <!-- ref! -->
 
-[marked]: https://github.com/markedjs/marked
-[markdown]: http://daringfireball.net/projects/markdown/syntax
-[markdown-pp]: https://github.com/jreese/markdown-pp
 [GFM]: https://help.github.com/articles/github-flavored-markdown "Github-Flavored-Markdown"
 [LICENSE]: ./LICENSE
-[anchor-markdown-header]: https://github.com/thlorenz/anchor-markdown-header
+[markdown-it-anchor]: https://npmjs.com/package/markdown-it-anchor
+[markdown-it]: https://npmjs.com/package/markdown-it
+[markdown-pp]: https://github.com/jreese/markdown-pp
+[markdown]: http://daringfireball.net/projects/markdown/syntax
+[marked]: https://npmjs.com/package/marked
+[pandoc]: https://pandoc.org
+[remark-slug]: https://npmjs.com/package/remark-slug
+[unified]: https://npmjs.com/package/unified
+[github.com]: https://github.compare
+[gitlab.com]: https://gitlab.com
+[bitbucket.org]: https://bitbucket.org
+[ghost.org]: https://ghost.org

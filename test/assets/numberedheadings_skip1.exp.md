@@ -6,14 +6,14 @@
 
 * [Table of Contents](#table-of-contents)
 * [1\. One](#1-one)
-  * [1.1\. One One](#1-1-one-one)
-    * [1.1.1\. One One One](#1-1-1-one-one-one)
+  * [1.1\. One One](#11-one-one)
+    * [1.1.1\. One One One](#111-one-one-one)
 * [2\. Two](#2-two)
-  * [2.1\. Two One](#2-1-two-one)
-  * [2.2\. Two Two](#2-2-two-two)
-  * [2.3\. Two Three](#2-3-two-three)
-  * [2.4\. Two Four](#2-4-two-four)
-    * [2.4.1\. Two Four One](#2-4-1-two-four-one)
+  * [2.1\. Two One](#21-two-one)
+  * [2.2\. Two Two](#22-two-two)
+  * [2.3\. Two Three](#23-two-three)
+  * [2.4\. Two Four](#24-two-four)
+    * [2.4.1\. Two Four One](#241-two-four-one)
 * [3\. Three](#3-three)
 
 <!-- toc! -->

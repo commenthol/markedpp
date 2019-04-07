@@ -25,7 +25,7 @@ const block = {
   hr: /^( *[-*_]){3,} *(?:\n+|$)/,
   heading: /^headingid *(#{1,6}) *([^\n]+?) *#* *(?:\n|$)/,
   lheading: /^headingid([^\n]+)\n *(=|-){2,} *(?:\n|$)/,
-  headingid: /(?: *<a name="([^"]+)" *(?:\/>|> *<\/a>|>) *\n)?/,
+  headingid: /(?: *<a name="([^"]+)" *(?:\/>|> *<\/a>|>) *\n{1,2})?/,
   blockquote: /^( *>[^\n]+(\n(?!def)[^\n]+)*)+(?:\n|$)/,
   list: /^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n?|\s*$)/,
   html: /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
