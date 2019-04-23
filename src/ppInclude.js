@@ -64,7 +64,7 @@ function ppInclude (tokens, Lexer, options, callback) {
         })
       })
     } else {
-      done()
+      setImmediate(done)
     }
   },
   function (/* err */) {
