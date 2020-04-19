@@ -19,12 +19,12 @@ const reProcessor = reUnified()
   .use(reFormat)
   .use(reHtml)
 
-const ghost = require('ghost/core/server/lib/mobiledoc/converters/markdown-converter.js')
+const ghost = require('@tryghost/kg-markdown-html-renderer')
 
 const markedpp = require('../src')
 const { dlhtml } = require('./support')
 
-const writeHtml = 0
+const writeHtml = !!process.env.WRITE_HTML
 const SNIP_SNIP = '>snip-snip-snip<'
 
 const extractAnchors = (html, h2selector = 'h2', h2attr = 'id') => {
@@ -186,7 +186,8 @@ describe('anchors', function () {
 
   it('pandoc', function () {
     // need to manually generate file
-    // bin/markedpp.js test/assets/heading_anchors.md | pandoc > test/html/pandoc.html
+    // pandoc -v // v2.5
+    // bin/markedpp.js --pandoc test/assets/heading_anchors.md | pandoc > test/html/pandoc.html
     const file = `${__dirname}/html/pandoc.html`
     const html = fs.readFileSync(file, 'utf8')
     markedpp(rawmd, { include: false, pandoc: true }, (_err, premd) => {

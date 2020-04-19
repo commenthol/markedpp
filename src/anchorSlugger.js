@@ -76,8 +76,7 @@ function getBitbucketId (text) {
 /**
  * getGhostId - anchors used at ghost.org or in `npm i ghost`
  * @private
- * @see: https://github.com/TryGhost/Ghost/blob/master/core/server/lib/mobiledoc/converters/markdown-converter.js
- * Repetitions not supported
+ * @see https://github.com/TryGhost/Koenig/blob/master/packages/kg-markdown-html-renderer/lib/markdown-html-renderer.js
  */
 function getGhostId (text) {
   return entities.decode(text).replace(/[^a-z0-9]/ig, '')
