@@ -120,15 +120,34 @@ function getPandocId (text) {
 }
 
 /**
+ * @see https://github.com/markedjs/marked/blob/master/src/helpers.js#L30
+ */
+function unescapeMarked (html) {
+  // explicitly match decimal, hex, and named HTML entities
+  return html.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/ig, (_, n) => {
+    n = n.toLowerCase()
+    if (n === 'colon') return ':'
+    if (n.charAt(0) === '#') {
+      return n.charAt(1) === 'x'
+        ? String.fromCharCode(parseInt(n.substring(2), 16))
+        : String.fromCharCode(+n.substring(1))
+    }
+    return ''
+  })
+}
+
+/**
  * getMarkedId - anchors used in `npm i marked`
  * @private
- * @see: https://github.com/markedjs/marked/blob/master/lib/marked.js#L1306
+ * @see https://github.com/markedjs/marked/blob/master/src/Slugger.js#L19 v0.8.2
  */
 function getMarkedId (text) {
-  return entities.decode(text)
+  const _text = text.replace(/<(https?:\/\/[^>]+)>/g, '$1') // normalize links
+  return unescapeMarked(_text)
     .toLowerCase()
     .trim()
-    .replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~_]/g, '')
+    .replace(/<[!/a-z].*?>/ig, '') // remove html tags
+    .replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, '') // remove unwanted chars
     .replace(/\s/g, '-')
 }
 
