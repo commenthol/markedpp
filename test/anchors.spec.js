@@ -122,8 +122,8 @@ describe('anchors', function () {
       .then(html => {
         markedpp(rawmd, { include: false, github: true }, (_err, premd) => {
           const htmlToc = markdownIt().render(premd)
-          let { href } = extractAnchors(htmlToc)
-          let { h2 } = extractAnchors(html, 'h2 a:first-child')
+          const { href } = extractAnchors(htmlToc)
+          const { h2 } = extractAnchors(html, 'h2 a:first-child')
           if (writeHtml) {
             const p1 = htmlToc.split(SNIP_SNIP)[0]
             const p2 = html.replace(/user-content-/g, '').split(SNIP_SNIP)[1]
@@ -145,8 +145,8 @@ describe('anchors', function () {
     const html = fs.readFileSync(file, 'utf8')
     markedpp(rawmd, { include: false, gitlab: true }, (_err, premd) => {
       const htmlToc = markdownIt().render(premd)
-      let { href } = extractAnchors(htmlToc)
-      let { h2 } = extractAnchors(html, 'h2 a:first-child')
+      const { href } = extractAnchors(htmlToc)
+      const { h2 } = extractAnchors(html, 'h2 a:first-child')
       if (writeHtml) {
         const p1 = htmlToc.split(SNIP_SNIP)[0]
         const p2 = html.replace(/user-content-/g, '').split(SNIP_SNIP)[1]

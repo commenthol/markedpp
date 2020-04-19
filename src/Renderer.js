@@ -342,7 +342,7 @@ Renderer.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start,
 
 Renderer.prototype.joinOpts = function (obj) {
   const tmp = []
-  for (let key in obj) {
+  for (const key in obj) {
     let val = obj[key]
     if (val === true) {
       tmp.push(key)

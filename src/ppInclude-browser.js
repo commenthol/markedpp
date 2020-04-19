@@ -152,8 +152,8 @@ function xhr (url, options, callback) {
     req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
   }
 
-  for (let key in o.headers) {
-    if (o.headers.hasOwnProperty(key)) {
+  for (const key in o.headers) {
+    if (Object.prototype.hasOwnProperty.call(o.headers, key)) {
       req.setRequestHeader(key, o.headers[key])
     }
   }

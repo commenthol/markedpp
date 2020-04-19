@@ -32,9 +32,9 @@ describe('#Lexer.splitOpts', function () {
     var res = splitOpts(str)
     var exp = {
       '/path/another key.js': true,
-      'key1': true,
-      'key2': false,
-      'true': true,
+      key1: true,
+      key2: false,
+      true: true,
       'spaced Title': true
     }
     assert.deepStrictEqual(res, exp)
@@ -43,7 +43,7 @@ describe('#Lexer.splitOpts', function () {
   it('single key-value pair', function () {
     var str = 'key=value'
     var res = splitOpts(str)
-    var exp = { 'key': 'value' }
+    var exp = { key: 'value' }
     assert.deepStrictEqual(res, exp)
   })
 
@@ -51,9 +51,9 @@ describe('#Lexer.splitOpts', function () {
     var str = 'key=value another=val number=42'
     var res = splitOpts(str)
     var exp = {
-      'key': 'value',
-      'another': 'val',
-      'number': 42
+      key: 'value',
+      another: 'val',
+      number: 42
     }
     assert.deepStrictEqual(res, exp)
   })
@@ -62,8 +62,8 @@ describe('#Lexer.splitOpts', function () {
     var str = 'is="with spaces within double quotes ?" or=\'within single quotes\''
     var res = splitOpts(str)
     var exp = {
-      'is': 'with spaces within double quotes ?',
-      'or': 'within single quotes'
+      is: 'with spaces within double quotes ?',
+      or: 'within single quotes'
     }
     assert.deepStrictEqual(res, exp)
   })
@@ -72,7 +72,7 @@ describe('#Lexer.splitOpts', function () {
     var str = 'this="is;an;array"'
     var res = splitOpts(str)
     var exp = {
-      'this': [ 'is', 'an', 'array' ]
+      this: ['is', 'an', 'array']
     }
     assert.deepStrictEqual(res, exp)
   })
@@ -80,7 +80,7 @@ describe('#Lexer.splitOpts', function () {
   it('single key-value pair length=1', function () {
     var str = 'key="4 value"'
     var res = splitOpts(str)
-    var exp = { 'key': '4 value' }
+    var exp = { key: '4 value' }
     assert.deepStrictEqual(res, exp)
   })
 
@@ -88,7 +88,7 @@ describe('#Lexer.splitOpts', function () {
     var str = 'this="is;an;array with; some spaces "'
     var res = splitOpts(str)
     var exp = {
-      'this': ['is', 'an', 'array with', ' some spaces ']
+      this: ['is', 'an', 'array with', ' some spaces ']
     }
     assert.deepStrictEqual(res, exp)
   })
@@ -97,8 +97,8 @@ describe('#Lexer.splitOpts', function () {
     var str = 'this="is;an;array with; some spaces " and=\'this; is;17;another one;64\''
     var res = splitOpts(str)
     var exp = {
-      'this': ['is', 'an', 'array with', ' some spaces '],
-      'and': ['this', ' is', 17, 'another one', 64]
+      this: ['is', 'an', 'array with', ' some spaces '],
+      and: ['this', ' is', 17, 'another one', 64]
     }
     assert.deepStrictEqual(res, exp)
   })

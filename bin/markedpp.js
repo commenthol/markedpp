@@ -107,7 +107,7 @@ function main (argv, callback) {
       default:
         if (arg.indexOf('--') === 0) {
           opt = arg.replace(/^--(no-)?/, '')
-          if (!markedpp.defaults.hasOwnProperty(opt)) {
+          if (!Object.prototype.hasOwnProperty.call(markedpp.defaults, opt)) {
             continue
           }
           if (arg.indexOf('--no-') === 0) {
@@ -138,11 +138,9 @@ function main (argv, callback) {
   }
 
   return readData(function (err, data) {
-    let fn
-
     if (err) return callback(err)
 
-    fn = tokens
+    const fn = tokens
       ? markedpp.Lexer.lex.bind(null, markedpp.ppInclude)
       : markedpp
 

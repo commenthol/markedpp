@@ -38,7 +38,7 @@ function createConfig (options) {
     mode: isProd ? 'production' : 'development',
     devtool: 'sourcemap',
     entry: {
-      'markedpp': [
+      markedpp: [
         // '@babel/polyfill',
         './src/browser.js'
       ]

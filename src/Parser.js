@@ -97,13 +97,13 @@ Parser.prototype.references = function () {
     }
   })
 
-  for (let i in uniq.title) {
+  for (const i in uniq.title) {
     refs.push({
       ref: i,
       title: uniq.title[i]
     })
   }
-  for (let i in uniq.ref) {
+  for (const i in uniq.ref) {
     if (!uniq.title[i]) {
       refs.push({
         ref: i,
@@ -174,7 +174,7 @@ Parser.prototype.updateAutoIdentifier = function () {
   this.tokens = this.tokens.map(token => {
     if (token.type === 'heading') {
       const raw = this.headingAutoId(token, { raw: true }) // needs to come first because of counter increment
-      let id = this.headingAutoId(token, { inc: true })
+      const id = this.headingAutoId(token, { inc: true })
       headings[raw] = '#' + id
       headings[id] = '#' + id
       token.autoid = id
@@ -240,7 +240,7 @@ Parser.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, o
   this.tokens = this.tokens.map(token => {
     if (token.type === 'heading') {
       token.text = token.text.replace(REMOVENUMBER, '')
-      let tmp = token.raw.replace(REMOVENUMBER, '')
+      const tmp = token.raw.replace(REMOVENUMBER, '')
       if (tmp !== token.raw && token.inline) {
         // need to re-lex the inline tokens
         token.inline = new InlineLexer(this.options).lex(tmp)
