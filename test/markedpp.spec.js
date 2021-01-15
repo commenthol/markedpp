@@ -2,13 +2,13 @@
 
 /* global describe, it */
 
-var fs = require('fs')
-var path = require('path')
-var assert = require('assert')
-var markedpp = require('../src')
+const fs = require('fs')
+const path = require('path')
+const assert = require('assert')
+const markedpp = require('../src')
 
 /* a utility for loading the test files */
-var u = {
+const u = {
   dir: path.resolve(__dirname, './assets'),
   _load: function (filename) {
     return fs.readFileSync(filename, 'utf8')
@@ -20,16 +20,16 @@ var u = {
     return this._load(path.resolve(this.dir, filename))
   },
   expected: function (filename) {
-    var extname = path.extname(filename)
+    const extname = path.extname(filename)
     filename = filename.substr(0, filename.indexOf(extname)) +
       '.exp' + extname
     return path.join(this.dir, filename)
   },
   run: function (file, done, options, fileExp) {
-    var src = u.file(file)
-    var expName = u.expected(fileExp || file)
-    var exp = u._load(expName)
-    var opt = options || { include: false }
+    const src = u.file(file)
+    const expName = u.expected(fileExp || file)
+    const exp = u._load(expName)
+    const opt = options || { include: false }
 
     opt.dirname = u.dir
     markedpp(src, opt, function (err, res) {
@@ -244,32 +244,32 @@ describe('parser', function () {
 
 describe('headingAutoId', function () {
   it('marked', function () {
-    var token = {
+    const token = {
       text: 'mergeExt(opts, opts.ignoreNull, opts.ignoreCircular, target, source)'
     }
-    var parser = new markedpp.Parser()
-    var exp = 'mergeextopts-optsignorenull-optsignorecircular-target-source'
-    var res = parser.headingAutoId(token)
+    const parser = new markedpp.Parser()
+    const exp = 'mergeextopts-optsignorenull-optsignorecircular-target-source'
+    const res = parser.headingAutoId(token)
     assert.strictEqual(res, exp)
   })
 
   it('github', function () {
-    var token = {
+    const token = {
       text: 'mergeExt(opts, opts.ignoreNull, opts.ignoreCircular, target, source)'
     }
-    var parser = new markedpp.Parser({ github: true })
-    var exp = 'mergeextopts-optsignorenull-optsignorecircular-target-source'
-    var res = parser.headingAutoId(token)
+    const parser = new markedpp.Parser({ github: true })
+    const exp = 'mergeextopts-optsignorenull-optsignorecircular-target-source'
+    const res = parser.headingAutoId(token)
     assert.strictEqual(res, exp)
   })
 
   it('github &ampersand', function () {
-    var token = {
+    const token = {
       text: 'Running Tests & Contributing'
     }
-    var parser = new markedpp.Parser({ github: true })
-    var exp = 'running-tests--contributing'
-    var res = parser.headingAutoId(token)
+    const parser = new markedpp.Parser({ github: true })
+    const exp = 'running-tests--contributing'
+    const res = parser.headingAutoId(token)
     assert.strictEqual(res, exp)
   })
 })

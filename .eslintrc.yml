@@ -4,3 +4,4 @@ env:
   mocha: true
 rules:
   'no-console': error
+  'node/no-path-concat': off

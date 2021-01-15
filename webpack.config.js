@@ -14,16 +14,16 @@ const isProd = true
 
 const variants = doAnalyze
   ? {
-    target: [
-      ['commonjs']
-    ]
-  }
+      target: [
+        ['commonjs']
+      ]
+    }
   : {
-    minified: isProd ? [true] : [false],
-    target: [
-      ['umd', 'markedpp']
-    ]
-  }
+      minified: isProd ? [true] : [false],
+      target: [
+        ['umd', 'markedpp']
+      ]
+    }
 
 rimraf('./dist')
 

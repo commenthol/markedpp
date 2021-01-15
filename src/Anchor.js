@@ -17,7 +17,7 @@ class Anchor {
         this._fn = (...args) => this._inc('-', ...args)
         break
       case MODE.MARKDOWNIT:
-        this._startCnt = 1
+        this._startCnt = 0
         this._fn = (...args) => this._inc('-', ...args)
         break
       case MODE.GHOST:
