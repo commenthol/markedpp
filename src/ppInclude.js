@@ -15,6 +15,7 @@
 const fs = require('fs')
 const path = require('path')
 const async = require('asyncc')
+const { geturl } = require("plantuml-api");
 
 /**
  * Include and Lex files
@@ -48,20 +49,38 @@ function ppInclude (tokens, Lexer, options, callback) {
           console.error('Error: ' + err.message)
           return done()
         }
-        const lexer = new Lexer(_options)
-        const sep = '\n' + token.indent
-        src = token.indent + src.split('\n').join(sep)
-        if (src.substr(0 - sep.length) === sep) {
-          src = src.substr(0, src.length - sep.length + 1)
-        }
-        ppInclude(lexer.lex(src), Lexer, _options, function (err, ntokens) {
-          if (err) {
-            // eslint-disable-next-line no-console
-            console.error('Error: ' + err.message)
+        // If the include is a PlantUML file,
+        // generate a link to build the UML
+        // image and add it to the document.
+        if (file.includes(".puml")) {
+           const exists = fs.existsSync(file);
+
+          if (exists) {
+            const puml = fs.readFileSync(file, 'utf8').toString();
+
+            const link = geturl(puml, "svg");
+
+            return done(null, `![Plant UML](${link})\n`);
           }
-          lexed[token.text] = ntokens
-          done()
-        })
+          else {
+            return done(new Error(`Couldn't find: ${file}`));
+          }
+        } else {
+          const lexer = new Lexer(_options)
+          const sep = '\n' + token.indent
+          src = token.indent + src.split('\n').join(sep)
+          if (src.substr(0 - sep.length) === sep) {
+            src = src.substr(0, src.length - sep.length + 1)
+          }
+          ppInclude(lexer.lex(src), Lexer, _options, function (err, ntokens) {
+            if (err) {
+              // eslint-disable-next-line no-console
+              console.error('Error: ' + err.message)
+            }
+            lexed[token.text] = ntokens
+            done()
+          })
+        }
       })
     } else {
       setImmediate(done)

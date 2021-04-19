@@ -1,0 +1,3 @@
+@startuml Class Diagram
+class A extends BaseClass
+@enduml
