@@ -17,6 +17,7 @@ It supports the following extensions:
 * Automatic update of heading identifiers
 * Support for autoid for [marked][], [markdown-it][], [unified][], [pandoc][],
   [github.com][], [gitlab.com][], [bitbucket.org][], [ghost.org][].
+* Support for rendering [plant-uml][] via the public service.
 
 This project is inspired by [markdown-pp][markdown-pp].
 Albeight the markdown syntax of this project here is slightly different, [markdown-pp][markdown-pp] commands can be used as well.
@@ -207,6 +208,22 @@ renders as
     ```javascript
     /* contents of test.js */
     ```
+
+You can include a Plant UML `*.puml` file using the same syntax.
+
+E.g.
+
+    !include(./classes.puml)
+
+renders as
+
+    ```md
+    <!-- include (./classes.puml) -->
+    ![Plant UML](http://www.plantuml.com/plantuml/svg/<<encrypted puml>>)
+    <!-- /include -->
+    ```
+
+![Plant UML](http://www.plantuml.com/plantuml/svg/SoWkIImgAStDKN3EIImkLd39J4mlIipbIWRp71LIAqfIyrAA5PmIYrF1AhWSW7oWUYu0)
 
 Files to insert which cannot be found or recursive inset of the same file leaves the `!include` command as is.
 
@@ -447,6 +464,7 @@ See [LICENSE][] for more info.
 * [pandoc][pandoc]
 * [remark-slug][remark-slug]
 * [unified][unified]
+* [plant-uml][plant-uml]
 
 <!-- ref! -->
 
@@ -464,3 +482,4 @@ See [LICENSE][] for more info.
 [gitlab.com]: https://gitlab.com
 [bitbucket.org]: https://bitbucket.org
 [ghost.org]: https://ghost.org
+[plant-uml]: https://plantuml.com/

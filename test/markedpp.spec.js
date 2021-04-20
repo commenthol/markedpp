@@ -200,11 +200,6 @@ describe('include', function () {
   })
 })
 
-describe('plant uml', function () {
-  it('read _puml.md and compare', function (done) {
-    u.run('_puml.md', done, {})
-  })
-})
 
 describe('all together', function () {
   it('read all.md and compare', function (done) {

@@ -25,7 +25,7 @@ const { geturl } = require("plantuml-api");
  * @param {Function} callback - `function(err, tokens)`
  */
 function ppInclude (tokens, Lexer, options, callback) {
-  const dirname = options.dirname || process.cwd()
+  const dirname = options.dirname || _options.dirname;
   const lexed = {}
   const _options = Object.assign({}, options)
   _options.tags = false
@@ -40,53 +40,60 @@ function ppInclude (tokens, Lexer, options, callback) {
       typeof token.text === 'string' &&
       !_options.ppInclude[token.text]
     ) {
-      const file = path.resolve(path.join(dirname, token.text))
-      fs.readFile(file, 'utf8', function (err, src) {
+      try {
+        if (!dirname) {
+          throw new Error("dirname is undefined.");
+        }
+        const file = path.resolve(path.join(dirname, token.text))
+
+        // Async reading was causing tests to fail.
+        var src = fs.readFileSync(file, 'utf8');
+
         _options.ppInclude[token.text] = 1
         _options.dirname = path.dirname(file)
-        if (err) {
-          // eslint-disable-next-line no-console
-          console.error('Error: ' + err.message)
-          return done()
-        }
+        const lexer = new Lexer(_options)
+        const sep = '\n' + token.indent
+
         // If the include is a PlantUML file,
         // generate a link to build the UML
         // image and add it to the document.
-        if (file.includes(".puml")) {
-           const exists = fs.existsSync(file);
+        if (file.includes(".puml") && src) {
+          const link = geturl(src, "svg");
 
-          if (exists) {
-            const puml = fs.readFileSync(file, 'utf8').toString();
-
-            const link = geturl(puml, "svg");
-
-            return done(null, `![Plant UML](${link})\n`);
-          }
-          else {
-            return done(new Error(`Couldn't find: ${file}`));
-          }
+          src = token.indent + `![Plant UML](${link})` + sep;
         } else {
-          const lexer = new Lexer(_options)
-          const sep = '\n' + token.indent
           src = token.indent + src.split('\n').join(sep)
+
           if (src.substr(0 - sep.length) === sep) {
             src = src.substr(0, src.length - sep.length + 1)
           }
-          ppInclude(lexer.lex(src), Lexer, _options, function (err, ntokens) {
-            if (err) {
-              // eslint-disable-next-line no-console
-              console.error('Error: ' + err.message)
-            }
-            lexed[token.text] = ntokens
-            done()
-          })
         }
-      })
+
+        ppInclude(lexer.lex(src), Lexer, _options, function (err, ntokens) {
+          if (err) {
+            // eslint-disable-next-line no-console
+            console.error('ppInclude.js - Error: ' + err.message);
+            console.error(err);
+            done();
+          }
+          else {
+            lexed[token.text] = ntokens
+            done();
+          }
+        });
+
+
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('ppInclude.js - Error: ' + err.message);
+        console.error(err);
+        return done();
+      }
     } else {
       setImmediate(done)
     }
-  },
-  function (/* err */) {
+  }, options,
+  function (err, res) {
     const _tokens = []
 
     // compose the new tokens array
@@ -114,7 +121,7 @@ function ppInclude (tokens, Lexer, options, callback) {
         _tokens.push(token)
       }
     })
-    callback(null, _tokens)
+    callback(err, _tokens)
   })
 }
 
