@@ -78,7 +78,7 @@ function getBitbucketId (text) {
  * @see https://github.com/TryGhost/Koenig/blob/master/packages/kg-markdown-html-renderer/lib/markdown-html-renderer.js
  */
 function getGhostId (text) {
-  return entities.decode(text).replace(/[^a-z0-9]/ig, '')
+  return entities.AllHtmlEntities.decode(text).replace(/[^a-z0-9]/ig, '')
 }
 
 /**
@@ -159,7 +159,7 @@ function getMarkedId (text) {
 function getMarkDownItAnchorId (text) {
   text = text
     .replace(/^[<]|[>]$/g, '') // correct markdown format bold/url
-  text = entities.decode(text)
+  text = entities.AllHtmlEntities.decode(text)
     .toLowerCase()
     .trim()
     .replace(/\s+/g, '-')

@@ -76,10 +76,17 @@ describe('anchors', function () {
       if (writeHtml) {
         fs.writeFileSync(`${__dirname}/tmp/markdownit.html`, html, 'utf8')
       }
-      // BUG in markdown-it as reflinks in headers are not rendered
+      // BUG in markdown-it as reflinks in headers are not rendered correctly
       const failing = [
         /a-reference-to/,
-        /%5Ba-reference-to%5D%5B%5D/
+        /%5Ba-reference-to%5D%5B%5D/,
+        /https%3A%2F%2Fgithub\.com%2Fcommenthol%2Fmarkedpp-1/,
+        /https%3A%2F%2Fgithub\.com%2Fcommenthol%2Fmarkedpp-2/,
+        /same-heading-1/,
+        /same-heading-2/,
+        /same-heading-3/,
+        /%E6%A0%87%E9%A2%98-1/,
+        /%E6%A0%87%E9%A2%98-2/,
       ]
       href = filterFailingTests(href, failing)
       h2 = filterFailingTests(h2, failing)

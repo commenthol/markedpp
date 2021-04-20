@@ -25,9 +25,10 @@ const { geturl } = require("plantuml-api");
  * @param {Function} callback - `function(err, tokens)`
  */
 function ppInclude (tokens, Lexer, options, callback) {
-  const dirname = options.dirname || _options.dirname;
-  const lexed = {}
   const _options = Object.assign({}, options)
+  const dirname = options.dirname;
+  const lexed = {}
+
   _options.tags = false
 
   // ppInclude is used to detect recursions
