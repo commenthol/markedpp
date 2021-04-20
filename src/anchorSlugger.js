@@ -79,6 +79,8 @@ function getBitbucketId (text) {
  */
 function getGhostId (text) {
   return entities.AllHtmlEntities?.decode(text).replace(/[^a-z0-9]/ig, '')
+    ?? entities.Html5Entities?.decode(text).replace(/[^a-z0-9]/ig, '')
+    ?? entities.Html4Entities?.decode(text).replace(/[^a-z0-9]/ig, '');
 }
 
 /**
@@ -159,10 +161,13 @@ function getMarkedId (text) {
 function getMarkDownItAnchorId (text) {
   text = text
     .replace(/^[<]|[>]$/g, '') // correct markdown format bold/url
-  text = entities.AllHtmlEntities?.decode(text)
+  text = (entities.AllHtmlEntities?.decode(text)
+    ?? entities.Html5Entities?.decode(text).replace(/[^a-z0-9]/ig, '')
+    ?? entities.Html4Entities?.decode(text).replace(/[^a-z0-9]/ig, ''));
+  text
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, '-')
+    .replace(/\s+/g, '-');
   return encodeURIComponent(text)
 }
 
