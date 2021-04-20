@@ -7,7 +7,8 @@
  */
 
 const emojiRegex = require('emoji-regex')
-const entities = require('html-entities')
+const Entities = require('html-entities').AllHtmlEntities;
+const entities = new Entities();
 
 const MODE = {
   BITBUCKET: 'bitbucket',
@@ -78,9 +79,7 @@ function getBitbucketId (text) {
  * @see https://github.com/TryGhost/Koenig/blob/master/packages/kg-markdown-html-renderer/lib/markdown-html-renderer.js
  */
 function getGhostId (text) {
-  return entities.AllHtmlEntities?.decode(text).replace(/[^a-z0-9]/ig, '')
-    ?? entities.Html5Entities?.decode(text).replace(/[^a-z0-9]/ig, '')
-    ?? entities.Html4Entities?.decode(text).replace(/[^a-z0-9]/ig, '');
+  return entities.decode(text).replace(/[^a-z0-9]/ig, '');
 }
 
 /**
@@ -160,15 +159,14 @@ function getMarkedId (text) {
  */
 function getMarkDownItAnchorId (text) {
   text = text
-    .replace(/^[<]|[>]$/g, '') // correct markdown format bold/url
-  text = (entities.AllHtmlEntities?.decode(text)
-    ?? entities.Html5Entities?.decode(text).replace(/[^a-z0-9]/ig, '')
-    ?? entities.Html4Entities?.decode(text).replace(/[^a-z0-9]/ig, ''));
-  text
+    .replace(/^[<]|[>]$/g, '');// correct markdown format bold/url
+
+  const result = entities.decode(text).replace(/[^a-z0-9]/ig, '')
     .toLowerCase()
     .trim()
     .replace(/\s+/g, '-');
-  return encodeURIComponent(text)
+
+  return encodeURIComponent(result);
 }
 
 /**
