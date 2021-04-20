@@ -24,7 +24,9 @@ const { geturl } = require("plantuml-api");
  * @param {String} options.dirname - base directory from where to search files to include (If not specified then current working directory is used)
  * @param {Function} callback - `function(err, tokens)`
  */
-function ppInclude (tokens, Lexer, options, callback) {
+function ppInclude(tokens, Lexer, options, callback) {
+  if (!options) { throw "options is nullish."; }
+  if (!options.dirname) { throw "options.dirname is nullish."; }
   const _options = Object.assign({}, options)
   const dirname = options.dirname;
   const lexed = {}
@@ -46,6 +48,10 @@ function ppInclude (tokens, Lexer, options, callback) {
           throw new Error("dirname is undefined.");
         }
         const file = path.resolve(path.join(dirname, token.text))
+
+        if (!fs.existsSync(file)) {
+          return done();
+        }
 
         // Async reading was causing tests to fail.
         var src = fs.readFileSync(file, 'utf8');

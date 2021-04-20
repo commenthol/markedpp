@@ -36,18 +36,28 @@ function markedpp (src, options, callback) {
 
   // Try very hard to get the dirname
   if (!options) {
-    options = Object.assign({}, defaults, null || {});
+    options = Object.assign({}, defaults, { dirname: callback.dirname } || {});
+    if (!options.dirname) {
+      throw new Error("dirname is nullish on options and could not be set.");
+    }
   } else {
     options = Object.assign({}, defaults, options || {});
-    if (options.include && !options.dirname) {
-      if (callback.dirname) {
-        options.dirname = callback.dirname;
-      } else {
-        throw new Error("dirname is nullish on options and could not be set.");
+    if (options.include) {
+      if (!options.dirname) {
+        if (callback.dirname) {
+          options.dirname = callback.dirname;
+        } else {
+          throw new Error("dirname is nullish on options and could not be set.");
+        }
       }
     }
   }
 
+  if (options.include) {
+    if (!options.dirname) {
+      throw new Error("options.dirname is nullish.");
+    }
+  }
 
   Lexer.lex(markedpp.ppInclude, src, options, function (err, tokens) {
     let out = tokens
