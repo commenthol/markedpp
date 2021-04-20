@@ -7,8 +7,7 @@
  */
 
 const emojiRegex = require('emoji-regex')
-const Entities = require('html-entities').AllHtmlEntities;
-const entities = new Entities();
+const entities = require('html-entities');
 
 const MODE = {
   BITBUCKET: 'bitbucket',
