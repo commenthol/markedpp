@@ -17,10 +17,10 @@ const variants = doAnalyze
     }
   : {
       minified: [false],
-      target: [['umd', 'markedppninja']]
+      target: [['umd', '@sharpninja/markedppninja']]
     }
 
-rimraf('./bin')
+rimraf('./lib')
 
 function createConfig (options) {
   const plugins = []
@@ -38,9 +38,9 @@ function createConfig (options) {
       ]
     },
     output: {
-      path: path.resolve(__dirname, 'bin'),
+      path: path.resolve(__dirname, 'lib'),
       filename: options.target[1] + '.js',
-      library: 'markedppninja',
+      library: '@sharpninja/markedppninja',
       libraryTarget: options.target[0]
     },
     resolve: {

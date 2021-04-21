@@ -1,6 +1,6 @@
 {
-  "name": "markedppninja",
-  "version": "2.0.2",
+  "name": "@sharpninja/markedppninja",
+  "version": "2.0.3",
   "repo": "gatewayprogrammingschool/markedpp",
   "description": "Preprocessor for markdown files",
   "keywords": [
@@ -13,8 +13,8 @@
     "autonumber ordered lists"
   ],
   "scripts": [
-    "lib/index.js"
+    "./lib/@sharpninja/markedppninja.js"
   ],
-  "main": "lib/index.js",
+  "main": "./lib/@sharpninja/markedppninja.js",
   "license": "MIT"
 }

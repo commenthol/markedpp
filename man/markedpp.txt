@@ -99,6 +99,6 @@ COPYRIGHT
        Copyright (c) 2014- commenthol - MIT License
 
 REPORTING BUGS
-       markedppninja repository https://github.com/commenthol/markedpp/issues
+       markedppninja repository https://github.com/gatewayprogrammingschool/markedpp/issues
 
                                                                April 2019                                                    markedppninja(1)

@@ -45,7 +45,7 @@ Some 📦📦📦.
 ```
 <!-- /include -->
 
-[markedppninja]: https://github.com/commenthol/markedpp
+[markedppninja]: https://github.com/gatewayprogrammingschool/markedpp
 
 <a name="14-chapter-2"></a>
 

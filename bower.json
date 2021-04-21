@@ -1,8 +1,8 @@
 {
-  "name": "markedppninja",
-  "version": "2.0.2",
+  "name": "@sharpninja/markedppninja",
+  "version": "2.0.3",
   "description": "Preprocessor for markdown files",
-  "main": "lib/index.js",
+  "main": "./lib/@sharpninja/markedppninja.js",
   "authors": [
     "The Sharp Ninja <ninja@thesharp.ninja>",
     "commenthol"
@@ -33,6 +33,7 @@
     "bower_components",
     "test",
     "tmp",
+    "lib",
     "*.tgz",
     "Makefile"
   ]

@@ -1,6 +1,6 @@
 {
-  "name": "markedppninja",
-  "version": "2.0.2",
+  "name": "@sharpninja/markedppninja",
+  "version": "2.0.3",
   "description": "Preprocessor for markdown files",
   "keywords": [
     "autonumber ordered lists",
@@ -21,15 +21,18 @@
   },
   "license": "MIT",
   "author": "The Sharp Ninja <ninja@thesharp.ninja>, commenthol <commenthol@gmail.com>",
-  "main": "lib/index.js",
-  "browser": "lib/browser.js",
+  "main": "./lib/@sharpninja/markedppninja.js",
   "bin": {
-    "markedppninja": "./bin/markedpp.js"
+    "@sharpninja/markedppninja": "./lib/@sharpninja/markedppninja.js"
   },
-  "man": "./man/markedpp.1",
+  "man": [
+    "./man/markedpp.1",
+    "./man/markedpp.md",
+    "./man/markedpp.txt"
+  ],
   "scripts": {
     "all": "npm-run-all clean test build",
-    "build": "webpack",
+    "build": "npm clean; webpack; npm run doc",
     "clean": "rimraf doc coverage .nyc_output dist lib",
     "coverage": "nyc -r text -r html npm test",
     "doc": "mkdir -p doc && jsdox -o doc src/*.js",
@@ -41,7 +44,7 @@
   },
   "babel": {
     "ignore": [
-      "./dist"
+      "./lib"
     ],
     "plugins": [],
     "presets": [
