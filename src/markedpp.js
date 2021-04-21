@@ -38,18 +38,18 @@ function markedpp (src, options, callback) {
 
   // Try very hard to get the dirname
   if (!options) {
-    options = Object.assign({}, defaults, { dirname: callback.dirname } || {});
+    options = Object.assign({}, defaults, { dirname: callback.dirname } || {})
     if (!options.dirname) {
-      throw new Error("dirname is nullish on options and could not be set.");
+      throw new Error('dirname is nullish on options and could not be set.')
     }
   } else {
-    options = Object.assign({}, defaults, options || {});
+    options = Object.assign({}, defaults, options || {})
     if (options.include) {
       if (!options.dirname) {
         if (callback.dirname) {
-          options.dirname = callback.dirname;
+          options.dirname = callback.dirname
         } else {
-          throw new Error("dirname is nullish on options and could not be set.");
+          throw new Error('dirname is nullish on options and could not be set.')
         }
       }
     }
@@ -57,7 +57,7 @@ function markedpp (src, options, callback) {
 
   if (options.include) {
     if (!options.dirname) {
-      throw new Error("options.dirname is nullish.");
+      throw new Error('options.dirname is nullish.')
     }
   }
 

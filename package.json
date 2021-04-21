@@ -33,7 +33,6 @@
     "clean": "rimraf doc coverage .nyc_output dist lib",
     "coverage": "nyc -r text -r html npm test",
     "doc": "mkdir -p doc && jsdox -o doc src/*.js",
-    "lint": "eslint '**/*.js'",
     "man": "make man",
     "prepublishOnly": "npm run all",
     "readme": "make readme",
