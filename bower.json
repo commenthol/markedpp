@@ -4,6 +4,7 @@
   "description": "Preprocessor for markdown files",
   "main": "lib/index.js",
   "authors": [
+    "The Sharp Ninja <ninja@thesharp.ninja>",
     "commenthol"
   ],
   "license": "MIT",

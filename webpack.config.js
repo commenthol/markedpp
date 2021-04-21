@@ -3,7 +3,6 @@
  */
 
 const path = require('path')
-// const webpack = require('webpack')
 const { createVariants } = require('parallel-webpack')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const rimraf = require('rimraf').sync
@@ -14,22 +13,17 @@ const isProd = true
 
 const variants = doAnalyze
   ? {
-      target: [
-        ['commonjs']
-      ]
-    }
+    target: [['commonjs']]
+  }
   : {
-      minified: isProd ? [true] : [false],
-      target: [
-        ['umd', 'markedpp']
-      ]
-    }
+    minified: isProd ? [true] : [false],
+    target: [['umd', 'markedpp-ninja']]
+  }
 
 rimraf('./dist')
 
 function createConfig (options) {
-  const plugins = [
-  ]
+  const plugins = []
   if (doAnalyze) {
     plugins.push(new BundleAnalyzerPlugin())
   }
@@ -45,9 +39,7 @@ function createConfig (options) {
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: options.target[1] +
-                (options.minified ? '.min' : '') +
-                '.js',
+      filename: options.target[1] + (options.minified ? '.min' : '') + '.js',
       library: 'markedpp',
       libraryTarget: options.target[0]
     },
@@ -58,16 +50,18 @@ function createConfig (options) {
       minimize: options.minified
     },
     module: {
-      rules: [{
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
+      rules: [
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
           }
         }
-      }]
+      ]
     },
     plugins
   }
