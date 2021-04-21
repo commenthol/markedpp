@@ -32,7 +32,7 @@
   ],
   "scripts": {
     "all": "npm-run-all clean test build",
-    "build": "npm clean; webpack; npm run doc",
+    "build": "npm run clean; npm run webpack; npm run doc",
     "clean": "rimraf doc coverage .nyc_output dist lib",
     "coverage": "nyc -r text -r html npm test",
     "doc": "mkdir -p doc && jsdox -o doc src/*.js",
@@ -40,7 +40,8 @@
     "prepublishOnly": "npm run all",
     "readme": "make readme",
     "test": "mocha",
-    "test:browser": "make browser"
+    "test:browser": "make browser",
+    "webpack": "webpack"
   },
   "babel": {
     "ignore": [
