@@ -28,8 +28,8 @@
   },
   "man": "./man/markedpp.1",
   "scripts": {
-    "all": "npm-run-all clean lint test build webpack",
-    "build": "babel -d lib src",
+    "all": "npm-run-all clean lint test build",
+    "build": "webpack",
     "clean": "rimraf doc coverage .nyc_output dist lib",
     "coverage": "nyc -r text -r html npm test",
     "doc": "mkdir -p doc && jsdox -o doc lib/*.js",
@@ -38,8 +38,7 @@
     "prepublishOnly": "npm run all",
     "readme": "make readme",
     "test": "mocha",
-    "test:browser": "make browser",
-    "webpack": "webpack"
+    "test:browser": "make browser"
   },
   "babel": {
     "ignore": [
