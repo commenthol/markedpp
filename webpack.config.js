@@ -41,7 +41,8 @@ function createConfig (options) {
       path: path.resolve(__dirname, 'lib'),
       filename: options.target[1] + '.js',
       library: '@sharpninja/markedppninja',
-      libraryTarget: options.target[0]
+      libraryTarget: options.target[0],
+      globalObject: 'this'
     },
     resolve: {
       // mainFields: ['browser', 'main', 'module']
