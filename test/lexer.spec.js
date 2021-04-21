@@ -1,7 +1,7 @@
 'use strict'
 
 const assert = require('assert')
-const Lexer = require('../src/markedpp').Lexer
+const Lexer = require('../src/markedppninja').Lexer
 
 describe('#Lexer.splitOpts', function () {
   const splitOpts = Lexer.splitOpts

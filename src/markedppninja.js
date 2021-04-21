@@ -1,5 +1,5 @@
 /*!
- * markedpp
+ * markedppninja
  *
  * A preprocessor for markdown files
  *
@@ -21,7 +21,7 @@ const defaults = require('./defaults')
 /**
  * Markdown Preprocessor
  *
- * @module markedpp
+ * @module markedppninja
  * @param {String} src - markdown source to preprocess
  * @param {Object} options - options
  * @param {String} options.dirname - dirname of markdown source file - required to include other files
@@ -30,7 +30,7 @@ const defaults = require('./defaults')
  * function({Error} err, {String} data)
  * ```
  */
-function markedpp (src, options, callback) {
+function markedppninja (src, options, callback) {
   if (typeof options === 'function') {
     callback = options
     options = null
@@ -61,7 +61,7 @@ function markedpp (src, options, callback) {
     }
   }
 
-  Lexer.lex(markedpp.ppInclude, src, options, function (err, tokens) {
+  Lexer.lex(markedppninja.ppInclude, src, options, function (err, tokens) {
     let out = tokens
     if (!err && tokens) {
       out = Parser.parse(tokens, options)
@@ -73,10 +73,10 @@ function markedpp (src, options, callback) {
 /**
  * exports
  */
-markedpp.defaults = defaults
-markedpp.Lexer = Lexer
-markedpp.InlineLexer = InlineLexer
-markedpp.Renderer = Renderer
-markedpp.Parser = Parser
+markedppninja.defaults = defaults
+markedppninja.Lexer = Lexer
+markedppninja.InlineLexer = InlineLexer
+markedppninja.Renderer = Renderer
+markedppninja.Parser = Parser
 
-module.exports = markedpp
+module.exports = markedppninja

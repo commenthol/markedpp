@@ -7,7 +7,7 @@
  */
 
 const emojiRegex = require('emoji-regex')
-const entities = require('html-entities');
+const entities = require('html-entities')
 
 const MODE = {
   BITBUCKET: 'bitbucket',
@@ -78,7 +78,7 @@ function getBitbucketId (text) {
  * @see https://github.com/TryGhost/Koenig/blob/master/packages/kg-markdown-html-renderer/lib/markdown-html-renderer.js
  */
 function getGhostId (text) {
-  return entities.decode(text).replace(/[^a-z0-9]/ig, '');
+  return entities.decode(text).replace(/[^a-z0-9]/ig, '')
 }
 
 /**
@@ -158,14 +158,14 @@ function getMarkedId (text) {
  */
 function getMarkDownItAnchorId (text) {
   text = text
-    .replace(/^[<]|[>]$/g, '');// correct markdown format bold/url
+    .replace(/^[<]|[>]$/g, '')// correct markdown format bold/url
 
   const result = entities.decode(text).replace(/[^a-z0-9]/ig, '')
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, '-');
+    .replace(/\s+/g, '-')
 
-  return encodeURIComponent(result);
+  return encodeURIComponent(result)
 }
 
 /**

@@ -83,9 +83,9 @@ snip-snip-snip
 
 ## [A reference to][]
 
-## [markedpp][]
+## [markedppninja][]
 
-[markedpp]: https://github.com/commenthol/markedpp
+[markedppninja]: https://github.com/commenthol/markedpp
 
 ----
 

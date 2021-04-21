@@ -333,7 +333,7 @@ markedpp --github file.md
 Or use in your options
 
 ```javascript
-var markedpp = require('markedpp'),
+var markedppninja = require('markedppninja'),
     md = '!toc\n# hello\n## hello & again',
     options = { github: true };
 
@@ -355,7 +355,7 @@ For your project
 ## 4\. Usage
 
 ```javascript
-var markedpp = require('markedpp'),
+var markedppninja = require('markedppninja'),
     md = '!numberedheadings\n!toc(level=1)\n# hello\n## hello again';
 
 markedpp(md, function(err, result){
@@ -379,7 +379,7 @@ markedpp(md, function(err, result){
 To include files the dirname need to be defined via `options`, otherwise it is assumed that the file to include is relative to the current working directory:
 
 ```javascript
-var markedpp = require('markedpp'),
+var markedppninja = require('markedppninja'),
     md = '!include(hello.md)',
     options = { dirname: __dirname };
 
@@ -400,7 +400,7 @@ $ (cat<<EOF
 ## hello again
 EOF
 ) > hello.md
-$ markedpp hello.md
+$ markedppninja hello.md
 <!-- !numberedheadings -->
 
 <!-- !toc (level=1) -->
@@ -417,7 +417,7 @@ $ markedpp hello.md
 Together with [marked][marked]
 
 ```bash
-$ markedpp --no-tags hello.md | marked
+$ markedppninja --no-tags hello.md | marked
 <ul>
 <li><a href="#1-hello">1. hello</a></li>
 </ul>

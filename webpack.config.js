@@ -16,7 +16,7 @@ const variants = doAnalyze
       target: [['commonjs']]
     }
   : {
-      minified: isProd ? [true] : [false],
+      minified: [false],
       target: [['umd', 'markedpp-ninja']]
     }
 
@@ -32,15 +32,15 @@ function createConfig (options) {
     mode: isProd ? 'production' : 'development',
     devtool: 'sourcemap',
     entry: {
-      markedpp: [
+      markedppninja: [
         // '@babel/polyfill',
         './src/browser.js'
       ]
     },
     output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: options.target[1] + (options.minified ? '.min' : '') + '.js',
-      library: 'markedpp',
+      path: path.resolve(__dirname, 'bin'),
+      filename: options.target[1] + '.js',
+      library: 'markedpp-ninja',
       libraryTarget: options.target[0]
     },
     resolve: {

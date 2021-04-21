@@ -24,7 +24,7 @@
   "main": "lib/index.js",
   "browser": "lib/browser.js",
   "bin": {
-    "markedpp": "./bin/markedpp.js"
+    "markedppninja": "./bin/markedpp.js"
   },
   "man": "./man/markedpp.1",
   "scripts": {

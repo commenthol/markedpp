@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 'use strict'
 
 /**
- * markedpp
+ * markedppninja
  *
  * Include files on node.js
  *
@@ -15,7 +16,7 @@
 const fs = require('fs')
 const path = require('path')
 const async = require('asyncc')
-const { geturl } = require("plantuml-api");
+const { geturl } = require('plantuml-api')
 
 /**
  * Include and Lex files
@@ -24,11 +25,11 @@ const { geturl } = require("plantuml-api");
  * @param {String} options.dirname - base directory from where to search files to include (If not specified then current working directory is used)
  * @param {Function} callback - `function(err, tokens)`
  */
-function ppInclude(tokens, Lexer, options, callback) {
-  if (!options) { throw "options is nullish."; }
-  if (!options.dirname) { throw "options.dirname is nullish."; }
+function ppInclude (tokens, Lexer, options, callback) {
+  if (!options) { throw new Error('options is nullish.') }
+  if (!options.dirname) { throw new Error('options.dirname is nullish.') }
   const _options = Object.assign({}, options)
-  const dirname = options.dirname;
+  const dirname = options.dirname
   const lexed = {}
 
   _options.tags = false
@@ -45,16 +46,16 @@ function ppInclude(tokens, Lexer, options, callback) {
     ) {
       try {
         if (!dirname) {
-          throw new Error("dirname is undefined.");
+          throw new Error('dirname is undefined.')
         }
         const file = path.resolve(path.join(dirname, token.text))
 
         if (!fs.existsSync(file)) {
-          return done();
+          return done()
         }
 
         // Async reading was causing tests to fail.
-        var src = fs.readFileSync(file, 'utf8');
+        let src = fs.readFileSync(file, 'utf8')
 
         _options.ppInclude[token.text] = 1
         _options.dirname = path.dirname(file)
@@ -64,10 +65,10 @@ function ppInclude(tokens, Lexer, options, callback) {
         // If the include is a PlantUML file,
         // generate a link to build the UML
         // image and add it to the document.
-        if (file.includes(".puml") && src) {
-          const link = geturl(src, "svg");
+        if (file.includes('.puml') && src) {
+          const link = geturl(src, 'svg')
 
-          src = token.indent + `![Plant UML](${link})` + sep;
+          src = token.indent + `![Plant UML](${link})` + sep
         } else {
           src = token.indent + src.split('\n').join(sep)
 
@@ -79,22 +80,19 @@ function ppInclude(tokens, Lexer, options, callback) {
         ppInclude(lexer.lex(src), Lexer, _options, function (err, ntokens) {
           if (err) {
             // eslint-disable-next-line no-console
-            console.error('ppInclude.js - Error: ' + err.message);
-            console.error(err);
-            done();
-          }
-          else {
+            console.error('ppInclude.js - Error: ' + err.message)
+            console.error(err)
+            done()
+          } else {
             lexed[token.text] = ntokens
-            done();
+            done()
           }
-        });
-
-
+        })
       } catch (err) {
         // eslint-disable-next-line no-console
-        console.error('ppInclude.js - Error: ' + err.message);
-        console.error(err);
-        return done();
+        console.error('ppInclude.js - Error: ' + err.message)
+        console.error(err)
+        return done()
       }
     } else {
       setImmediate(done)

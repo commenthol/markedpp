@@ -5,7 +5,7 @@
 const fs = require('fs')
 const path = require('path')
 const assert = require('assert')
-const markedpp = require('../src')
+const markedppninja = require('../src')
 
 /* a utility for loading the test files */
 const u = {
@@ -32,13 +32,13 @@ const u = {
     const opt = options || { include: false }
 
     opt.dirname = u.dir
-    markedpp(src, opt, function (err, res) {
+    markedppninja(src, opt, function (err, res) {
       assert.ok(!err, err && err.message)
       // if (res !== exp) u._write(expName, res, 0)
       assert.strictEqual(res, exp, 'initial process fails')
 
       // reprocess the output - the result needs to be the same
-      markedpp(exp, opt, function (err, res) {
+      markedppninja(exp, opt, function (err, res) {
         assert.ok(!err, err && err.message)
         // if (res !== exp) u._write(expName, res, 1)
         assert.strictEqual(res, exp, 'reprocess fails')
@@ -200,7 +200,6 @@ describe('include', function () {
   })
 })
 
-
 describe('all together', function () {
   it('read all.md and compare', function (done) {
     u.run('all.md', {}, done)
@@ -248,7 +247,7 @@ describe('headingAutoId', function () {
     const token = {
       text: 'mergeExt(opts, opts.ignoreNull, opts.ignoreCircular, target, source)'
     }
-    const parser = new markedpp.Parser()
+    const parser = new markedppninja.Parser()
     const exp = 'mergeextopts-optsignorenull-optsignorecircular-target-source'
     const res = parser.headingAutoId(token)
     assert.strictEqual(res, exp)
@@ -258,7 +257,7 @@ describe('headingAutoId', function () {
     const token = {
       text: 'mergeExt(opts, opts.ignoreNull, opts.ignoreCircular, target, source)'
     }
-    const parser = new markedpp.Parser({ github: true })
+    const parser = new markedppninja.Parser({ github: true })
     const exp = 'mergeextopts-optsignorenull-optsignorecircular-target-source'
     const res = parser.headingAutoId(token)
     assert.strictEqual(res, exp)
@@ -268,7 +267,7 @@ describe('headingAutoId', function () {
     const token = {
       text: 'Running Tests & Contributing'
     }
-    const parser = new markedpp.Parser({ github: true })
+    const parser = new markedppninja.Parser({ github: true })
     const exp = 'running-tests--contributing'
     const res = parser.headingAutoId(token)
     assert.strictEqual(res, exp)
@@ -284,10 +283,10 @@ describe('lexer', function () {
   })
 })
 
-describe('markedpp', function () {
+describe('markedppninja', function () {
   it('shall run without options', function () {
     const data = '# h1\n'
-    markedpp(data, { dirname: u.dir }, (err, res) => {
+    markedppninja(data, { dirname: u.dir }, (err, res) => {
       assert.ok(!err, err && err.message)
       assert.strictEqual(res, data)
     })

@@ -21,7 +21,7 @@ const reProcessor = reUnified()
 
 const ghost = require('@tryghost/kg-markdown-html-renderer')
 
-const markedpp = require('../src')
+const markedppninja = require('../src')
 const { dlhtml } = require('./support')
 
 const writeHtml = !!process.env.WRITE_HTML
@@ -57,7 +57,7 @@ describe('anchors', function () {
   })
 
   it('marked', function (done) {
-    markedpp(rawmd, { include: false }, (_err, premd) => {
+    markedppninja(rawmd, { include: false }, (_err, premd) => {
       marked(premd, {}, (_err, html) => {
         const { href, h2 } = extractAnchors(html)
         if (writeHtml) {
@@ -70,7 +70,7 @@ describe('anchors', function () {
   })
 
   it('markdown-it-anchor', function (done) {
-    markedpp(rawmd, { include: false, markdownit: true }, (_err, premd) => {
+    markedppninja(rawmd, { include: false, markdownit: true }, (_err, premd) => {
       const html = markdownIt().use(markdownItAnchor).render(premd)
       let { href, h2 } = extractAnchors(html)
       if (writeHtml) {
@@ -99,7 +99,7 @@ describe('anchors', function () {
   })
 
   it('unified', function (done) {
-    markedpp(rawmd, { include: false, unified: true }, (_err, premd) => {
+    markedppninja(rawmd, { include: false, unified: true }, (_err, premd) => {
       reProcessor.process(premd, (_err, html) => {
         const { href, h2 } = extractAnchors(html)
         if (writeHtml) {
@@ -112,7 +112,7 @@ describe('anchors', function () {
   })
 
   it('ghost', function () {
-    markedpp(rawmd, { include: false, ghost: true }, (_err, premd) => {
+    markedppninja(rawmd, { include: false, ghost: true }, (_err, premd) => {
       const html = ghost.render(premd)
       const { href, h2 } = extractAnchors(html)
       if (writeHtml) {
@@ -123,14 +123,14 @@ describe('anchors', function () {
   })
 
   it('github', function (done) {
-    const url = 'https://github.com/commenthol/test-md-anchors/blob/master/README.md'
+    const url = 'https://github.com/gatewayprogrammingschool/test-md-anchors/blob/master/README.md'
     const sel = 'article.markdown-body'
     const file = `${__dirname}/html/github.html`
     Promise.resolve()
       .then(() => dlhtml(url, sel, file))
       // .then(html => { fs.writeFileSync(file, html, 'utf8'); return html })
       .then(html => {
-        markedpp(rawmd, { include: false, github: true }, (_err, premd) => {
+        markedppninja(rawmd, { include: false, github: true }, (_err, premd) => {
           const htmlToc = markdownIt().render(premd)
           const { href } = extractAnchors(htmlToc)
           const { h2 } = extractAnchors(html, 'h2 a:first-child')
@@ -153,7 +153,7 @@ describe('anchors', function () {
     // https://gitlab.com/commenthol/test-md-anchors/blob/master/README.md
     const file = `${__dirname}/html/gitlab.html`
     const html = fs.readFileSync(file, 'utf8')
-    markedpp(rawmd, { include: false, gitlab: true }, (_err, premd) => {
+    markedppninja(rawmd, { include: false, gitlab: true }, (_err, premd) => {
       const htmlToc = markdownIt().render(premd)
       const { href } = extractAnchors(htmlToc)
       const { h2 } = extractAnchors(html, 'h2 a:first-child')
@@ -173,7 +173,7 @@ describe('anchors', function () {
     // https://bitbucket.org/commenthol/test-md-anchors/src/master/
     const file = `${__dirname}/html/bitbucket.html`
     const html = fs.readFileSync(file, 'utf8')
-    markedpp(rawmd, { include: false, bitbucket: true }, (_err, premd) => {
+    markedppninja(rawmd, { include: false, bitbucket: true }, (_err, premd) => {
       const htmlToc = markdownIt().render(premd)
       let { href } = extractAnchors(htmlToc)
       let { h2 } = extractAnchors(html)
@@ -197,10 +197,10 @@ describe('anchors', function () {
   it('pandoc', function () {
     // need to manually generate file
     // pandoc -v // v2.5
-    // bin/markedpp.js --pandoc test/assets/heading_anchors.md | pandoc > test/html/pandoc.html
+    // bin/markedppninja.js --pandoc test/assets/heading_anchors.md | pandoc > test/html/pandoc.html
     const file = `${__dirname}/html/pandoc.html`
     const html = fs.readFileSync(file, 'utf8')
-    markedpp(rawmd, { include: false, pandoc: true }, (_err, premd) => {
+    markedppninja(rawmd, { include: false, pandoc: true }, (_err, premd) => {
       const htmlToc = markdownIt().render(premd)
       let { href } = extractAnchors(htmlToc)
       let { h2 } = extractAnchors(html)

@@ -8,7 +8,7 @@ const tmpl = ({ input, expected }) => `
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>markedpp test</title>
+  <title>markedppninja test</title>
   <style type="text/css">
 #result {
   padding: 0.3em;
@@ -31,7 +31,7 @@ const tmpl = ({ input, expected }) => `
 <div id="result" class="error">Not passed</div>
 
 <h2>Input</h2>
-<pre id="markedpp">${input}</pre>
+<pre id="markedppninja">${input}</pre>
 
 <h2>Output</h2>
 <table>
@@ -53,7 +53,7 @@ const tmpl = ({ input, expected }) => `
 
 <script id="template" type="text/template">${expected}</script>
 
-<script src="markedpp.min.js"></script>
+<script src="markedppninja.min.js"></script>
 <script>
 var d = document;
 
@@ -61,7 +61,7 @@ function replace (text) {
   return text.replace(/[ ]/g, '·').replace(/[\\n]/g, '¶\\n')
 }
 
-var src = d.getElementById('markedpp').textContent;
+var src = d.getElementById('markedppninja').textContent;
 var expected = d.getElementById('template').textContent;
 
 markedpp(src, function(err, data){

@@ -1,5 +1,5 @@
 const ppInclude = require('./ppInclude')
-const markedpp = require('./markedpp')
-markedpp.ppInclude = ppInclude
+const markedppninja = require('./markedppninja')
+markedppninja.ppInclude = ppInclude
 
-module.exports = markedpp
+module.exports = markedppninja

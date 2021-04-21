@@ -1,10 +1,10 @@
-MARKEDPP(1)                                                                                                                  MARKEDPP(1)
+MARKEDPP(1)                                                                                                                  markedppninja(1)
 
 NAME
-       markedpp - a markdown pre-processor
+       markedppninja - a markdown pre-processor
 
 SYNOPSIS
-       markedpp [options] <file.md>
+       markedppninja [options] <file.md>
 
 OPTIONS
        -h, --help
@@ -86,11 +86,11 @@ OPTIONS
 EXAMPLE
        Process a README.md file using gitlab anchors:
 
-           markedpp --gitlab -o README.md README.md
+           markedppninja --gitlab -o README.md README.md
 
        Pipe from stdin to pandoc https://pandoc.org:
 
-           cat file.md | markedpp --pandoc | pandoc
+           cat file.md | markedppninja --pandoc | pandoc
 
 INSTALLATION
        npm i -g markedpp
@@ -99,6 +99,6 @@ COPYRIGHT
        Copyright (c) 2014- commenthol - MIT License
 
 REPORTING BUGS
-       markedpp repository https://github.com/commenthol/markedpp/issues
+       markedppninja repository https://github.com/commenthol/markedpp/issues
 
-                                                               April 2019                                                    MARKEDPP(1)
+                                                               April 2019                                                    markedppninja(1)

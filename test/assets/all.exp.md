@@ -37,7 +37,7 @@ Some 📦📦📦.
 ```
 <!-- /include -->
 
-[markedpp]: https://github.com/commenthol/markedpp
+[markedppninja]: https://github.com/commenthol/markedpp
 
 ## 1.4\. Chapter 2
 
@@ -78,7 +78,7 @@ Test third...
 <!-- !ref -->
 
 * [Amnesty International Homepage][amnesty]
-* [markedpp][markedpp]
+* [markedppninja][markedppninja]
 
 <!-- ref! -->
 

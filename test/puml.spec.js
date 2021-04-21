@@ -5,7 +5,7 @@
 var fs = require('fs')
 var path = require('path')
 var assert = require('assert')
-var markedpp = require('../src')
+var markedppninja = require('../src')
 
 /* a utility for loading the test files */
 var u = {
@@ -32,13 +32,13 @@ var u = {
     var opt = options || { include: false }
 
     opt.dirname = u.dir
-    markedpp(src, opt, function (err, res) {
+    markedppninja(src, opt, function (err, res) {
       assert.ok(!err, err && err.message)
       // if (res !== exp) u._write(expName, res, 0)
       assert.strictEqual(res, exp, 'initial process fails')
 
       // reprocess the output - the result needs to be the same
-      markedpp(exp, opt, function (err, res) {
+      markedppninja(exp, opt, function (err, res) {
         assert.ok(!err, err && err.message)
         // if (res !== exp) u._write(expName, res, 1)
         assert.strictEqual(res, exp, 'reprocess fails')
