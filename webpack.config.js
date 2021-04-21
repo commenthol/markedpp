@@ -20,7 +20,7 @@ const variants = doAnalyze
       target: [['umd', 'markedpp-ninja']]
     }
 
-rimraf('./dist')
+rimraf('./bin')
 
 function createConfig (options) {
   const plugins = []
@@ -45,9 +45,6 @@ function createConfig (options) {
     },
     resolve: {
       // mainFields: ['browser', 'main', 'module']
-    },
-    optimization: {
-      minimize: options.minified
     },
     module: {
       rules: [

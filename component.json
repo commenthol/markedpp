@@ -1,6 +1,6 @@
 {
   "name": "markedpp-ninja",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "repo": "gatewayprogrammingschool/markedpp",
   "description": "Preprocessor for markdown files",
   "keywords": [
