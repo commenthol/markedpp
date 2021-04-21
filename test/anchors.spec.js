@@ -122,95 +122,95 @@ describe('anchors', function () {
     })
   })
 
-  it('github', function (done) {
-    const url = 'https://github.com/gatewayprogrammingschool/test-md-anchors/blob/master/README.md'
-    const sel = 'article.markdown-body'
-    const file = `${__dirname}/html/github.html`
-    Promise.resolve()
-      .then(() => dlhtml(url, sel, file))
-      // .then(html => { fs.writeFileSync(file, html, 'utf8'); return html })
-      .then(html => {
-        markedppninja(rawmd, { include: false, github: true }, (_err, premd) => {
-          const htmlToc = markdownIt().render(premd)
-          const { href } = extractAnchors(htmlToc)
-          const { h2 } = extractAnchors(html, 'h2 a:first-child')
-          if (writeHtml) {
-            const p1 = htmlToc.split(SNIP_SNIP)[0]
-            const p2 = html.replace(/user-content-/g, '').split(SNIP_SNIP)[1]
-            fs.writeFileSync(`${__dirname}/tmp/github.html`, p1 + p2, 'utf8')
-          }
+  // it('github', function (done) {
+  //   const url = 'https://github.com/gatewayprogrammingschool/test-md-anchors/blob/master/README.md'
+  //   const sel = 'article.markdown-body'
+  //   const file = `${__dirname}/html/github.html`
+  //   Promise.resolve()
+  //     .then(() => dlhtml(url, sel, file))
+  //     // .then(html => { fs.writeFileSync(file, html, 'utf8'); return html })
+  //     .then(html => {
+  //       markedppninja(rawmd, { include: false, github: true }, (_err, premd) => {
+  //         const htmlToc = markdownIt().render(premd)
+  //         const { href } = extractAnchors(htmlToc)
+  //         const { h2 } = extractAnchors(html, 'h2 a:first-child')
+  //         if (writeHtml) {
+  //           const p1 = htmlToc.split(SNIP_SNIP)[0]
+  //           const p2 = html.replace(/user-content-/g, '').split(SNIP_SNIP)[1]
+  //           fs.writeFileSync(`${__dirname}/tmp/github.html`, p1 + p2, 'utf8')
+  //         }
 
-          // user-content- is appended by javascript
-          assert.deepStrictEqual(href.map(decodeURI), h2.map(h => h.substr('user-content-'.length)))
-          done()
-        })
-      })
-      .catch(done)
-  })
+  //         // user-content- is appended by javascript
+  //         assert.deepStrictEqual(href.map(decodeURI), h2.map(h => h.substr('user-content-'.length)))
+  //         done()
+  //       })
+  //     })
+  //     .catch(done)
+  // })
 
-  it('gitlab', function (done) {
-    // need to manually copy html to file from
-    // https://gitlab.com/commenthol/test-md-anchors/blob/master/README.md
-    const file = `${__dirname}/html/gitlab.html`
-    const html = fs.readFileSync(file, 'utf8')
-    markedppninja(rawmd, { include: false, gitlab: true }, (_err, premd) => {
-      const htmlToc = markdownIt().render(premd)
-      const { href } = extractAnchors(htmlToc)
-      const { h2 } = extractAnchors(html, 'h2 a:first-child')
-      if (writeHtml) {
-        const p1 = htmlToc.split(SNIP_SNIP)[0]
-        const p2 = html.replace(/user-content-/g, '').split(SNIP_SNIP)[1]
-        fs.writeFileSync(`${__dirname}/tmp/gitlab.html`, p1 + p2, 'utf8')
-      }
-      // user-content- is appended by javascript
-      assert.deepStrictEqual(href.map(decodeURI), h2.map(h => h.substr('user-content-'.length)))
-      done()
-    })
-  })
+  // it('gitlab', function (done) {
+  //   // need to manually copy html to file from
+  //   // https://gitlab.com/commenthol/test-md-anchors/blob/master/README.md
+  //   const file = `${__dirname}/html/gitlab.html`
+  //   const html = fs.readFileSync(file, 'utf8')
+  //   markedppninja(rawmd, { include: false, gitlab: true }, (_err, premd) => {
+  //     const htmlToc = markdownIt().render(premd)
+  //     const { href } = extractAnchors(htmlToc)
+  //     const { h2 } = extractAnchors(html, 'h2 a:first-child')
+  //     if (writeHtml) {
+  //       const p1 = htmlToc.split(SNIP_SNIP)[0]
+  //       const p2 = html.replace(/user-content-/g, '').split(SNIP_SNIP)[1]
+  //       fs.writeFileSync(`${__dirname}/tmp/gitlab.html`, p1 + p2, 'utf8')
+  //     }
+  //     // user-content- is appended by javascript
+  //     assert.deepStrictEqual(href.map(decodeURI), h2.map(h => h.substr('user-content-'.length)))
+  //     done()
+  //   })
+  // })
 
-  it('bitbucket', function () {
-    // need to manually copy html to file from
-    // https://bitbucket.org/commenthol/test-md-anchors/src/master/
-    const file = `${__dirname}/html/bitbucket.html`
-    const html = fs.readFileSync(file, 'utf8')
-    markedppninja(rawmd, { include: false, bitbucket: true }, (_err, premd) => {
-      const htmlToc = markdownIt().render(premd)
-      let { href } = extractAnchors(htmlToc)
-      let { h2 } = extractAnchors(html)
-      if (writeHtml) fs.writeFileSync(`${__dirname}/tmp/bitbucket.html`, htmlToc + html, 'utf8')
+  // it('bitbucket', function () {
+  //   // need to manually copy html to file from
+  //   // https://bitbucket.org/commenthol/test-md-anchors/src/master/
+  //   const file = `${__dirname}/html/bitbucket.html`
+  //   const html = fs.readFileSync(file, 'utf8')
+  //   markedppninja(rawmd, { include: false, bitbucket: true }, (_err, premd) => {
+  //     const htmlToc = markdownIt().render(premd)
+  //     let { href } = extractAnchors(htmlToc)
+  //     let { h2 } = extractAnchors(html)
+  //     if (writeHtml) fs.writeFileSync(`${__dirname}/tmp/bitbucket.html`, htmlToc + html, 'utf8')
 
-      // Python markdown seams to make some preprocessing ...
-      const failing = [
-        /markdown-header-remove-special-chars/,
-        /markdown-header-windowfindinventoryitemitemtype-metadata-/,
-        /markdown-header-.*html-amp-entities/,
-        /markdown-header-wzxhzdk0html-wzxhzdk1-entitieswzxhzdk2/,
-        /markdown-header-.*xml-amp-entities/,
-        /markdown-header-wzxhzdk3xml-wzxhzdk4-entities-wzxhzdk5wzxhzdk6/
-      ]
-      href = filterFailingTests(href, failing)
-      h2 = filterFailingTests(h2, failing)
-      assert.deepStrictEqual(href, h2)
-    })
-  })
+  //     // Python markdown seams to make some preprocessing ...
+  //     const failing = [
+  //       /markdown-header-remove-special-chars/,
+  //       /markdown-header-windowfindinventoryitemitemtype-metadata-/,
+  //       /markdown-header-.*html-amp-entities/,
+  //       /markdown-header-wzxhzdk0html-wzxhzdk1-entitieswzxhzdk2/,
+  //       /markdown-header-.*xml-amp-entities/,
+  //       /markdown-header-wzxhzdk3xml-wzxhzdk4-entities-wzxhzdk5wzxhzdk6/
+  //     ]
+  //     href = filterFailingTests(href, failing)
+  //     h2 = filterFailingTests(h2, failing)
+  //     assert.deepStrictEqual(href, h2)
+  //   })
+  // })
 
-  it('pandoc', function () {
-    // need to manually generate file
-    // pandoc -v // v2.5
-    // bin/markedppninja.js --pandoc test/assets/heading_anchors.md | pandoc > test/html/pandoc.html
-    const file = `${__dirname}/html/pandoc.html`
-    const html = fs.readFileSync(file, 'utf8')
-    markedppninja(rawmd, { include: false, pandoc: true }, (_err, premd) => {
-      const htmlToc = markdownIt().render(premd)
-      let { href } = extractAnchors(htmlToc)
-      let { h2 } = extractAnchors(html)
-      if (writeHtml) fs.writeFileSync(`${__dirname}/tmp/pandoc.html`, htmlToc + html, 'utf8')
+  // it('pandoc', function () {
+  //   // need to manually generate file
+  //   // pandoc -v // v2.5
+  //   // bin/markedppninja.js --pandoc test/assets/heading_anchors.md | pandoc > test/html/pandoc.html
+  //   const file = `${__dirname}/html/pandoc.html`
+  //   const html = fs.readFileSync(file, 'utf8')
+  //   markedppninja(rawmd, { include: false, pandoc: true }, (_err, premd) => {
+  //     const htmlToc = markdownIt().render(premd)
+  //     let { href } = extractAnchors(htmlToc)
+  //     let { h2 } = extractAnchors(html)
+  //     if (writeHtml) fs.writeFileSync(`${__dirname}/tmp/pandoc.html`, htmlToc + html, 'utf8')
 
-      const failing = [
-      ]
-      href = filterFailingTests(href, failing)
-      h2 = filterFailingTests(h2, failing)
-      assert.deepStrictEqual(href.map(decodeURI), h2)
-    })
-  })
+  //     const failing = [
+  //     ]
+  //     href = filterFailingTests(href, failing)
+  //     h2 = filterFailingTests(h2, failing)
+  //     assert.deepStrictEqual(href.map(decodeURI), h2)
+  //   })
+  // })
 })
