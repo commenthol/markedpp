@@ -186,7 +186,7 @@ function xhr (url, options, callback) {
  * @param {String} options.dirname - base directory from where to search files to include (If not specified then current working directory is used)
  * @param {Function} callback - `function(err, tokens)`
  */
-function ppInclude (tokens, Lexer, options, callback) {
+function ppIncludeBrowser (tokens, Lexer, options, callback) {
   const dirname = options.dirname || path.dirname(location.pathname)
   const lexed = {}
   const _options = Object.assign({}, options)
@@ -218,7 +218,7 @@ function ppInclude (tokens, Lexer, options, callback) {
         if (src.substr(0 - sep.length) === sep) {
           src = src.substr(0, src.length - sep.length + 1)
         }
-        ppInclude(lexer.lex(src), Lexer, _options, function (err, ntokens) {
+        ppIncludeBrowser(lexer.lex(src), Lexer, _options, function (err, ntokens) {
           if (err) {
             // TODO
           }
@@ -262,4 +262,4 @@ function ppInclude (tokens, Lexer, options, callback) {
   })
 }
 
-module.exports = ppInclude
+module.exports = ppIncludeBrowser

@@ -1,6 +1,6 @@
 {
   "name": "@sharpninja/markedppninja",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Preprocessor for markdown files",
   "main": "./lib/@sharpninja/markedppninja.js",
   "authors": [

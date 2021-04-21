@@ -1,5 +1,5 @@
-const ppInclude = require('./ppInclude-browser')
+const ppIncludeBrowser = require('./ppInclude-browser')
 const markedppninja = require('./markedppninja')
-markedppninja.ppInclude = ppInclude
+markedppninja.ppInclude = ppIncludeBrowser
 
 module.exports = markedppninja

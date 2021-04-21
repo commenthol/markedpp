@@ -1,6 +1,6 @@
 {
   "name": "@sharpninja/markedppninja",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "repo": "sharpninja/markedpp",
   "description": "Preprocessor for markdown files",
   "keywords": [

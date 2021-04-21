@@ -34,7 +34,7 @@ function createConfig (options) {
     entry: {
       markedppninja: [
         // '@babel/polyfill',
-        './src/browser.js'
+        './src/index.js'
       ]
     },
     output: {
