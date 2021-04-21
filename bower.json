@@ -1,6 +1,6 @@
 {
-  "name": "markedpp",
-  "version": "1.0.0",
+  "name": "markedpp-ninja",
+  "version": "2.0.0",
   "description": "Preprocessor for markdown files",
   "main": "lib/index.js",
   "authors": [
@@ -9,9 +9,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/commenthol/markedpp.git"
+    "url": "git://github.com/gatewayprogrammingschool/markedpp.git"
   },
-  "homepage": "https://github.com/commenthol/markedpp",
+  "homepage": "https://github.com/gatewayprogrammingschool/markedpp",
   "moduleType": [
     "amd",
     "node",

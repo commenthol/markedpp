@@ -1,11 +1,12 @@
-# markedpp
+# markedpp-ninja
+
+Fork of [commenthol/markedpp](https://github.com/commenthol/markedpp)
 
 > Preprocessor for documents written in markdown
 
-[![NPM version](https://badge.fury.io/js/markedpp.svg)](https://www.npmjs.com/package/markedpp/)
-[![Build Status](https://secure.travis-ci.org/commenthol/markedpp.svg?branch=master)](https://travis-ci.org/commenthol/markedpp)
+[![NPM version](https://badge.fury.io/js/markedpp-ninja.svg)](https://www.npmjs.com/package/markedpp-ninja/)
 
-`markedpp` is a preprocessor for documents written in [markdown][markdown]. The output itself is again markdown.
+`markedpp-ninja` is a preprocessor for documents written in [markdown][markdown]. The output itself is again markdown.
 
 It supports the following extensions:
 
