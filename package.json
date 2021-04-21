@@ -28,11 +28,11 @@
   },
   "man": "./man/markedpp.1",
   "scripts": {
-    "all": "npm-run-all clean lint test build",
+    "all": "npm-run-all clean test build",
     "build": "webpack",
     "clean": "rimraf doc coverage .nyc_output dist lib",
     "coverage": "nyc -r text -r html npm test",
-    "doc": "mkdir -p doc && jsdox -o doc lib/*.js",
+    "doc": "mkdir -p doc && jsdox -o doc src/*.js",
     "lint": "eslint '**/*.js'",
     "man": "make man",
     "prepublishOnly": "npm run all",

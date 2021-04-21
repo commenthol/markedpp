@@ -8,6 +8,8 @@
  *
  * @note Code inspired by `marked` project
  * @credits Christopher Jeffrey <https://github.com/chjj/marked>
+ * @note Forked from
+ * @credits commenthol <https://github.com/commenthol/markedpp>
  */
 
 const Lexer = require('./Lexer')
