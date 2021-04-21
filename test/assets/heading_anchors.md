@@ -75,17 +75,17 @@ snip-snip-snip
 
 ## `history [pgn | alg]`
 
-## https://github.com/gatewayprogrammingschool/markedpp
+## https://github.com/sharpninja/markedpp
 
-## <https://github.com/gatewayprogrammingschool/markedpp>
+## <https://github.com/sharpninja/markedpp>
 
-## [A link to](https://github.com/gatewayprogrammingschool/markedpp)
+## [A link to](https://github.com/sharpninja/markedpp)
 
 ## [A reference to][]
 
 ## [markedppninja][]
 
-[markedppninja]: https://github.com/gatewayprogrammingschool/markedpp
+[markedppninja]: https://github.com/sharpninja/markedpp
 
 ----
 

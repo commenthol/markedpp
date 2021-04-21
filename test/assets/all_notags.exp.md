@@ -29,7 +29,7 @@ Some 📦📦📦.
 })();
 ```
 
-[markedppninja]: https://github.com/gatewayprogrammingschool/markedpp
+[markedppninja]: https://github.com/sharpninja/markedpp
 
 ## 1.4\. Chapter 2
 

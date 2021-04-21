@@ -80,8 +80,8 @@ describe('anchors', function () {
       const failing = [
         /a-reference-to/,
         /%5Ba-reference-to%5D%5B%5D/,
-        /https%3A%2F%2Fgithub\.com%2Fgatewayprogrammingschool%2Fmarkedpp-1/,
-        /https%3A%2F%2Fgithub\.com%2Fgatewayprogrammingschool%2Fmarkedpp-2/,
+        /https%3A%2F%2Fgithub\.com%2Fsharpninja%2Fmarkedpp-1/,
+        /https%3A%2F%2Fgithub\.com%2Fsharpninja%2Fmarkedpp-2/,
         /same-heading-1/,
         /same-heading-2/,
         /same-heading-3/,
@@ -123,7 +123,7 @@ describe('anchors', function () {
   })
 
   // it('github', function (done) {
-  //   const url = 'https://github.com/gatewayprogrammingschool/test-md-anchors/blob/master/README.md'
+  //   const url = 'https://github.com/sharpninja/test-md-anchors/blob/master/README.md'
   //   const sel = 'article.markdown-body'
   //   const file = `${__dirname}/html/github.html`
   //   Promise.resolve()
@@ -150,7 +150,7 @@ describe('anchors', function () {
 
   // it('gitlab', function (done) {
   //   // need to manually copy html to file from
-  //   // https://gitlab.com/gatewayprogrammingschool/test-md-anchors/blob/master/README.md
+  //   // https://gitlab.com/sharpninja/test-md-anchors/blob/master/README.md
   //   const file = `${__dirname}/html/gitlab.html`
   //   const html = fs.readFileSync(file, 'utf8')
   //   markedppninja(rawmd, { include: false, gitlab: true }, (_err, premd) => {
@@ -170,7 +170,7 @@ describe('anchors', function () {
 
   // it('bitbucket', function () {
   //   // need to manually copy html to file from
-  //   // https://bitbucket.org/gatewayprogrammingschool/test-md-anchors/src/master/
+  //   // https://bitbucket.org/sharpninja/test-md-anchors/src/master/
   //   const file = `${__dirname}/html/bitbucket.html`
   //   const html = fs.readFileSync(file, 'utf8')
   //   markedppninja(rawmd, { include: false, bitbucket: true }, (_err, premd) => {

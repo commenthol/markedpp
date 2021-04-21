@@ -105,7 +105,7 @@ Copyright (c) 2014- commenthol - MIT License
 
 ## REPORTING BUGS
 
-markedpp repository <https://github.com/gatewayprogrammingschool/markedpp/issues>
+markedpp repository <https://github.com/sharpninja/markedpp/issues>
 
 [marked]: https://npmjs.com/package/marked
 [markdown-it]: https://npmjs.com/package/markdown-it

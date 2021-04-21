@@ -446,5 +446,5 @@ outputs:
 
 [Markdown Specification]: http://daringfireball.net/projects/markdown/syntax
 [Github Flavored Markdown]: https://help.github.com/articles/github-flavored-markdown
-[markedppninja]: https://github.com/gatewayprogrammingschool/markedpp
+[markedppninja]: https://github.com/sharpninja/markedpp
 

@@ -11,13 +11,13 @@
     "table of contents",
     "toc"
   ],
-  "homepage": "https://github.com/gatewayprogrammingschool/markedpp",
+  "homepage": "https://github.com/sharpninja/markedpp",
   "bugs": {
-    "url": "https://github.com/gatewayprogrammingschool/markedpp/issues"
+    "url": "https://github.com/sharpninja/markedpp/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatewayprogrammingschool/markedpp.git"
+    "url": "https://github.com/sharpninja/markedpp.git"
   },
   "license": "MIT",
   "author": "The Sharp Ninja <ninja@thesharp.ninja>, commenthol <commenthol@gmail.com>",
@@ -26,7 +26,9 @@
     "@sharpninja/markedppninja": "./lib/@sharpninja/markedppninja.js"
   },
   "man": [
-    "./man/markedpp.1"
+    "./man/markedpp.1",
+    "./man/markedpp.md",
+    "./man/markedpp.txt"
   ],
   "scripts": {
     "all": "npm-run-all clean test build",

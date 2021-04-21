@@ -14,7 +14,7 @@ Some 📦📦📦.
 
 !include (test\ with\ spaces.js lang=javascript)
 
-[markedppninja]: https://github.com/gatewayprogrammingschool/markedpp
+[markedppninja]: https://github.com/sharpninja/markedpp
 
 ## Chapter 2
 

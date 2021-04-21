@@ -10,9 +10,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/gatewayprogrammingschool/markedpp.git"
+    "url": "git://github.com/sharpninja/markedpp.git"
   },
-  "homepage": "https://github.com/gatewayprogrammingschool/markedpp",
+  "homepage": "https://github.com/sharpninja/markedpp",
   "moduleType": [
     "amd",
     "node",
