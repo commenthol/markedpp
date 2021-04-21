@@ -97,7 +97,7 @@ Pipe from stdin to [pandoc][]:
 
 ## INSTALLATION
 
-    npm i -g markedpp-ninja
+    npm i -g markedppninja
 
 ## COPYRIGHT
 

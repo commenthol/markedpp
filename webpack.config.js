@@ -17,7 +17,7 @@ const variants = doAnalyze
     }
   : {
       minified: [false],
-      target: [['umd', 'markedpp-ninja']]
+      target: [['umd', 'markedppninja']]
     }
 
 rimraf('./bin')
@@ -40,7 +40,7 @@ function createConfig (options) {
     output: {
       path: path.resolve(__dirname, 'bin'),
       filename: options.target[1] + '.js',
-      library: 'markedpp-ninja',
+      library: 'markedppninja',
       libraryTarget: options.target[0]
     },
     resolve: {
