@@ -141,17 +141,19 @@ Parser.prototype.headingAutoId = function (token, opts) {
     raw: false
   }
 
-  if (token.anchor) {
-    return token.anchor
-  }
-
   const inlineText = getInlineAnchorText(token, this.anchorMode)
   const header = (
     opts.raw
       ? token.raw
       : inlineText || token.text
   ).replace(/^#/, '')
+  // increment header regardless if previous anchor was applied
   const id = this._anchors.get(header, opts.inc)
+
+  if (token.anchor) {
+    return token.anchor
+  }
+
   return id
 }
 

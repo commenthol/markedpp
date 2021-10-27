@@ -128,6 +128,10 @@ describe('toc', function () {
   it('toc change id', function (done) {
     u.run('toc_id.md', done)
   })
+
+  it('toc repeated headings id', function (done) {
+    u.run('toc_repeated.md', done)
+  })
 })
 
 describe('references', function () {
