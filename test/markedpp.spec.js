@@ -53,6 +53,10 @@ describe('toc', function () {
     u.run('toc_default.md', done)
   })
 
+  it('toc compat [[TOC]]', function (done) {
+    u.run('toc_compat.md', done)
+  })
+
   it('toc - remove links in headings', function (done) {
     u.run('toc_removelinks.md', done)
   })
