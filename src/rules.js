@@ -110,11 +110,12 @@ const preproc = {
   ppnumberedheadings: /^ *(?:!(?:numberedheadings)_ppopts_|_ppnumberedheadings_) *(?:\n+|$)/,
   _ppnumberedheadings_: /<!-- !*numberedheadings_ppopts_ *-->/,
 
-  pptoc: /^(?:!(?:toc)_ppopts_|_pptoc_|_pptocCompat1_|_pptocCompat2_|_pptocCompat3_) *(?:\n+|$)/,
+  pptoc: /^(?:!(?:toc)_ppopts_|_pptoc_|_pptocCompat1_|_pptocCompat2_|_pptocCompat3_|_pptocCompat4_) *(?:\n+|$)/,
   _pptoc_: /<!-- *!toc_ppopts_ *-->(?:(?!<!-- *toc! * -->)[^])*<!-- *toc! * -->/,
   _pptocCompat1_: /!TOC/,
   _pptocCompat2_: /<!-- *toc *-->(?:(?!<!-- *(?:\/toc|toc stop) * -->)[^])*<!-- *(?:\/toc|toc stop) * -->/, // marked-toc, markdown-pp syntax
   _pptocCompat3_: /<!-- *toc *-->/,
+  _pptocCompat4_: /\[\[TOC\]\]/,
 
   ppref: /^(?:!(?:ref)|_ppref_|_pprefCompat1_|_pprefCompat2_) *(?:\n|$)/,
   _ppref_: /<!-- *!ref *-->(?:(?!<!-- *ref! * -->)[^])*<!-- *ref! * -->/,
@@ -140,6 +141,7 @@ preproc.pptoc = replace(preproc.pptoc)
 ('_pptocCompat1_', preproc._pptocCompat1_)
 ('_pptocCompat2_', preproc._pptocCompat2_)
 ('_pptocCompat3_', preproc._pptocCompat3_)
+('_pptocCompat4_', preproc._pptocCompat4_)
 ()
 preproc.ppref = replace(preproc.ppref)
 ('_ppref_', preproc._ppref_)

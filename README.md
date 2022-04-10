@@ -83,6 +83,26 @@ E.g.
 
     This includes a "Table of Contents" section. All headings up to level=3 will be linked with their references as a unnumbered bullet list.
 
+For compatibility reasons the following alternative syntax is supported:
+
+```
+!TOC
+```
+```
+[[TOC]]
+```
+```
+<!-- toc -->
+<!-- /toc -->
+```
+```
+<!-- toc -->
+<!-- toc stop -->
+```
+```
+<!-- toc -->
+```
+
 #### 1.1.1\. level
 
     !toc (level=5)

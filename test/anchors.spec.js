@@ -2,27 +2,16 @@ const fs = require('fs')
 const assert = require('assert')
 
 const cheerio = require('cheerio')
-const marked = require('marked')
+const { marked } = require('marked')
 const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
-
-const reUnified = require('unified')
-const reMarkdown = require('remark-parse')
-const reSlug = require('remark-slug')
-const reRemark = require('remark-rehype')
-const reFormat = require('rehype-format')
-const reHtml = require('rehype-stringify')
-const reProcessor = reUnified()
-  .use(reMarkdown)
-  .use(reSlug)
-  .use(reRemark)
-  .use(reFormat)
-  .use(reHtml)
 
 const ghost = require('@tryghost/kg-markdown-html-renderer')
 
 const markedpp = require('../src')
 const { dlhtml } = require('./support')
+
+let reProcessor
 
 const writeHtml = !!process.env.WRITE_HTML
 const SNIP_SNIP = '>snip-snip-snip<'
@@ -54,6 +43,22 @@ describe('anchors', function () {
   let rawmd
   before(() => {
     rawmd = fs.readFileSync(`${__dirname}/assets/heading_anchors.md`, 'utf8')
+  })
+
+  before(async () => {
+    const { unified } = await import('unified')
+    const { default: reMarkdown } = await import('remark-parse')
+    const { default: reSlug } = await import('remark-slug')
+    const { default: reRemark } = await import('remark-rehype')
+    const { default: reFormat } = await import('rehype-format')
+    const { default: reHtml } = await import('rehype-stringify')
+
+    reProcessor = unified()
+      .use(reMarkdown)
+      .use(reSlug)
+      .use(reRemark)
+      .use(reFormat)
+      .use(reHtml)
   })
 
   it('marked', function (done) {
@@ -90,7 +95,7 @@ describe('anchors', function () {
 
   it('unified', function (done) {
     markedpp(rawmd, { include: false, unified: true }, (_err, premd) => {
-      reProcessor.process(premd, (_err, html) => {
+      reProcessor.process(premd).then((html) => {
         const { href, h2 } = extractAnchors(html)
         if (writeHtml) {
           fs.writeFileSync(`${__dirname}/tmp/unified.html`, html, 'utf8')

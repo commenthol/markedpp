@@ -95,6 +95,7 @@ if (module === require.main) {
   })
 
   app.use(express.static(`${__dirname}/assets`))
+  app.use(express.static(`${__dirname}/../dist`))
 
   const server = app.listen(app.get('port'), function () {
     console.log('Server listening on port ' + server.address().port) // eslint-disable-line no-console
