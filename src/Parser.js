@@ -263,7 +263,7 @@ Parser.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, o
         const text = token.number + ' '
         token.text = text + token.text
         if (token.inline) {
-          token.inline.unshift({ type: 'text', text: text })
+          token.inline.unshift({ type: 'text', text })
         }
       }
     }

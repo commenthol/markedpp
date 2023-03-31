@@ -330,9 +330,9 @@ Renderer.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start,
   const opts = this.joinOpts({
     level: maxLevel,
     minlevel: minLevel,
-    skip: skip,
-    start: start,
-    omit: omit
+    skip,
+    start,
+    omit
   })
   if (this.options.tags) {
     return '<!-- !numberedheadings ' + opts + '-->\n\n'

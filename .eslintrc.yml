@@ -6,4 +6,4 @@ extends:
   - standard
 rules:
   'no-console': error
-  'node/no-path-concat': off
+  'n/no-path-concat': off
