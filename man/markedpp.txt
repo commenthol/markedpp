@@ -13,11 +13,14 @@ OPTIONS
        --version
               Output version information and exit.
 
+       -i, --input <file.md>
+              Specify the filename for markdown input.
+
        -o, --output <outfile.md>
               Specify the filename for the processed output. Defaults to stdout.
 
-       -i, --input <file.md>
-              Specify the filename for markdown input.
+       -s, --same
+              write to same file as --input; input must be given as filename.
 
        -t, --tokens
               Output lexed tokens as JSON array.

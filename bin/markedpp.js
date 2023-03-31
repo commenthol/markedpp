@@ -55,6 +55,7 @@ function main (argv, callback) {
   let arg
   let tokens
   let opt
+  let outputIsInput = false
 
   function getarg () {
     let arg = argv.shift()
@@ -94,6 +95,10 @@ function main (argv, callback) {
       case '-i':
       case '--input':
         input = argv.shift()
+        break
+      case '-s':
+      case '--same':
+        outputIsInput = true
         break
       case '-t':
       case '--tokens':
@@ -152,6 +157,10 @@ function main (argv, callback) {
 
       if (tokens) {
         data = JSON.stringify(data, null, 2)
+      }
+
+      if (outputIsInput && input && !output) {
+        output = input
       }
 
       if (!output) {
