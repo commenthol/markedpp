@@ -3,10 +3,11 @@
  * @constructor
  * @api private
  */
-function Numbering (init) {
+function Numbering(init, skipEscaping) {
   this._ = [0, 0, 0, 0, 0, 0, 0]
   this.last = 1
   this._[1] = (init ? init - 1 : 0)
+  this.skipEscaping = skipEscaping
 }
 
 /**
@@ -30,7 +31,7 @@ Numbering.prototype.val = function (level) {
   for (let i = 2; i <= level; i++) {
     out += '.' + this._[i]
   }
-  return out + '\\.'
+  return out + (this.skipEscaping ? '.' : '\\.')
 }
 
 /**

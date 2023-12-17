@@ -225,10 +225,10 @@ Parser.prototype.updateAutoIdentifier = function () {
  * @param {Number} maxLevel
  * @param {Number} minLevel
  */
-Parser.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, omit) {
+Parser.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, omit, skipEscaping) {
   const omitMatch = {}
   let skipFlag = false
-  const numbering = new Numbering(start)
+  const numbering = new Numbering(start, skipEscaping)
 
   skip = skip || 0
 
@@ -397,7 +397,8 @@ Parser.prototype.tok = function (options) {
         this.token.minlevel,
         this.token.skip,
         this.token.start,
-        this.token.omit
+        this.token.omit,
+        this.token.skipEscaping
       )
       this.updateAutoIdentifier()
       return this.renderer.numberedHeadings(
@@ -405,7 +406,8 @@ Parser.prototype.tok = function (options) {
         this.token.minlevel,
         this.token.skip,
         this.token.start,
-        this.token.omit
+        this.token.omit,
+        this.token.skipEscaping
       )
     }
     case 'ppref':
