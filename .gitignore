@@ -8,3 +8,7 @@
 *.tgz
 .nyc_output/
 test/tmp/
+
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
