@@ -278,7 +278,8 @@ Lexer.prototype.token = function (src, top) {
         minlevel: Lexer.range(opts.minlevel, defaults.minlevel, 6),
         skip: opts.skip,
         start: opts.start,
-        omit: opts.omit
+        omit: opts.omit,
+        skipEscaping: opts.skipEscaping
       })
       continue
     }

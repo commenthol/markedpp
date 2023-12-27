@@ -232,7 +232,7 @@ Files to insert which cannot be found or recursive inset of the same file leaves
 
 ### 1.4\. numberedheadings
 
-    !numberedheadings [([level=1-6] [minlevel=1-6] [skip=1..] [start=1..] [omit="...;..."])]
+    !numberedheadings [([level=1-6] [minlevel=1-6] [skip=1..] [start=1..] [omit="...;..."] [skipEscaping])]
 
 Add numbers on headings
 
@@ -241,6 +241,7 @@ Add numbers on headings
 * skip: {Number} \[optional\] skip number of Headings on min-level
 * start: {Number} \[optional\] start numbering of Headings with given number
 * omit: {String} \[optional\] omit numbering of Headings. Headings need to be given in `"` and separated by `;`
+* skipEscaping: \[optional\] if enabled `\` will not escape the last `.` in Headings
 
 All Headings up to level 3 will get numbered. If used, this command shall be given at the very top of a document.
 

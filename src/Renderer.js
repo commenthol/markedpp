@@ -326,13 +326,14 @@ Renderer.prototype.tableOfContents = function (toc, options) {
  * @param {Number} minLevel
  * @return {String} rendered output
  */
-Renderer.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, omit) {
+Renderer.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, omit, skipEscaping) {
   const opts = this.joinOpts({
     level: maxLevel,
     minlevel: minLevel,
     skip,
     start,
-    omit
+    omit,
+    skipEscaping
   })
   if (this.options.tags) {
     return '<!-- !numberedheadings ' + opts + '-->\n\n'

@@ -161,6 +161,10 @@ describe('numberedheadings', function () {
     u.run('numberedheadings.md', done)
   })
 
+  it('numberedheadings skipEscaping', function (done) {
+    u.run('numberedheadings_skipEscaping.md', done)
+  })
+
   it('numberedheadings level=2', function (done) {
     u.run('numberedheadings_level2.md', done)
   })
