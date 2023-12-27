@@ -3,7 +3,7 @@
  * @constructor
  * @api private
  */
-function Numbering(init, skipEscaping) {
+function Numbering (init, skipEscaping) {
   this._ = [0, 0, 0, 0, 0, 0, 0]
   this.last = 1
   this._[1] = (init ? init - 1 : 0)
