@@ -1,3 +1,4 @@
+const path = require('path')
 const InlineLexer = require('./InlineLexer')
 const Renderer = require('./Renderer')
 const Numbering = require('./Numbering')
@@ -422,6 +423,8 @@ Parser.prototype.tok = function (options) {
         body += '<!-- include (' + this.token.text.replace(/ /g, '\\ ') +
             (this.token.lang ? ' lang=' + this.token.lang : '') +
             (indent ? ' indent=' + indent.toString() : '') +
+            (this.token.start ? ' start=' + this.token.start : '') +
+            (this.token.end ? ' end=' + this.token.end : '') +
             ') -->\n'
       }
       if (typeof this.token.lang === 'string') {
@@ -437,6 +440,17 @@ Parser.prototype.tok = function (options) {
       }
       if (this.token.tags) {
         body += '<!-- /include -->\n'
+      }
+      if (this.token.link) {
+        body += this.renderer.link(this.token.raw, this.token.link, this.token.text) + '\n'
+      }
+      if (this.token.vscode) {
+        const dirname = this.token.dirname || process.cwd()
+        const file = path.resolve(path.join(dirname, this.token.text))
+
+        /* vscode url format is an absolute path with a file:// scheme */
+        const uri = 'vscode://file/' + file + (this.token.start ? ':' + this.token.start + ':1' : '')
+        body += this.renderer.link(this.token.raw, this.token.vscode, uri) + '\n'
       }
       return body
     }

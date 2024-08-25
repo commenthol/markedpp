@@ -206,15 +206,24 @@ renders as:
 
 ### 1.3\. include
 
-    !include (filename [lang=...])
+    !include (filename [lang=...] [indent=x] [start=x] [end=x] [link="label"] [vscode="label"])
 
 This inserts the the file specified with `filename` at the given position in the document being preprocessed.
 The preprocessor inserts any type of files.
 
 * filename: \[mandatory\] Name of file to include
 * lang: \[optional\] language of file - if set, then [GFM][GFM] fences are added around include.
+* indent: \[optional\] Indent the included file by `x` spaces
+* start: \[optional\] Start including the file from line `x`
+* end: \[optional\] End including the file at line `x`
+* link: \[optional\] Add a link to this include file with the given label
+* vscode: \[optional\] Add a vscode link to this include file with the given label for vscode
 
 To include a file with specifying the language use the option `lang`.
+
+`start` and `end` will include only the lines from `start` to `end` from the source file.  If only `start` is specified, the lines beginning at `start` will be included to the end of the file.  If only `end` is specified, the lines from the beginning of the file to `end` will be included.
+
+The `link` and `vscode` options will add a link in the resulting file that will allow you to open the original file. The text specified in `label` will be the name of the link in the markdown file.  This is useful for including code snippets within the markdown file and still allow navigation to the original source file.
 
 This then will render using [GFM][GFM] fences.
 
