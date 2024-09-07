@@ -259,6 +259,8 @@ function ppInclude (tokens, Lexer, options, callback) {
     // compose the new tokens array
     tokens.forEach(function (token) {
       const text = getUniqueFileName(token)
+      const dirname = options.dirname || ''
+      const vscodefile = token.vscode ? path.resolve(path.join(dirname, token.text)) : undefined
 
       if (token.type === 'ppinclude' &&
           typeof token.text === 'string' &&
@@ -272,6 +274,7 @@ function ppInclude (tokens, Lexer, options, callback) {
           end: token.end,
           link: token.link,
           vscode: token.vscode,
+          vscodefile,
           dirname: options.dirname,
           tags: options.tags
         })
@@ -287,6 +290,7 @@ function ppInclude (tokens, Lexer, options, callback) {
           end: token.end,
           link: token.link,
           vscode: token.vscode,
+          vscodefile,
           dirname: options.dirname,
           tags: options.tags
         })
