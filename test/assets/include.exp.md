@@ -106,3 +106,28 @@ Test third...
 
 # heading
 ```
+
+# Include a portion of a file
+
+<!-- include (include1.md start=3 end=9) -->
+## Lorem ipsum
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+### Donec a diam
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.
+<!-- /include -->
+
+## Include a portion of a file with a link
+
+<!-- include (include1.md start=3 end=9) -->
+## Lorem ipsum
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+### Donec a diam
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.
+<!-- /include -->
+[Click to Open](include1.md)

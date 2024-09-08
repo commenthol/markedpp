@@ -46,11 +46,3 @@ Put the file in GFM Fences
 ## Include a portion of a file with a link
 
 !include (include1.md start=3 end=9 link="Click to Open") 
-
-## Include a portion of a file with a vscode link
-
-!include (include1.md start=3 end=9 vscode="Open in VSCode") 
-
-## Include a portion of a file with a link and a vscode link
-
-!include (include1.md start=3 end=9 link="Click to Open" vscode="Open in VSCode")  
