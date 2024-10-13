@@ -221,7 +221,7 @@ The preprocessor inserts any type of files.
 
 To include a file with specifying the language use the option `lang`.
 
-`start` and `end` will include only the lines from `start` to `end` from the source file.  If only `start` is specified, the lines beginning at `start` will be included to the end of the file.  If only `end` is specified, the lines from the beginning of the file to `end` will be included.
+`start` and `end` will include only the lines from `start` to `end` from the source file. If only `start` is specified, the lines beginning at `start` will be included to the end of the file. If only `end` is specified, the lines from the beginning of the file to `end` will be included.
 
 The `link` and `vscode` options will add a link in the resulting file that will allow you to open the original file. The text specified in `label` will be the name of the link in the markdown file.  This is useful for including code snippets within the markdown file and still allow navigation to the original source file.
 
