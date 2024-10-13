@@ -88,12 +88,20 @@ Lexer.prototype.token = function (src, top) {
       src = src.substring(cap[0].length)
       tmp = cap[2] || cap[3] || cap[4]
       opts = Lexer.splitOpts(tmp)
-      tmp = tmp.replace(/ *(?:[a-z]+=[a-z0-9-]+)/, '').replace(/\\ /g, ' ')
+
+      // remove all possible attributes: lang, indent, start, end, link, vscode
+      tmp = tmp.replaceAll(/ *(?:[a-z]+="[a-zA-Z0-9- ]+")/g, '').replace(/\\ /g, ' ')
+      tmp = tmp.replaceAll(/ *(?:[a-z]+=[a-z0-9-]+)/g, '').replace(/\\ /g, ' ')
+
       this.tokens.push({
         type: 'ppinclude',
         text: tmp,
         indent: opts.indent ? repeat(' ', opts.indent) : cap[1],
-        lang: opts.lang
+        lang: opts.lang,
+        start: opts.start,
+        end: opts.end,
+        link: opts.link,
+        vscode: opts.vscode
       })
       continue
     }

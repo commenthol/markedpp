@@ -208,7 +208,7 @@ describe('numberedheadings', function () {
 
 describe('include', function () {
   it('read include.md and compare', function (done) {
-    u.run('include.md', {}, done)
+    u.run('include.md', done, {})
   })
 })
 

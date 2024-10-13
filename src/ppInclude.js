@@ -16,6 +16,24 @@ const fs = require('fs')
 const path = require('path')
 const async = require('asyncc')
 
+/* generate a unique key for partial include file names that incorporates the start/end values */
+function getUniqueFileName (token) {
+  return token.text + '(start=' + (token.start || '') + 'end=' + (token.end || '') + ')'
+}
+
+function partialInclude (src, start, end) {
+  if (Number.isInteger(start) || Number.isInteger(end)) {
+    const srcLines = src.split('\n')
+    const firstLine = Number.isInteger(start) && start > 0 ? start - 1 : 0
+    const lastLine = Number.isInteger(end) && end > 0 ? end : srcLines.length
+
+    return srcLines.slice(firstLine, lastLine).join('\n') + '\n'
+  } else {
+    // no start/end specified, return the original src
+    return src
+  }
+}
+
 /**
  * Include and Lex files
  * @param {Array} tokens - array of tokens
@@ -35,19 +53,25 @@ function ppInclude (tokens, Lexer, options, callback) {
   }
 
   async.eachLimit(5, tokens, function (token, done) {
+    const text = getUniqueFileName(token)
     if (token.type === 'ppinclude' &&
       typeof token.text === 'string' &&
-      !_options.ppInclude[token.text]
+      !_options.ppInclude[text]
     ) {
       const file = path.resolve(path.join(dirname, token.text))
+      // eslint-disable-next-line no-console
+      // console.error('readFile dirname', dirname, 'options.dirname', options.dirname, 'token.text', token.text, 'file', file)
       fs.readFile(file, 'utf8', function (err, src) {
-        _options.ppInclude[token.text] = 1
+        _options.ppInclude[text] = 1
         _options.dirname = path.dirname(file)
         if (err) {
           // eslint-disable-next-line no-console
           console.error('Error: ' + err.message)
           return done()
         }
+
+        src = partialInclude(src, token.start, token.end)
+
         const lexer = new Lexer(_options)
         const sep = '\n' + token.indent
         src = token.indent + src.split('\n').join(sep)
@@ -59,7 +83,8 @@ function ppInclude (tokens, Lexer, options, callback) {
             // eslint-disable-next-line no-console
             console.error('Error: ' + err.message)
           }
-          lexed[token.text] = ntokens
+          // make token.text unique if include details differ
+          lexed[text] = ntokens
           done()
         })
       })
@@ -72,23 +97,40 @@ function ppInclude (tokens, Lexer, options, callback) {
 
     // compose the new tokens array
     tokens.forEach(function (token) {
+      const text = getUniqueFileName(token)
+      const dirname = options.dirname || process.cwd()
+      const vscodefile = token.vscode ? path.resolve(path.join(dirname, token.text)) : undefined
+
       if (token.type === 'ppinclude' &&
           typeof token.text === 'string' &&
-          lexed[token.text] !== undefined) {
+          lexed[text] !== undefined) {
         _tokens.push({
           type: 'ppinclude_start',
           text: token.text,
           indent: token.indent,
           lang: token.lang,
+          start: token.start,
+          end: token.end,
+          link: token.link,
+          vscode: token.vscode,
+          vscodefile,
+          dirname: options.dirname,
           tags: options.tags
         })
-        lexed[token.text].forEach(function (token) {
+        lexed[text].forEach(function (token) {
           _tokens.push(Object.assign({}, token)) // clone tokens!
         })
         _tokens.push({
           type: 'ppinclude_end',
+          text: token.text,
           indent: token.indent,
           lang: token.lang,
+          start: token.start,
+          end: token.end,
+          link: token.link,
+          vscode: token.vscode,
+          vscodefile,
+          dirname: options.dirname,
           tags: options.tags
         })
       } else {
