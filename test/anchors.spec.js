@@ -63,14 +63,13 @@ describe('anchors', function () {
 
   it('marked', function (done) {
     markedpp(rawmd, { include: false }, (_err, premd) => {
-      marked(premd, {}, (_err, html) => {
-        const { href, h2 } = extractAnchors(html)
-        if (writeHtml) {
-          fs.writeFileSync(`${__dirname}/tmp/marked.html`, html, 'utf8')
-        }
-        assert.deepStrictEqual(href.map(decodeURI), h2)
-        done()
-      })
+      const html = marked(premd, { mangle: false })
+      const { href, h2 } = extractAnchors(html)
+      if (writeHtml) {
+        fs.writeFileSync(`${__dirname}/tmp/marked.html`, html, 'utf8')
+      }
+      assert.deepStrictEqual(href.map(decodeURI), h2)
+      done()
     })
   })
 
