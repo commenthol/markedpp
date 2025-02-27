@@ -1,6 +1,6 @@
-const { slugger, MODE } = require('./anchorSlugger')
+import { slugger, MODE } from './anchorSlugger.js'
 
-class Anchor {
+export class Anchor {
   constructor (mode = MODE.MARKED) {
     this._counters = {}
     this._mode = mode
@@ -44,5 +44,3 @@ class Anchor {
     return this._fn(id, isInc)
   }
 }
-
-module.exports = Anchor

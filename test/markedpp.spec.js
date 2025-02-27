@@ -2,10 +2,13 @@
 
 /* global describe, it */
 
-const fs = require('fs')
-const path = require('path')
-const assert = require('assert')
-const markedpp = require('../src')
+import fs from 'node:fs'
+import path from 'node:path'
+import assert from 'node:assert'
+import markedpp from '../src/index.js'
+import { fileURLToPath } from 'node:url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 /* a utility for loading the test files */
 const u = {
@@ -21,8 +24,7 @@ const u = {
   },
   expected: function (filename) {
     const extname = path.extname(filename)
-    filename = filename.substr(0, filename.indexOf(extname)) +
-      '.exp' + extname
+    filename = filename.substr(0, filename.indexOf(extname)) + '.exp' + extname
     return path.join(this.dir, filename)
   },
   run: function (file, done, options, fileExp) {

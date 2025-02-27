@@ -1,5 +1,5 @@
 .PHONY: all
-all: npmall readme v14. v16. v17.
+all: npmall readme v20 v23 v22
 
 node_modules:
 	@npm i
@@ -8,8 +8,8 @@ node_modules:
 npmall: node_modules
 	@npm run all
 
-dist: dist/markedpp.min.js
-	@npm run webpack
+dist: dist/browser.mjs
+	@npm run build
 
 .PHONY: lint
 lint:

@@ -1,12 +1,12 @@
-const Numbering = require('./Numbering')
-const defaults = require('./defaults')
+import { Numbering } from './Numbering.js'
+import { defaults } from './defaults.js'
 
 /**
  * Renderer
  * @constructor
  * @param {Object} options
  */
-function Renderer (options) {
+export function Renderer (options) {
   this.options = options || {}
 }
 
@@ -19,7 +19,14 @@ function Renderer (options) {
  * @param {String} raw - Raw heading text (without numbers)
  * @return {String} rendered output
  */
-Renderer.prototype.heading = function (text, level, raw, number, autoid, anchor) {
+Renderer.prototype.heading = function (
+  text,
+  level,
+  raw,
+  number,
+  autoid,
+  anchor
+) {
   let atx = ''
   if (anchor) {
     atx += '<a name="' + anchor + '"></a>\n\n'
@@ -89,7 +96,12 @@ Renderer.prototype.listitem = function (bullet, text) {
  * @return {String} rendered output
  */
 Renderer.prototype.fences = function (code, lang, indent, fences) {
-  return this.fence(lang, indent, fences) + code + '\n' + this.fence('', indent, fences)
+  return (
+    this.fence(lang, indent, fences) +
+    code +
+    '\n' +
+    this.fence('', indent, fences)
+  )
 }
 
 /**
@@ -223,12 +235,14 @@ Renderer.sortByTitle = function (a, b) {
 Renderer.prototype.references = function (refs) {
   const out = []
 
-  refs.map(ref => {
-    if (!ref.title) {
-      ref.title = ref.ref
-    }
-    return ref
-  }).sort(Renderer.sortByTitle)
+  refs
+    .map((ref) => {
+      if (!ref.title) {
+        ref.title = ref.ref
+      }
+      return ref
+    })
+    .sort(Renderer.sortByTitle)
     .forEach(function (ref) {
       out.push('* [' + ref.title + '][' + ref.ref + ']')
     })
@@ -261,60 +275,70 @@ Renderer.prototype.tableOfContents = function (toc, options) {
     omit: options.omit
   })
   const numbering = new Numbering()
-  const br = (this.options.breaks ? ' <br>' : '')
+  const br = this.options.breaks ? ' <br>' : ''
   const level = options.level || defaults.level // standard depth of TOC
   const minlevel = options.minlevel || defaults.minlevel //
 
-  const renderLink = (text, autoid) => '[' + this.sanitizeHeadings(text) + '](#' + autoid + ')'
+  const renderLink = (text, autoid) =>
+    '[' + this.sanitizeHeadings(text) + '](#' + autoid + ')'
 
-  const out = toc.filter(t => {
-    if (t.depth <= level && t.depth >= minlevel) {
-      return true
-    }
-    return false
-  }).map(t => {
-    if (!this.options.numberedHeadings && options.numbered) {
-      t.number = numbering.count(t.depth - minlevel + 1)
-    }
-    return t
-  }).filter(t => {
-    if (options.omit) {
-      if (omitlevel) { // omit the branch below as well...
-        if (t.depth > omitlevel) {
+  const out = toc
+    .filter((t) => {
+      if (t.depth <= level && t.depth >= minlevel) {
+        return true
+      }
+      return false
+    })
+    .map((t) => {
+      if (!this.options.numberedHeadings && options.numbered) {
+        t.number = numbering.count(t.depth - minlevel + 1)
+      }
+      return t
+    })
+    .filter((t) => {
+      if (options.omit) {
+        if (omitlevel) {
+          // omit the branch below as well...
+          if (t.depth > omitlevel) {
+            return false
+          } else {
+            omitlevel = undefined // reset
+          }
+        }
+        return !options.omit.some((tt) => {
+          if (tt === t.raw) {
+            omitlevel = t.depth
+            return true
+          }
           return false
+        })
+      }
+      return true
+    })
+    .map((t) => {
+      if (options.numbered) {
+        // render numbered list
+        if (this.options.numberedHeadings) {
+          return (
+            (t.number ? t.number + ' ' : '') + renderLink(t.raw, t.autoid) + br
+          )
         } else {
-          omitlevel = undefined // reset
+          return t.number + ' ' + renderLink(t.text, t.autoid) + br
         }
-      }
-      return !options.omit.some(tt => {
-        if (tt === t.raw) {
-          omitlevel = t.depth
-          return true
-        }
-        return false
-      })
-    }
-    return true
-  }).map(t => {
-    if (options.numbered) {
-      // render numbered list
-      if (this.options.numberedHeadings) {
-        return (t.number ? t.number + ' ' : '') + renderLink(t.raw, t.autoid) + br
       } else {
-        return t.number + ' ' + renderLink(t.text, t.autoid) + br
+        // render bullet list
+        let space = ''
+        for (let i = 1; i < (t.depth - minlevel + 1 || 1); i++) {
+          space += '  '
+        }
+        return space + '* ' + renderLink(t.text, t.autoid)
       }
-    } else {
-      // render bullet list
-      let space = ''
-      for (let i = 1; i < (t.depth - minlevel + 1 || 1); i++) {
-        space += '  '
-      }
-      return space + '* ' + renderLink(t.text, t.autoid)
-    }
-  })
+    })
 
   if (this.options.tags) {
-    return '<!-- !toc ' + opts + '-->\n\n' + out.join('\n') + '\n\n<!-- toc! -->\n\n'
+    return (
+      '<!-- !toc ' + opts + '-->\n\n' + out.join('\n') + '\n\n<!-- toc! -->\n\n'
+    )
   } else {
     return out.join('\n') + '\n\n'
   }
@@ -326,7 +350,14 @@ Renderer.prototype.tableOfContents = function (toc, options) {
  * @param {Number} minLevel
  * @return {String} rendered output
  */
-Renderer.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, omit, skipEscaping) {
+Renderer.prototype.numberedHeadings = function (
+  maxLevel,
+  minLevel,
+  skip,
+  start,
+  omit,
+  skipEscaping
+) {
   const opts = this.joinOpts({
     level: maxLevel,
     minlevel: minLevel,
@@ -364,5 +395,3 @@ Renderer.prototype.joinOpts = function (obj) {
 Renderer.prototype.sanitizeHeadings = function (heading) {
   return heading.replace(/\[([^\]]*)\]\s*(?:\[[^\]]*\]|\([^)]*\))/g, '$1')
 }
-
-module.exports = Renderer

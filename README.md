@@ -206,7 +206,7 @@ renders as:
 
 ### 1.3\. include
 
-    !include (filename [lang=...] [indent=x] [start=x] [end=x] [link="label"] [vscode="label"])
+    !include (filename [lang=...] [] [] [] [] [])
 
 This inserts the the file specified with `filename` at the given position in the document being preprocessed.
 The preprocessor inserts any type of files.
@@ -367,8 +367,8 @@ For your project
 ## 4\. Usage
 
 ```javascript
-var markedpp = require('markedpp'),
-    md = '!numberedheadings\n!toc(level=1)\n# hello\n## hello again';
+import { markedpp, markedppAsync } from 'markedpp'
+const md = '!numberedheadings\n!toc(level=1)\n# hello\n## hello again';
 
 markedpp(md, function(err, result){
     console.log(result);
@@ -386,14 +386,18 @@ markedpp(md, function(err, result){
     ## 1.1\. hello again
     */
 });
+
+// with promises
+const result = await markedppAsync(md)
 ```
 
 To include files the dirname need to be defined via `options`, otherwise it is assumed that the file to include is relative to the current working directory:
 
 ```javascript
-var markedpp = require('markedpp'),
-    md = '!include(hello.md)',
-    options = { dirname: __dirname };
+// with commonjs
+const { markedpp } = require('markedpp')
+const md = '!include(hello.md)',
+const options = { dirname: __dirname };
 
 markedpp(md, options, function(err, result){
     console.log(result);

@@ -1,9 +1,10 @@
-const InlineLexer = require('./InlineLexer')
-const Renderer = require('./Renderer')
-const Numbering = require('./Numbering')
-const defaults = require('./defaults')
-const Anchor = require('./Anchor')
-const { MODE } = require('./anchorSlugger')
+import { InlineLexer } from './InlineLexer.js'
+import { Renderer } from './Renderer.js'
+import { Numbering } from './Numbering.js'
+import { defaults } from './defaults.js'
+import { Anchor } from './Anchor.js'
+import { MODE } from './anchorSlugger.js'
+
 MODE.UNIFIED = 'unified'
 
 const REMOVENUMBER = /^([0-9]+\\?\.)+ +/
@@ -14,7 +15,7 @@ const REMOVENUMBER = /^([0-9]+\\?\.)+ +/
  * @param {Object} options
  * @param {Object} options.renderer - Custom renderer
  */
-function Parser (options) {
+export function Parser (options) {
   this.tokens = []
   this.token = null
   this.count = -1
@@ -33,10 +34,13 @@ function Parser (options) {
     MODE.UNIFIED,
     MODE.MARKDOWNIT,
     MODE.MARKED
-  ].map(k => this.options[k] && k).filter(k => k)[0]
+  ]
+    .map((k) => this.options[k] && k)
+    .filter((k) => k)[0]
   if (this.anchorMode === MODE.UNIFIED) {
     this.anchorMode = MODE.GITHUB
-  } this._anchors = new Anchor(this.anchorMode)
+  }
+  this._anchors = new Anchor(this.anchorMode)
 }
 
 /**
@@ -66,7 +70,7 @@ Parser.prototype.parse = function (tokens) {
  * Next Token
  */
 Parser.prototype.next = function () {
-  this.token = this.tokens[this.count += 1]
+  this.token = this.tokens[(this.count += 1)]
   return this.token
 }
 
@@ -119,7 +123,7 @@ Parser.prototype.references = function () {
  * Parse Table of Contents
  */
 Parser.prototype.tableOfContents = function () {
-  return this.tokens.filter(token => {
+  return this.tokens.filter((token) => {
     if (token.type === 'heading') {
       return true
     }
@@ -142,11 +146,10 @@ Parser.prototype.headingAutoId = function (token, opts) {
   }
 
   const inlineText = getInlineAnchorText(token, this.anchorMode)
-  const header = (
-    opts.raw
-      ? token.raw
-      : inlineText || token.text
-  ).replace(/^#/, '')
+  const header = (opts.raw ? token.raw : inlineText || token.text).replace(
+    /^#/,
+    ''
+  )
   // increment header regardless if previous anchor was applied
   const id = this._anchors.get(header, opts.inc)
 
@@ -173,7 +176,7 @@ Parser.prototype.updateAutoIdentifier = function () {
   }
 
   // obtain headings ids
-  this.tokens = this.tokens.map(token => {
+  this.tokens = this.tokens.map((token) => {
     if (token.type === 'heading') {
       const raw = this.headingAutoId(token, { raw: true }) // needs to come first because of counter increment
       const id = this.headingAutoId(token, { inc: true })
@@ -187,11 +190,10 @@ Parser.prototype.updateAutoIdentifier = function () {
   this.tokens = this.tokens.map(function (token) {
     let id
     if (token.inline) {
-      token.inline = token.inline.map(token => {
+      token.inline = token.inline.map((token) => {
         switch (token.type) {
           case 'link':
-          case 'image':
-          {
+          case 'image': {
             id = prep(token.href)
             if (headings[id]) {
               token.href = headings[id]
@@ -203,8 +205,7 @@ Parser.prototype.updateAutoIdentifier = function () {
       })
     } else {
       switch (token.type) {
-        case 'def':
-        {
+        case 'def': {
           if (token.href && token.href.indexOf('#') === 0) {
             id = prep(token.href)
             if (headings[id]) {
@@ -225,13 +226,19 @@ Parser.prototype.updateAutoIdentifier = function () {
  * @param {Number} maxLevel
  * @param {Number} minLevel
  */
-Parser.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, omit, skipEscaping) {
+Parser.prototype.numberedHeadings = function (
+  maxLevel,
+  minLevel,
+  skip,
+  start,
+  omit,
+  skipEscaping
+) {
   const omitMatch = {}
   let skipFlag = false
   const numbering = new Numbering(start, skipEscaping)
 
   skip = skip || 0
-
   ;(omit || []).forEach(function (key) {
     omitMatch[key] = true
   })
@@ -239,7 +246,7 @@ Parser.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, o
   maxLevel = maxLevel || defaults.level
   minLevel = minLevel || defaults.minlevel
 
-  this.tokens = this.tokens.map(token => {
+  this.tokens = this.tokens.map((token) => {
     if (token.type === 'heading') {
       token.text = token.text.replace(REMOVENUMBER, '')
       const tmp = token.raw.replace(REMOVENUMBER, '')
@@ -258,7 +265,12 @@ Parser.prototype.numberedHeadings = function (maxLevel, minLevel, skip, start, o
         }
       }
 
-      if (!skipFlag && !omitMatch[token.raw] && token.depth <= maxLevel && token.depth >= minLevel) {
+      if (
+        !skipFlag &&
+        !omitMatch[token.raw] &&
+        token.depth <= maxLevel &&
+        token.depth >= minLevel
+      ) {
         token.number = numbering.count(token.depth - minLevel + 1)
         const text = token.number + ' '
         token.text = text + token.text
@@ -278,50 +290,43 @@ Parser.prototype.tok = function (options) {
   options = options || {}
 
   switch (this.token.type) {
-    case 'space':
-    {
+    case 'space': {
       return this.renderer.newline(this.token.text)
     }
-    case 'code':
-    {
+    case 'code': {
       return this.renderer.codeblock(this.token.text)
     }
-    case 'hr':
-    {
+    case 'hr': {
       return this.renderer.hr(this.token.text)
     }
-    case 'html':
-    {
+    case 'html': {
       return this.renderer.html(this.token.text)
     }
-    case 'paragraph':
-    {
+    case 'paragraph': {
       let body = ''
-      ;(this.token.inline || []).forEach(token => {
+      ;(this.token.inline || []).forEach((token) => {
         body += this.inlinetok(token)
       })
       return this.renderer.paragraph(body)
     }
-    case 'text':
-    {
+    case 'text': {
       let body = ''
-      ;(this.token.inline || []).forEach(token => {
+      ;(this.token.inline || []).forEach((token) => {
         body += this.inlinetok(token)
       })
       return this.renderer.text(body)
     }
-    case 'heading':
-    {
+    case 'heading': {
       return this.renderer.heading(
         this.token.text,
         this.token.depth,
         this.token.raw,
         this.token.number,
         this.token.autoid,
-        this.token.anchor)
+        this.token.anchor
+      )
     }
-    case 'fences':
-    {
+    case 'fences': {
       return this.renderer.fences(
         this.token.text,
         this.token.lang,
@@ -329,13 +334,14 @@ Parser.prototype.tok = function (options) {
         this.token.fences
       )
     }
-    case 'def':
-    {
-      return this.renderer.reference(this.token.ref,
-        this.token.href, this.token.title)
+    case 'def': {
+      return this.renderer.reference(
+        this.token.ref,
+        this.token.href,
+        this.token.title
+      )
     }
-    case 'blockquote_start':
-    {
+    case 'blockquote_start': {
       let body = ''
 
       while (this.next().type !== 'blockquote_end') {
@@ -344,8 +350,7 @@ Parser.prototype.tok = function (options) {
 
       return this.renderer.blockquote(body)
     }
-    case 'list_start':
-    {
+    case 'list_start': {
       let obj
       let body = ''
       const ordered = this.token.ordered
@@ -362,8 +367,7 @@ Parser.prototype.tok = function (options) {
 
       return this.renderer.list(body, ordered)
     }
-    case 'list_item_start':
-    {
+    case 'list_item_start': {
       let body = ''
       let bullet = this.token.text
       if (options.start) {
@@ -375,8 +379,7 @@ Parser.prototype.tok = function (options) {
 
       return this.renderer.listitem(bullet, body)
     }
-    case 'loose_item_start':
-    {
+    case 'loose_item_start': {
       let body = ''
       let bullet = this.token.text
       if (options.start) {
@@ -389,8 +392,7 @@ Parser.prototype.tok = function (options) {
 
       return this.renderer.listitem(bullet, body)
     }
-    case 'ppnumberedheadings':
-    {
+    case 'ppnumberedheadings': {
       this.options.numberedHeadings = true
       this.numberedHeadings(
         this.token.level,
@@ -410,29 +412,28 @@ Parser.prototype.tok = function (options) {
         this.token.skipEscaping
       )
     }
-    case 'ppref':
-    {
+    case 'ppref': {
       return this.renderer.references(this.references())
     }
-    case 'ppinclude_start':
-    {
+    case 'ppinclude_start': {
       let body = ''
       if (this.token.tags) {
         const indent = this.token.indent.replace('\t', '    ').length
-        body += '<!-- include (' + this.token.text.replace(/ /g, '\\ ') +
-            (this.token.lang ? ' lang=' + this.token.lang : '') +
-            (indent ? ' indent=' + indent.toString() : '') +
-            (this.token.start ? ' start=' + this.token.start : '') +
-            (this.token.end ? ' end=' + this.token.end : '') +
-            ') -->\n'
+        body +=
+          '<!-- include (' +
+          this.token.text.replace(/ /g, '\\ ') +
+          (this.token.lang ? ' lang=' + this.token.lang : '') +
+          (indent ? ' indent=' + indent.toString() : '') +
+          (this.token.start ? ' start=' + this.token.start : '') +
+          (this.token.end ? ' end=' + this.token.end : '') +
+          ') -->\n'
       }
       if (typeof this.token.lang === 'string') {
         body += this.renderer.fence(this.token.lang)
       }
       return body
     }
-    case 'ppinclude_end':
-    {
+    case 'ppinclude_end': {
       let body = ''
       if (typeof this.token.lang === 'string') {
         body += this.renderer.fence()
@@ -441,27 +442,32 @@ Parser.prototype.tok = function (options) {
         body += '<!-- /include -->\n'
       }
       if (this.token.link) {
-        body += this.renderer.link(this.token.raw, this.token.link, this.token.text) + '\n'
+        body +=
+          this.renderer.link(this.token.raw, this.token.link, this.token.text) +
+          '\n'
       }
       if (this.token.vscode && this.token.vscodefile) {
         /* vscode url format is an absolute path with a file:// scheme */
-        const uri = 'vscode://file/' + this.token.vscodefile + (this.token.start ? ':' + this.token.start + ':1' : '')
-        body += this.renderer.link(this.token.raw, this.token.vscode, uri) + '\n'
+        const uri =
+          'vscode://file/' +
+          this.token.vscodefile +
+          (this.token.start ? ':' + this.token.start + ':1' : '')
+        body +=
+          this.renderer.link(this.token.raw, this.token.vscode, uri) + '\n'
       }
       return body
     }
-    case 'ppinclude':
-    {
-      return this.renderer.include(this.token.text, this.token.indent, this.token.lang)
+    case 'ppinclude': {
+      return this.renderer.include(
+        this.token.text,
+        this.token.indent,
+        this.token.lang
+      )
     }
-    case 'pptoc':
-    {
-      return this.renderer.tableOfContents(
-        this.tableOfContents(),
-        this.token)
+    case 'pptoc': {
+      return this.renderer.tableOfContents(this.tableOfContents(), this.token)
     }
-    default:
-    {
+    default: {
       return '<!-- ' + JSON.stringify(this.token) + ' -->\n'
     }
   }
@@ -472,68 +478,52 @@ Parser.prototype.tok = function (options) {
  */
 Parser.prototype.inlinetok = function (token) {
   switch (token.type) {
-    case 'escape':
-    {
+    case 'escape': {
       return this.renderer.escape(token.text)
     }
-    case 'url':
-    {
+    case 'url': {
       return this.renderer.url(token.text)
     }
-    case 'tag':
-    {
+    case 'tag': {
       return this.renderer.tag(token.text)
     }
-    case 'link':
-    {
+    case 'link': {
       return this.renderer.link(token.raw, token.text, token.href, token.title)
     }
-    case 'reflink':
-    {
+    case 'reflink': {
       return this.renderer.reflink(token.raw, token.text, token.ref)
     }
-    case 'nolink':
-    {
+    case 'nolink': {
       return this.renderer.nolink(token.raw, token.text)
     }
-    case 'image':
-    {
+    case 'image': {
       return this.renderer.image(token.raw, token.text, token.href, token.title)
     }
-    case 'refimage':
-    {
+    case 'refimage': {
       return this.renderer.refimage(token.raw, token.text, token.ref)
     }
-    case 'noimage':
-    {
+    case 'noimage': {
       return this.renderer.noimage(token.raw, token.text)
     }
-    case 'strong':
-    {
+    case 'strong': {
       return this.renderer.strong(token.text, token.char)
     }
-    case 'em':
-    {
+    case 'em': {
       return this.renderer.em(token.text, token.char)
     }
-    case 'text':
-    {
+    case 'text': {
       return this.renderer.text(token.text)
     }
-    case 'code':
-    {
+    case 'code': {
       return this.renderer.code(token.text)
     }
-    case 'br':
-    {
+    case 'br': {
       return this.renderer.br(token.text)
     }
-    case 'del':
-    {
+    case 'del': {
       return this.renderer.del(token.text)
     }
-    default:
-    {
+    default: {
       return '<!-- ' + JSON.stringify(this.token) + ' -->\n'
     }
   }
@@ -561,26 +551,30 @@ Parser.parse = function (tokens, options) {
  */
 function getInlineAnchorText (token, mode) {
   if (token.inline) {
-    let text = token.inline.map(token => {
-      let text = token.text
+    let text = token.inline
+      .map((token) => {
+        let text = token.text
 
-      // sanitation for different anchor modes
-      if (mode === MODE.MARKDOWNIT && token.type === 'code') {
-        text = text.replace(/`/g, '')
-      } else if ([MODE.GITHUB, MODE.GITLAB, MODE.PANDOC].includes(mode) && token.type === 'tag') {
-        text = ''
-      } else if (mode === MODE.BITBUCKET && token.type === 'escape') {
-        text = '\\' + text
-      }
+        // sanitation for different anchor modes
+        if (mode === MODE.MARKDOWNIT && token.type === 'code') {
+          text = text.replace(/`/g, '')
+        } else if (
+          [MODE.GITHUB, MODE.GITLAB, MODE.PANDOC].includes(mode) &&
+          token.type === 'tag'
+        ) {
+          text = ''
+        } else if (mode === MODE.BITBUCKET && token.type === 'escape') {
+          text = '\\' + text
+        }
 
-      return text
-    }).join('')
+        return text
+      })
+      .join('')
 
-    if (mode === MODE.PANDOC) { // no numbering!
+    if (mode === MODE.PANDOC) {
+      // no numbering!
       text = text.replace(REMOVENUMBER, '')
     }
     return text
   }
 }
-
-module.exports = Parser

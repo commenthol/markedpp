@@ -10,11 +10,11 @@
  * @credits Christopher Jeffrey <https://github.com/chjj/marked>
  */
 
-const Lexer = require('./Lexer')
-const InlineLexer = require('./InlineLexer')
-const Parser = require('./Parser')
-const Renderer = require('./Renderer')
-const defaults = require('./defaults')
+import { Lexer } from './Lexer.js'
+import { InlineLexer } from './InlineLexer.js'
+import { Parser } from './Parser.js'
+import { Renderer } from './Renderer.js'
+import { defaults } from './defaults.js'
 
 /**
  * Markdown Preprocessor
@@ -54,4 +54,4 @@ markedpp.InlineLexer = InlineLexer
 markedpp.Renderer = Renderer
 markedpp.Parser = Parser
 
-module.exports = markedpp
+export { markedpp }

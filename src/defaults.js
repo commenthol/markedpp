@@ -1,7 +1,7 @@
 /*
-* default values
-*/
-const defaults = {
+ * default values
+ */
+export const defaults = {
   gfm: true, // consider gfm fences
   include: true, // enable !includes
   toc: true, // enable !toc
@@ -26,5 +26,3 @@ const defaults = {
   bitbucket: false,
   ghost: false
 }
-
-module.exports = defaults

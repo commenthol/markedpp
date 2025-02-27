@@ -3,6 +3,11 @@
 function noop () {}
 noop.exec = noop
 
+/**
+ * @param {RegExp} regex
+ * @param {string} [opt]
+ * @returns {function}
+ */
 function replace (regex, opt) {
   regex = regex.source
   opt = opt || ''
@@ -44,26 +49,17 @@ const block = {
 // join the rules
 block.bullet = /(?:[*+-]|\d+\.)/
 block.item = /^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/
-block.item = replace(block.item, 'gm')
-(/bull/g, block.bullet)
-()
+block.item = replace(block.item, 'gm')(/bull/g, block.bullet)()
 
-block.list = replace(block.list)
-(/bull/g, block.bullet)
-('hr', '\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))')
-('def', '\\n+(?=' + block.def.source + ')')
-()
+block.list = replace(block.list)(/bull/g, block.bullet)(
+  'hr',
+  '\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))'
+)('def', '\\n+(?=' + block.def.source + ')')()
 
-block.blockquote = replace(block.blockquote)
-('def', block.def)
-()
+block.blockquote = replace(block.blockquote)('def', block.def)()
 
-block.heading = replace(block.heading)
-('headingid', block.headingid)
-()
-block.lheading = replace(block.lheading)
-('headingid', block.headingid)
-()
+block.heading = replace(block.heading)('headingid', block.headingid)()
+block.lheading = replace(block.lheading)('headingid', block.headingid)()
 
 // list of allowed tags - TODO
 // ~ block._tag = '(?!(?:' +
@@ -74,22 +70,19 @@ block.lheading = replace(block.lheading)
 // allow all tags
 block._tag = '(?!(?:[A-Za-z][A-Za-z-]*)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b'
 
-block.html = replace(block.html)
-('comment', /<!--[\s\S]*?-->/)
-('closed', /<(tag)[\s\S]+?<\/\1>/)
-('closing', /<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)
-(/tag/g, block._tag)
-()
+block.html = replace(block.html)('comment', /<!--[\s\S]*?-->/)(
+  'closed',
+  /<(tag)[\s\S]+?<\/\1>/
+)('closing', /<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g, block._tag)()
 
-block.paragraph = replace(block.paragraph)
-('hr', block.hr)
-('heading', block.heading)
-('lheading', block.lheading)
-('blockquote', block.blockquote)
-// ~ ('list', block.list) // TODO - ok according to commonmark
-('tag', '<' + block._tag)
-('def', block.def)
-()
+block.paragraph = replace(block.paragraph)('hr', block.hr)(
+  'heading',
+  block.heading
+)('lheading', block.lheading)('blockquote', block.blockquote)(
+  // ~ ('list', block.list) // TODO - ok according to commonmark
+  'tag',
+  '<' + block._tag
+)('def', block.def)()
 
 block.opts = {}
 
@@ -103,17 +96,23 @@ block.opts.gfm = {
 const preproc = {
   _ppopts_: / ?(?:\(([^)]+)\))?/,
 
-  ppinclude: /^( *)(?:!(?:include)_ppopts_|_ppinclude_|_ppincludeCompat_) *(?:\n|$)/,
-  _ppinclude_: /<!-- *include_ppopts_ *-->(?:(?!<!-- *\/include * -->)[^])*<!-- *\/include * -->/,
+  ppinclude:
+    /^( *)(?:!(?:include)_ppopts_|_ppinclude_|_ppincludeCompat_) *(?:\n|$)/,
+  _ppinclude_:
+    /<!-- *include_ppopts_ *-->(?:(?!<!-- *\/include * -->)[^])*<!-- *\/include * -->/,
   _ppincludeCompat_: /!INCLUDE "([^"]+)"/,
 
-  ppnumberedheadings: /^ *(?:!(?:numberedheadings)_ppopts_|_ppnumberedheadings_) *(?:\n+|$)/,
+  ppnumberedheadings:
+    /^ *(?:!(?:numberedheadings)_ppopts_|_ppnumberedheadings_) *(?:\n+|$)/,
   _ppnumberedheadings_: /<!-- !*numberedheadings_ppopts_ *-->/,
 
-  pptoc: /^(?:!(?:toc)_ppopts_|_pptoc_|_pptocCompat1_|_pptocCompat2_|_pptocCompat3_|_pptocCompat4_) *(?:\n+|$)/,
-  _pptoc_: /<!-- *!toc_ppopts_ *-->(?:(?!<!-- *toc! * -->)[^])*<!-- *toc! * -->/,
+  pptoc:
+    /^(?:!(?:toc)_ppopts_|_pptoc_|_pptocCompat1_|_pptocCompat2_|_pptocCompat3_|_pptocCompat4_) *(?:\n+|$)/,
+  _pptoc_:
+    /<!-- *!toc_ppopts_ *-->(?:(?!<!-- *toc! * -->)[^])*<!-- *toc! * -->/,
   _pptocCompat1_: /!TOC/,
-  _pptocCompat2_: /<!-- *toc *-->(?:(?!<!-- *(?:\/toc|toc stop) * -->)[^])*<!-- *(?:\/toc|toc stop) * -->/, // marked-toc, markdown-pp syntax
+  _pptocCompat2_:
+    /<!-- *toc *-->(?:(?!<!-- *(?:\/toc|toc stop) * -->)[^])*<!-- *(?:\/toc|toc stop) * -->/, // marked-toc, markdown-pp syntax
   _pptocCompat3_: /<!-- *toc *-->/,
   _pptocCompat4_: /\[\[TOC\]\]/,
 
@@ -123,31 +122,31 @@ const preproc = {
   _pprefCompat2_: /<!-- *ref *-->(?:(?!<!-- *\/ref * -->)[^])*<!-- \/ref * -->/
 }
 
-preproc.ppinclude = replace(preproc.ppinclude)
-('_ppinclude_', preproc._ppinclude_)
-('_ppincludeCompat_', preproc._ppincludeCompat_)
-('_ppopts_', preproc._ppopts_)
-('_ppopts_', preproc._ppopts_)
-()
-preproc.ppnumberedheadings = replace(preproc.ppnumberedheadings)
-('_ppnumberedheadings_', preproc._ppnumberedheadings_)
-('_ppopts_', preproc._ppopts_)
-('_ppopts_', preproc._ppopts_)
-()
-preproc.pptoc = replace(preproc.pptoc)
-('_pptoc_', preproc._pptoc_)
-('_ppopts_', preproc._ppopts_)
-('_ppopts_', preproc._ppopts_)
-('_pptocCompat1_', preproc._pptocCompat1_)
-('_pptocCompat2_', preproc._pptocCompat2_)
-('_pptocCompat3_', preproc._pptocCompat3_)
-('_pptocCompat4_', preproc._pptocCompat4_)
-()
-preproc.ppref = replace(preproc.ppref)
-('_ppref_', preproc._ppref_)
-('_pprefCompat1_', preproc._pprefCompat1_)
-('_pprefCompat2_', preproc._pprefCompat2_)
-()
+preproc.ppinclude = replace(preproc.ppinclude)(
+  '_ppinclude_',
+  preproc._ppinclude_
+)('_ppincludeCompat_', preproc._ppincludeCompat_)('_ppopts_', preproc._ppopts_)(
+  '_ppopts_',
+  preproc._ppopts_
+)()
+preproc.ppnumberedheadings = replace(preproc.ppnumberedheadings)(
+  '_ppnumberedheadings_',
+  preproc._ppnumberedheadings_
+)('_ppopts_', preproc._ppopts_)('_ppopts_', preproc._ppopts_)()
+preproc.pptoc = replace(preproc.pptoc)('_pptoc_', preproc._pptoc_)(
+  '_ppopts_',
+  preproc._ppopts_
+)('_ppopts_', preproc._ppopts_)('_pptocCompat1_', preproc._pptocCompat1_)(
+  '_pptocCompat2_',
+  preproc._pptocCompat2_
+)('_pptocCompat3_', preproc._pptocCompat3_)(
+  '_pptocCompat4_',
+  preproc._pptocCompat4_
+)()
+preproc.ppref = replace(preproc.ppref)('_ppref_', preproc._ppref_)(
+  '_pprefCompat1_',
+  preproc._pprefCompat1_
+)('_pprefCompat2_', preproc._pprefCompat2_)()
 
 block.opts.include = {
   ppinclude: preproc.ppinclude
@@ -183,14 +182,12 @@ const inline = {
   _href: /\s*<?([\s\S]*?)>?(?:\s+(['"][\s\S]*?['"]))?\s*/
 }
 
-inline.link = replace(inline.link)
-('inside', inline._inside)
-('href', inline._href)
-()
+inline.link = replace(inline.link)('inside', inline._inside)(
+  'href',
+  inline._href
+)()
 
-inline.reflink = replace(inline.reflink)
-('inside', inline._inside)
-()
+inline.reflink = replace(inline.reflink)('inside', inline._inside)()
 
 inline.opts = {}
 
@@ -198,10 +195,7 @@ inline.opts.gfm = {
   escape: replace(inline.escape)('])', '~|])')(),
   url: /^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,
   del: /^~~(?=\S)([\s\S]*?\S)~~/,
-  text: replace(inline.text)
-  (']|', '~]|')
-  ('|', '|https?://|')
-  ()
+  text: replace(inline.text)(']|', '~]|')('|', '|https?://|')()
 }
 
 inline.opts.breaks = {
@@ -209,9 +203,6 @@ inline.opts.breaks = {
   text: replace(inline.opts.gfm.text)('{2,}', '*')()
 }
 
-module.exports = {
-  block,
-  inline
-}
+export { block, inline }
 
-// if (typeof require !== "undefined" && require.main === module) console.log(block); // TODO - debugging
+// console.log(block); // TODO - debugging

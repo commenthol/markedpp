@@ -6,8 +6,8 @@
  * @license MIT
  */
 
-const emojiRegex = require('emoji-regex')
-const entities = require('html-entities')
+import emojiRegex from 'emoji-regex'
+import * as entities from 'html-entities'
 
 const MODE = {
   BITBUCKET: 'bitbucket',
@@ -21,10 +21,11 @@ const MODE = {
 }
 
 // CJK punctuations 。？！，、；：【】（）〔〕［］﹃﹄“”‘’﹁﹂—…－～《》〈〉「」
-const RE_CJK = /[\u2014\u2018\u2019\u201c\u201d\u2026\u3001\u3002\u3008-\u300d\u3010\u3011\u3014\u3015\ufe41-\ufe44\uff01\uff08\uff09\uff0c\uff0d\uff1a\uff1b\uff1f\uff3b\uff3d\uff5e]/g
-const RE_ENTITIES     = /&([a-z][a-z0-9]+|#[0-9]{2,4});/ig
+const RE_CJK =
+  /[\u2014\u2018\u2019\u201c\u201d\u2026\u3001\u3002\u3008-\u300d\u3010\u3011\u3014\u3015\ufe41-\ufe44\uff01\uff08\uff09\uff0c\uff0d\uff1a\uff1b\uff1f\uff3b\uff3d\uff5e]/g
+const RE_ENTITIES = /&([a-z][a-z0-9]+|#[0-9]{2,4});/gi
 const RE_SPECIALS_DOT = /[./?!:[\]`,()*"';{}+=<>~\\$|#@&\u2013\u2014^]/g
-const RE_SPECIALS     =  /[/?!:[\]`,()*"';{}+=<>~\\$|#@&\u2013\u2014^]/g
+const RE_SPECIALS = /[/?!:[\]`,()*"';{}+=<>~\\$|#@&\u2013\u2014^]/g
 
 /**
  * basicGithubId
@@ -33,11 +34,11 @@ const RE_SPECIALS     =  /[/?!:[\]`,()*"';{}+=<>~\\$|#@&\u2013\u2014^]/g
 function basicGithubId (text) {
   return text
     .toLowerCase()
-    .replace(/\s+/g, '-')         // whitespaces
-    .replace(/%25|%/ig, '')       // remove single % signs
-    .replace(RE_ENTITIES, '')     // remove xml/html entities
+    .replace(/\s+/g, '-') // whitespaces
+    .replace(/%25|%/gi, '') // remove single % signs
+    .replace(RE_ENTITIES, '') // remove xml/html entities
     .replace(RE_SPECIALS_DOT, '') // single chars that are removed
-    .replace(RE_CJK, '')          // CJK punctuations that are removed
+    .replace(RE_CJK, '') // CJK punctuations that are removed
 }
 
 /**
@@ -61,14 +62,17 @@ function getGithubId (text) {
  * https://groups.google.com/d/msg/bitbucket-users/XnEWbbzs5wU/Fat0UdIecZkJ
  */
 function getBitbucketId (text) {
-  text = 'markdown-header-' + text
-    .toLowerCase()
-    .replace(/\\(.)/g, (_m, c) => c.charCodeAt(0)) // add escaped chars with their charcode
-    .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')     // whitespace
-    .replace(/-+/g, '-')      // duplicated hyphen
-    .replace(/^-+|-+$/g, '')  // heading/ tailing hyphen
+  text =
+    'markdown-header-' +
+    text
+      .toLowerCase()
+      .replace(/\\(.)/g, (_m, c) => c.charCodeAt(0)) // add escaped chars with their charcode
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-') // whitespace
+      .replace(/-+/g, '-') // duplicated hyphen
+      .replace(/^-+|-+$/g, '') // heading/ tailing hyphen
   return text
 }
 
@@ -78,7 +82,7 @@ function getBitbucketId (text) {
  * @see https://github.com/TryGhost/Koenig/blob/master/packages/kg-markdown-html-renderer/lib/markdown-html-renderer.js
  */
 function getGhostId (text) {
-  return entities.decode(text).replace(/[^a-z0-9]/ig, '')
+  return entities.decode(text).replace(/[^a-z0-9]/gi, '')
 }
 
 /**
@@ -90,8 +94,8 @@ function getGhostId (text) {
 function getGitlabId (text) {
   text = basicGithubId(text)
   text = text
-    .replace(emojiRegex(), '')  // Strip emojis
-    .replace(/-+/g, '-')        // duplicated hyphen
+    .replace(emojiRegex(), '') // Strip emojis
+    .replace(/-+/g, '-') // duplicated hyphen
   return text
 }
 
@@ -104,12 +108,12 @@ function getPandocId (text) {
     .replace(emojiRegex(), '') // Strip emojis
     .toLowerCase()
     .trim()
-    .replace(/%25|%/ig, '')   // remove single % signs
+    .replace(/%25|%/gi, '') // remove single % signs
     .replace(RE_ENTITIES, '') // remove xml/html entities
     .replace(RE_SPECIALS, '') // single chars that are removed but not [.-]
-    .replace(/\s+/g, '-')     // whitespaces
-    .replace(/^-+|-+$/g, '')  // heading/ tailing hyphen
-    .replace(RE_CJK, '')      // CJK punctuations that are removed
+    .replace(/\s+/g, '-') // whitespaces
+    .replace(/^-+|-+$/g, '') // heading/ tailing hyphen
+    .replace(RE_CJK, '') // CJK punctuations that are removed
 
   if (/^[0-9-]+$/.test(text)) {
     text = 'section'
@@ -122,7 +126,7 @@ function getPandocId (text) {
  */
 function unescapeMarked (html) {
   // explicitly match decimal, hex, and named HTML entities
-  return html.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/ig, (_, n) => {
+  return html.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/gi, (_, n) => {
     n = n.toLowerCase()
     if (n === 'colon') return ':'
     if (n.charAt(0) === '#') {
@@ -144,8 +148,11 @@ function getMarkedId (text) {
   return unescapeMarked(_text)
     .toLowerCase()
     .trim()
-    .replace(/<[!/a-z].*?>/ig, '') // remove html tags
-    .replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, '') // remove unwanted chars
+    .replace(/<[!/a-z].*?>/gi, '') // remove html tags
+    .replace(
+      /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g,
+      ''
+    ) // remove unwanted chars
     .replace(/\s/g, '-')
 }
 
@@ -157,12 +164,8 @@ function getMarkedId (text) {
  * numbering starts at 2!
  */
 function getMarkDownItAnchorId (text) {
-  text = text
-    .replace(/^[<]|[>]$/g, '') // correct markdown format bold/url
-  text = entities.decode(text)
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, '-')
+  text = text.replace(/^[<]|[>]$/g, '') // correct markdown format bold/url
+  text = entities.decode(text).toLowerCase().trim().replace(/\s+/g, '-')
   return encodeURIComponent(text)
 }
 
@@ -222,7 +225,4 @@ function slugger (header, mode) {
   return encodeURI(href)
 }
 
-module.exports = {
-  MODE,
-  slugger
-}
+export { MODE, slugger }

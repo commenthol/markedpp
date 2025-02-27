@@ -3,10 +3,10 @@
  * @constructor
  * @api private
  */
-function Numbering (init, skipEscaping) {
+export function Numbering (init, skipEscaping) {
   this._ = [0, 0, 0, 0, 0, 0, 0]
   this.last = 1
-  this._[1] = (init ? init - 1 : 0)
+  this._[1] = init ? init - 1 : 0
   this.skipEscaping = skipEscaping
 }
 
@@ -49,5 +49,3 @@ Numbering.prototype.count = function (level) {
     return this.val(level)
   }
 }
-
-module.exports = Numbering

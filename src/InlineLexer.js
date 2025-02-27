@@ -1,11 +1,11 @@
-const { inline } = require('./rules')
-const defaults = require('./defaults')
+import { inline } from './rules.js'
+import { defaults } from './defaults.js'
 
 /**
-* Inline Lexer
-* @constructor
-*/
-function InlineLexer (options) {
+ * Inline Lexer
+ * @constructor
+ */
+export function InlineLexer (options) {
   this.tokens = []
   this.options = options || defaults
   this.rules = inline
@@ -18,21 +18,21 @@ function InlineLexer (options) {
 }
 
 /**
-* Expose Inline Rules
-*/
+ * Expose Inline Rules
+ */
 InlineLexer.rules = inline
 
 /**
-* Static Lexing
-*/
+ * Static Lexing
+ */
 InlineLexer.lex = function (src, options) {
   const inline = new InlineLexer(options)
   return inline.lex(src)
 }
 
 /**
-* Lexing
-*/
+ * Lexing
+ */
 InlineLexer.prototype.lex = function (src) {
   let cap
 
@@ -68,7 +68,7 @@ InlineLexer.prototype.lex = function (src) {
     if ((cap = this.rules.link.exec(src))) {
       src = src.substring(cap[0].length)
       this.tokens.push({
-        type: (cap[1] ? 'image' : 'link'),
+        type: cap[1] ? 'image' : 'link',
         raw: cap[0],
         text: cap[2],
         href: cap[3],
@@ -80,7 +80,7 @@ InlineLexer.prototype.lex = function (src) {
     if ((cap = this.rules.reflink.exec(src))) {
       src = src.substring(cap[0].length)
       this.tokens.push({
-        type: (cap[1] ? 'refimage' : 'reflink'),
+        type: cap[1] ? 'refimage' : 'reflink',
         raw: cap[0],
         text: cap[2],
         ref: cap[3]
@@ -91,7 +91,7 @@ InlineLexer.prototype.lex = function (src) {
     if ((cap = this.rules.nolink.exec(src))) {
       src = src.substring(cap[0].length)
       this.tokens.push({
-        type: (cap[1] ? 'noimage' : 'nolink'),
+        type: cap[1] ? 'noimage' : 'nolink',
         raw: cap[0],
         text: cap[2]
       })
@@ -155,12 +155,9 @@ InlineLexer.prototype.lex = function (src) {
     }
     // no match
     if (src) {
-      throw new
-      Error('Infinite loop on byte: ' + src.charCodeAt(0))
+      throw new Error('Infinite loop on byte: ' + src.charCodeAt(0))
     }
   }
 
   return this.tokens
 }
-
-module.exports = InlineLexer

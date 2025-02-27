@@ -1,12 +1,7 @@
-const InlineLexer = require('./InlineLexer')
-const {
-  block
-} = require('./rules')
-const {
-  int,
-  repeat
-} = require('./utils')
-const defaults = require('./defaults')
+import { InlineLexer } from './InlineLexer.js'
+import { block } from './rules.js'
+import { int, repeat } from './utils.js'
+import { defaults } from './defaults.js'
 
 const KEY = /^(.+)$/
 const KEYVALUE = /^([a-z0-9]+)=(.*)$/
@@ -17,7 +12,7 @@ const KEYVALUES = /^([a-z0-9]+)=(["'])(.*?)\2$/
  * @constructor
  * @param {Object} options - overwrites default options
  */
-function Lexer (options) {
+export function Lexer (options) {
   this.tokens = []
   this.options = options || defaults
   this.rules = block
@@ -61,18 +56,7 @@ Lexer.prototype.lex = function (src) {
  * @return {Array} - array of tokens
  */
 Lexer.prototype.token = function (src, top) {
-  let cap,
-    bull,
-    next,
-    l,
-    b,
-    i,
-    item,
-    space,
-    loose,
-    bq,
-    tmp,
-    opts
+  let cap, bull, next, l, b, i, item, space, loose, bq, tmp, opts
 
   while (src) {
     // newline
@@ -90,7 +74,9 @@ Lexer.prototype.token = function (src, top) {
       opts = Lexer.splitOpts(tmp)
 
       // remove all possible attributes: lang, indent, start, end, link, vscode
-      tmp = tmp.replaceAll(/ *(?:[a-z]+="[a-zA-Z0-9- ]+")/g, '').replace(/\\ /g, ' ')
+      tmp = tmp
+        .replaceAll(/ *(?:[a-z]+="[a-zA-Z0-9- ]+")/g, '')
+        .replace(/\\ /g, ' ')
       tmp = tmp.replaceAll(/ *(?:[a-z]+=[a-z0-9-]+)/g, '').replace(/\\ /g, ' ')
 
       this.tokens.push({
@@ -252,9 +238,7 @@ Lexer.prototype.token = function (src, top) {
         }
 
         this.tokens.push({
-          type: loose
-            ? 'loose_item_start'
-            : 'list_item_start',
+          type: loose ? 'loose_item_start' : 'list_item_start',
           text: bull
         })
 
@@ -337,7 +321,7 @@ Lexer.prototype.token = function (src, top) {
       continue
     }
     // top-level paragraph
-    if (top && ((cap = this.rules.paragraph.exec(src)))) {
+    if (top && (cap = this.rules.paragraph.exec(src))) {
       src = src.substring(cap[1].length)
       tmp = new InlineLexer(this.options)
       this.tokens.push({
@@ -475,5 +459,3 @@ Lexer.range = function (val, min, max, def) {
     return val
   }
 }
-
-module.exports = Lexer

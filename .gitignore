@@ -2,11 +2,8 @@
 /coverage
 /doc
 /tmp
-/dist
-/lib
 *.log
 *.tgz
-.nyc_output/
 test/tmp/
 
 package-lock.json

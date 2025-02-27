@@ -1,7 +1,7 @@
-'use strict'
+import assert from 'node:assert'
+import markedpp from '../src/index.js'
 
-const assert = require('assert')
-const Lexer = require('../src/markedpp').Lexer
+const { Lexer } = markedpp
 
 describe('#Lexer.splitOpts', function () {
   const splitOpts = Lexer.splitOpts
@@ -59,7 +59,8 @@ describe('#Lexer.splitOpts', function () {
   })
 
   it('multiple key-value pairs with spaces', function () {
-    const str = 'is="with spaces within double quotes ?" or=\'within single quotes\''
+    const str =
+      'is="with spaces within double quotes ?" or=\'within single quotes\''
     const res = splitOpts(str)
     const exp = {
       is: 'with spaces within double quotes ?',
@@ -94,7 +95,8 @@ describe('#Lexer.splitOpts', function () {
   })
 
   it('multiple array with spaces', function () {
-    const str = 'this="is;an;array with; some spaces " and=\'this; is;17;another one;64\''
+    const str =
+      'this="is;an;array with; some spaces " and=\'this; is;17;another one;64\''
     const res = splitOpts(str)
     const exp = {
       this: ['is', 'an', 'array with', ' some spaces '],

@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-'use strict'
-
 /**
  * Markdown Preprocessor CLI
  *
@@ -12,9 +10,13 @@
  * @credits Christopher Jeffrey <https://github.com/chjj/marked>
  */
 
-const fs = require('fs')
-const path = require('path')
-const markedpp = require('../src')
+import fs from 'node:fs'
+import path from 'node:path'
+import { markedpp } from '../src/index.js'
+import { fileURLToPath } from 'node:url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 /**
  * Helpers
@@ -71,9 +73,13 @@ function main (argv, callback) {
     } else if (arg[0] === '-') {
       if (arg.length > 2) {
         // e.g. -abc
-        argv = arg.substring(1).split('').map(function (ch) {
-          return '-' + ch
-        }).concat(argv)
+        argv = arg
+          .substring(1)
+          .split('')
+          .map(function (ch) {
+            return '-' + ch
+          })
+          .concat(argv)
         arg = argv.shift()
       } else {
         // e.g. -a
@@ -116,13 +122,11 @@ function main (argv, callback) {
             continue
           }
           if (arg.indexOf('--no-') === 0) {
-            options[opt] = (typeof markedpp.defaults[opt] !== 'boolean'
-              ? null
-              : false)
+            options[opt] =
+              typeof markedpp.defaults[opt] !== 'boolean' ? null : false
           } else {
-            options[opt] = (typeof markedpp.defaults[opt] !== 'boolean'
-              ? argv.shift()
-              : true)
+            options[opt] =
+              typeof markedpp.defaults[opt] !== 'boolean' ? argv.shift() : true
           }
         } else {
           files.push(arg)
@@ -173,18 +177,11 @@ function main (argv, callback) {
   })
 }
 
-/**
- * Expose / Entry Point
- */
-if (!module.parent) {
-  process.title = 'markedpp'
-  main(process.argv.slice(), function (err, code) {
-    if (err) throw err
-    return process.exit(code || 0)
-  })
-} else {
-  module.exports = main
-}
+process.title = 'markedpp'
+main(process.argv.slice(), function (err, code) {
+  if (err) throw err
+  return process.exit(code || 0)
+})
 
 function version () {
   // eslint-disable-next-line no-console
@@ -194,6 +191,9 @@ function version () {
 function help () {
   // eslint-disable-next-line no-console
   console.log(
-    fs.readFileSync(path.resolve(__dirname, '..', 'man', 'markedpp.txt'), 'utf8')
+    fs.readFileSync(
+      path.resolve(__dirname, '..', 'man', 'markedpp.txt'),
+      'utf8'
+    )
   )
 }

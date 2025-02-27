@@ -1,7 +1,10 @@
-'use strict'
+import fs from 'node:fs'
+import path from 'node:path'
+import express from 'express'
+import { fileURLToPath } from 'node:url'
 
-const fs = require('fs')
-const express = require('express')
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const tmpl = ({ input, expected }) => `
 <!DOCTYPE html>
@@ -51,25 +54,25 @@ const tmpl = ({ input, expected }) => `
 </tr>
 </table>
 
-<script id="template" type="text/template">${expected}</script>
+<script id="template" type="text/plain">${expected}</script>
 
-<script src="markedpp.min.js"></script>
-<script>
-var d = document;
+<script type="module">
+import { markedpp } from "./browser.mjs"
+const d = document;
 
 function replace (text) {
   return text.replace(/[ ]/g, '·').replace(/[\\n]/g, '¶\\n')
 }
 
-var src = d.getElementById('markedpp').textContent;
-var expected = d.getElementById('template').textContent;
+const src = d.getElementById('markedpp').textContent;
+const expected = d.getElementById('template').textContent
 
-markedpp(src, function(err, data){
+markedpp(src, {}, (err, data) => {
   d.getElementById('is').textContent = replace(data)
   d.getElementById('should').textContent = replace(expected)
 
   if (expected === data) {
-  var ok = d.getElementById('result')
+  const ok = d.getElementById('result')
     ok.className = 'passed'
     ok.innerHTML = 'Passed'
   }
@@ -79,7 +82,7 @@ markedpp(src, function(err, data){
 </html>
 `
 
-if (module === require.main) {
+if (process.argv[1] === __filename) {
   const app = express()
 
   app.set('port', process.env.PORT || 3000)

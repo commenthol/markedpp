@@ -1,15 +1,21 @@
-const fs = require('fs')
-const assert = require('assert')
+import fs from 'node:fs'
+import assert from 'node:assert'
 
-const cheerio = require('cheerio')
-const { marked } = require('marked')
-const markdownIt = require('markdown-it')
-const markdownItAnchor = require('markdown-it-anchor')
+import * as cheerio from 'cheerio'
+import { marked } from 'marked'
+import markdownIt from 'markdown-it'
+import markdownItAnchor from 'markdown-it-anchor'
 
-const ghost = require('@tryghost/kg-markdown-html-renderer')
+import ghost from '@tryghost/kg-markdown-html-renderer'
 
-const markedpp = require('../src')
-const { dlhtml } = require('./support')
+import markedpp from '../src/index.js'
+import { dlhtml } from './support/index.js'
+
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 let reProcessor
 
@@ -35,7 +41,7 @@ const extractAnchors = (html, h2selector = 'h2', h2attr = 'id') => {
 }
 
 const filterFailingTests = (arr, failing) =>
-  arr.filter(h => !failing.some(f => f.test(h)))
+  arr.filter((h) => !failing.some((f) => f.test(h)))
 
 describe('anchors', function () {
   this.timeout(3000)
@@ -81,13 +87,13 @@ describe('anchors', function () {
         fs.writeFileSync(`${__dirname}/tmp/markdownit.html`, html, 'utf8')
       }
       // BUG in markdown-it as reflinks in headers are not rendered
-      const failing = [
-        /a-reference-to/,
-        /%5Ba-reference-to%5D%5B%5D/
-      ]
+      const failing = [/a-reference-to/, /%5Ba-reference-to%5D%5B%5D/]
       href = filterFailingTests(href, failing)
       h2 = filterFailingTests(h2, failing)
-      assert.deepStrictEqual(href/* .map(decodeURI) */, h2/* .map(decodeURI) */)
+      assert.deepStrictEqual(
+        href /* .map(decodeURI) */,
+        h2 /* .map(decodeURI) */
+      )
       done()
     })
   })
@@ -117,13 +123,14 @@ describe('anchors', function () {
   })
 
   it('github', function (done) {
-    const url = 'https://github.com/commenthol/test-md-anchors/blob/master/README.md'
+    const url =
+      'https://github.com/commenthol/test-md-anchors/blob/master/README.md'
     const sel = 'article.markdown-body'
     const file = `${__dirname}/html/github.html`
     Promise.resolve()
       .then(() => dlhtml(url, sel, file))
       // .then(html => { fs.writeFileSync(file, html, 'utf8'); return html })
-      .then(html => {
+      .then((html) => {
         markedpp(rawmd, { include: false, github: true }, (_err, premd) => {
           const htmlToc = markdownIt().render(premd)
           const { href } = extractAnchors(htmlToc)
@@ -135,7 +142,10 @@ describe('anchors', function () {
           }
 
           // user-content- is appended by javascript
-          assert.deepStrictEqual(href.map(decodeURI), h2.map(h => h.substr('user-content-'.length)))
+          assert.deepStrictEqual(
+            href.map(decodeURI),
+            h2.map((h) => h.substr('user-content-'.length))
+          )
           done()
         })
       })
@@ -157,7 +167,10 @@ describe('anchors', function () {
         fs.writeFileSync(`${__dirname}/tmp/gitlab.html`, p1 + p2, 'utf8')
       }
       // user-content- is appended by javascript
-      assert.deepStrictEqual(href.map(decodeURI), h2.map(h => h.substr('user-content-'.length)))
+      assert.deepStrictEqual(
+        href.map(decodeURI),
+        h2.map((h) => h.substr('user-content-'.length))
+      )
       done()
     })
   })
@@ -171,7 +184,13 @@ describe('anchors', function () {
       const htmlToc = markdownIt().render(premd)
       let { href } = extractAnchors(htmlToc)
       let { h2 } = extractAnchors(html)
-      if (writeHtml) fs.writeFileSync(`${__dirname}/tmp/bitbucket.html`, htmlToc + html, 'utf8')
+      if (writeHtml) {
+        fs.writeFileSync(
+          `${__dirname}/tmp/bitbucket.html`,
+          htmlToc + html,
+          'utf8'
+        )
+      }
 
       // Python markdown seams to make some preprocessing ...
       const failing = [
@@ -198,10 +217,9 @@ describe('anchors', function () {
       const htmlToc = markdownIt().render(premd)
       let { href } = extractAnchors(htmlToc)
       let { h2 } = extractAnchors(html)
-      if (writeHtml) fs.writeFileSync(`${__dirname}/tmp/pandoc.html`, htmlToc + html, 'utf8')
+      if (writeHtml) { fs.writeFileSync(`${__dirname}/tmp/pandoc.html`, htmlToc + html, 'utf8') }
 
-      const failing = [
-      ]
+      const failing = []
       href = filterFailingTests(href, failing)
       h2 = filterFailingTests(h2, failing)
       assert.deepStrictEqual(href.map(decodeURI), h2)

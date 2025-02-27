@@ -1,8 +1,8 @@
-const fs = require('fs')
-const request = require('superagent')
-const cheerio = require('cheerio')
+import fs from 'fs'
+import request from 'superagent'
+import * as cheerio from 'cheerio'
 
-function dlhtml (url, selector, file) {
+export function dlhtml (url, selector, file) {
   if (file) {
     return Promise.resolve(fs.readFileSync(file, 'utf8'))
   }
@@ -14,8 +14,4 @@ function dlhtml (url, selector, file) {
       const html = $(selector).html()
       return html
     })
-}
-
-module.exports = {
-  dlhtml
 }
