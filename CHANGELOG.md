@@ -1,3 +1,7 @@
+# 2.0.0 (2025-02-28)
+
+- BREAKING CHANGE: Switch to ESM modules (#94caed2)
+
 # 1.4.0 (2024-10-13)
 
 - chore: bump devDependencies (#f2959c4)
