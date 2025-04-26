@@ -184,8 +184,11 @@ main(process.argv.slice(), function (err, code) {
 })
 
 function version () {
+  const { version } = JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, '..', 'package.json'), 'utf-8')
+  )
   // eslint-disable-next-line no-console
-  console.log('v' + require('../package.json').version)
+  console.log('v' + version)
 }
 
 function help () {
