@@ -1,3 +1,8 @@
+# 2.0.1 (2025-04-26)
+
+- fix: cli option --version throws (#752d4c7)
+- chore: bump dependencies (#f807cdd)
+
 # 2.0.0 (2025-02-28)
 
 - BREAKING CHANGE: Switch to ESM modules (#94caed2)
