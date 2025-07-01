@@ -1,6 +1,6 @@
 {
   "name": "markedpp",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Preprocessor for markdown files",
   "keywords": [
     "autonumber ordered lists",
