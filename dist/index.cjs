@@ -2401,7 +2401,7 @@ markedpp.Parser = Parser;
 
 markedpp.ppInclude = ppInclude;
 
-const markedAsync = (md) =>
+const markedppAsync = (md) =>
   new Promise((resolve, reject) => {
     markedpp(md, (err, result) => {
       if (err) reject(err);
@@ -2410,5 +2410,6 @@ const markedAsync = (md) =>
   });
 
 exports.default = markedpp;
-exports.markedAsync = markedAsync;
+exports.markedAsync = markedppAsync;
 exports.markedpp = markedpp;
+exports.markedppAsync = markedppAsync;
