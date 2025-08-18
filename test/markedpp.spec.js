@@ -138,6 +138,10 @@ describe('toc', function () {
   it('toc repeated headings id', function (done) {
     u.run('toc_repeated.md', done)
   })
+
+  it('issue toc constructor', function (done) {
+    u.run('toc_issue_constructor.md', done)
+  })
 })
 
 describe('references', function () {

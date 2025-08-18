@@ -216,13 +216,13 @@ function xhr (url, options, callback) {
  */
 export function ppInclude (tokens, Lexer, options, callback) {
   const dirname = options.dirname || path.dirname(location.pathname)
-  const lexed = {}
+  const lexed = Object.create(null)
   const _options = Object.assign({}, options)
   _options.tags = false
 
   // ppInclude is used to detect recursions
   if (!_options.ppInclude) {
-    _options.ppInclude = {}
+    _options.ppInclude = Object.create(null)
   }
 
   async.eachLimit(

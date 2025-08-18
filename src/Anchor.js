@@ -2,7 +2,7 @@ import { slugger, MODE } from './anchorSlugger.js'
 
 export class Anchor {
   constructor (mode = MODE.MARKED) {
-    this._counters = {}
+    this._counters = Object.create(null)
     this._mode = mode
     this._startCnt = 0
 

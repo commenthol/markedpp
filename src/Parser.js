@@ -165,7 +165,7 @@ Parser.prototype.headingAutoId = function (token, opts) {
  */
 Parser.prototype.updateAutoIdentifier = function () {
   const self = this
-  const headings = {}
+  const headings = Object.create(null)
   this._anchors = new Anchor(this.anchorMode)
 
   // sanitize the id before lookup
@@ -234,7 +234,7 @@ Parser.prototype.numberedHeadings = function (
   omit,
   skipEscaping
 ) {
-  const omitMatch = {}
+  const omitMatch = Object.create(null)
   let skipFlag = false
   const numbering = new Numbering(start, skipEscaping)
 

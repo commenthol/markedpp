@@ -84,7 +84,7 @@ block.paragraph = replace(block.paragraph)('hr', block.hr)(
   '<' + block._tag
 )('def', block.def)()
 
-block.opts = {}
+block.opts = Object.create(null)
 
 block.opts.gfm = {
   fences: /^( *)(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?)\s*\2 *(?:\n|$)/
@@ -189,7 +189,7 @@ inline.link = replace(inline.link)('inside', inline._inside)(
 
 inline.reflink = replace(inline.reflink)('inside', inline._inside)()
 
-inline.opts = {}
+inline.opts = Object.create(null)
 
 inline.opts.gfm = {
   escape: replace(inline.escape)('])', '~|])')(),
